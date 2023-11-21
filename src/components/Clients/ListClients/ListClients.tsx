@@ -14,7 +14,7 @@ const ListClients: React.FC<any> = () => {
     const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
     const [clients, setClients] = useState<any[]>([]);
     const gridRef = useRef(null);
-    const getClients = async(gridRef:any) => {
+    const getClients = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
@@ -36,7 +36,7 @@ const ListClients: React.FC<any> = () => {
 
     },[])
     const onGridReady = useCallback((params:any) => {
-        getClients(gridRef)
+        getClients()
     }, []);
 
     const columnDefs:any = [
