@@ -5,12 +5,12 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
-import {Spinner} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
 
 
 const ListClients: React.FC<any> = () => {
-    const containerStyle = useMemo(() => ({ width: '100%', height: '100%' }), []);
-    const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
+    const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
+    const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
     const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
     const [clients, setClients] = useState<any[]>([]);
     const gridRef = useRef(null);
@@ -46,6 +46,7 @@ const ListClients: React.FC<any> = () => {
             headerCheckboxSelection: true,
             checkboxSelection: true,
             showDisabledCheckboxes: true,
+            width:50,
         },
           { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
           { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
@@ -100,10 +101,10 @@ const ListClients: React.FC<any> = () => {
                                         </div>
                                         <div className="col-md-6">
                                             <div id="dataTable_filter" className="text-md-end dataTables_filter">
-                                                <button className="btn btn-primary btn-sm" type="button" style={{ height: 35 }}>
+                                                <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
                                                     <i className="fas fa-search" />
                                                     &nbsp;Recherche
-                                                </button>
+                                                </Button>
 
 
                                             </div>
@@ -117,7 +118,7 @@ const ListClients: React.FC<any> = () => {
                                         aria-describedby="dataTable_info"
                                     >
                                         <div style={containerStyle}>
-                                            <div style={{ width:"100%", height: '100%', boxSizing: 'border-box' }}>
+                                            <div style={{ width:"100%", height: '600px', boxSizing: 'border-box' }}>
 
                                                 <div style={gridStyle} className="ag-theme-alpine  ">
                                                     <AgGridReact ref={gridRef}

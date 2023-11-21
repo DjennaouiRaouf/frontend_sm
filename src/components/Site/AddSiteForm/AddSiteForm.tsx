@@ -3,8 +3,7 @@ import {useRef, useState} from "react";
 import axios  from "axios";
 import Cookies from "js-cookie";
 
-import site from './location.png';
-import contrat from "../../Marche/AddMarcheForm/contract.png";
+import site from '../../icons/location.png';
 import {Button, Form} from "react-bootstrap";
 
 
@@ -18,13 +17,13 @@ interface FormState {
   code_division :string,
   code_commune_site :string ,
   jour_cloture_mouv_rh_paie :string ,
-  date_ouverture_site : any ,
-  date_cloture_site: any ,
+  date_ouverture_site : string ,
+  date_cloture_site: string ,
 }
 
 const AddSiteForm: React.FC<any> = () => {
 
-
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState<FormState>({
     code_site:'',
     code_filiale :'' ,
@@ -45,60 +44,71 @@ const AddSiteForm: React.FC<any> = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const handleSubmit = async(e: React.FormEvent) => {
 
+
+
+  const handleSubmit = async(e: any) => {
     e.preventDefault();
- 
-    const fd:FormData=new FormData();
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      const fd:FormData=new FormData();
+      fd.append('code_site',formData.code_site)
+      fd.append('code_filiale',formData.code_filiale)
+      fd.append('code_region',formData.code_region)
+      fd.append('libelle_site',formData.libelle_site)
+      fd.append('code_agence',formData.code_agence)
+      fd.append('type_site',formData.type_site.toString())
+      fd.append('code_division',formData.code_division)
+      fd.append('code_commune_site',formData.code_commune_site)
+      fd.append('jour_cloture_mouv_rh_paie',formData.jour_cloture_mouv_rh_paie)
+      fd.append('date_ouverture_site',formData.date_ouverture_site)
+      fd.append('date_cloture_site',formData.date_cloture_site)
 
-    fd.append('code_site',formData.code_site)
-    fd.append('code_filiale',formData.code_filiale)
-    fd.append('code_region',formData.code_region)
-    fd.append('libelle_site',formData.libelle_site)
-    fd.append('code_agence',formData.code_agence)
-    fd.append('type_site',formData.type_site.toString())
-    fd.append('code_division',formData.code_division)
-    fd.append('code_commune_site',formData.code_commune_site)
-    fd.append('jour_cloture_mouv_rh_paie',formData.jour_cloture_mouv_rh_paie)
-    fd.append('date_ouverture_site',formData.date_ouverture_site)
-    fd.append('date_cloture_site',formData.date_cloture_site)
+      // Form is valid, submit the data or perform other actions
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addsite/`,fd,{
+        headers: {
+          Authorization: `Token ${Cookies.get("token")}`,
+          'Content-Type': 'application/json',
 
-    // Form is valid, submit the data or perform other actions
-    await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addsite/`,fd,{
-      headers: {
-        Authorization: `Token ${Cookies.get("token")}`,
-        'Content-Type': 'application/json',
+        },
 
-      },
+      })
+          .then((response:any) => {
 
-    })
-        .then((response:any) => {
+            setFormData({
+              code_site:'',
+              code_filiale :'' ,
+              code_region :'' ,
+              libelle_site :'' ,
+              code_agence :'' ,
+              type_site :0 ,
+              code_division :'',
+              code_commune_site :'' ,
+              jour_cloture_mouv_rh_paie :'' ,
+              date_ouverture_site : '' ,
+              date_cloture_site: ''
 
-          setFormData({
-            code_site:'',
-            code_filiale :'' ,
-            code_region :'' ,
-            libelle_site :'' ,
-            code_agence :'' ,
-            type_site :0 ,
-            code_division :'',
-            code_commune_site :'' ,
-            jour_cloture_mouv_rh_paie :'' ,
-            date_ouverture_site : '' ,
-            date_cloture_site: ''
+            })
+
 
           })
+          .catch((error:any) => {
 
 
-        })
-        .catch((error:any) => {
+          });
 
 
-        });
+    }
+    else {
 
-  
+      setValidated(true)
+
+    }
+
 
   }
+
+
 
 
 
@@ -110,7 +120,8 @@ const AddSiteForm: React.FC<any> = () => {
 
           <div className="mb-3" style={{border:"none",background:"transparent"}}>
             <div className="card-body">
-              <form onSubmit={handleSubmit} >
+              <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
+                    noValidate validated={validated} onSubmit={handleSubmit} >
                 <div className="row" style={{ marginBottom: 25, textAlign: "left" }}>
                   <div
                       className="col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2"
@@ -138,7 +149,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                       <div className="col-md-12 text-start">
                         <div className="mb-3">
-                          <Form.Group className="w-100"  controlId="validationCustom01">
+                          <Form.Group className="w-100"  controlId="validation01">
                             <Form.Label>
                               <strong>
                                 Code Site{" "}
@@ -162,7 +173,7 @@ const AddSiteForm: React.FC<any> = () => {
                   </div>
                   <div className="col-md-6 text-start">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation02">
                         <Form.Label>
                           <strong>
                             Code filiale{" "}
@@ -185,7 +196,7 @@ const AddSiteForm: React.FC<any> = () => {
                   <div className="col-md-6 text-start">
                     <div className="mb-3">
 
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation03">
                         <Form.Label>
                           <strong>
                             Code region{" "}
@@ -209,7 +220,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation04">
                         <Form.Label>
                           <strong>
                             Libelle{" "}
@@ -232,7 +243,7 @@ const AddSiteForm: React.FC<any> = () => {
                   </div>
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation05">
                         <Form.Label>
                           <strong>
                             Code agence{" "}
@@ -254,7 +265,7 @@ const AddSiteForm: React.FC<any> = () => {
                   </div>
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation06">
                         <Form.Label>
                           <strong>
                             Code division{" "}
@@ -278,7 +289,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation07">
                         <Form.Label>
                           <strong>
                             Code commune{" "}
@@ -302,7 +313,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation08">
                         <Form.Label>
                           <strong>
                             Jour cloture mouv rh paie{" "}
@@ -326,7 +337,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation09">
                         <Form.Label>
                           <strong>
                             Date ouverture site{" "}
@@ -349,7 +360,7 @@ const AddSiteForm: React.FC<any> = () => {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <Form.Group className="w-100"  controlId="validationCustom01">
+                      <Form.Group className="w-100"  controlId="validation010">
                         <Form.Label>
                           <strong>
                             Date cloture site{" "}
@@ -379,12 +390,12 @@ const AddSiteForm: React.FC<any> = () => {
                       style={{ textAlign: "right", marginTop: 5 }}
                   >
 
-                    <Button  type="submit" style={{ borderWidth: 0, background: "#d7142a" }}>
+                    <Button  type="submit" style={{ borderWidth: 0, background: "#d7142a" }} >
                       <i className="fas fa-plus" style={{marginRight:"10px"}}></i> Ajouter
                     </Button>
                   </div>
                 </div>
-              </form>
+              </Form>
             </div>
           </div>
         </div>
