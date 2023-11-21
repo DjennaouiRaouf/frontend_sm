@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
-import {Button, Spinner} from "react-bootstrap";
+import {Button, ButtonGroup, Spinner} from "react-bootstrap";
 
 
 const ListClients: React.FC<any> = () => {
@@ -32,12 +32,10 @@ const ListClients: React.FC<any> = () => {
 
             });
     }
-    useEffect(() => {
 
-    },[])
     const onGridReady = useCallback((params:any) => {
-        getClients()
-    }, []);
+        getClients();
+    },[]);
 
     const columnDefs:any = [
 
@@ -101,6 +99,16 @@ const ListClients: React.FC<any> = () => {
                                         </div>
                                         <div className="col-md-6">
                                             <div id="dataTable_filter" className="text-md-end dataTables_filter">
+
+                                                <ButtonGroup style={{ height: 35}}>
+                                                    <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
+                                                    <i className="fas fa-search" />
+                                                    &nbsp;Recherche
+                                                    </Button>
+                                                    <Button variant="secondary">Middle</Button>
+                                                    <Button variant="secondary">Right</Button>
+                                                </ButtonGroup>
+
                                                 <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
                                                     <i className="fas fa-search" />
                                                     &nbsp;Recherche

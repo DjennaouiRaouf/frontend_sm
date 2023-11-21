@@ -84,7 +84,6 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListSites />
-
                           <PageFooter/>
 
                       </>
