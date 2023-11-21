@@ -1,14 +1,34 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Form from 'react-bootstrap/Form';
+import Cookies from "js-cookie";
+import axios from "axios";
 
 
 const ListClients: React.FC<any> = () => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '100%' }), []);
     const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
-    const [paginationPageSize, setPaginationPageSize] = useState(10); // Initial page size
+    const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
+    const [clients, setClients] = useState<any[]>([]);
+    const getClients = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
+            headers: {
+                Authorization: `Token ${Cookies.get("token")}`,
+            }
+        })
+            .then((response:any) => {
+                setClients(response.data);
+            })
+            .catch((error:any) => {
+                //toast.current?.show({ severity: 'error', summary: 'Client', detail: String(error.response.data.detail), life: 3000 });
+            });
+    }
+    useEffect(() => {
+        getClients()
+    },[clients])
+
     const columnDefs:any = [
 
         {
@@ -17,8 +37,10 @@ const ListClients: React.FC<any> = () => {
             checkboxSelection: true,
             showDisabledCheckboxes: true,
         },
-          { headerName: 'ID', field: 'id',  cellStyle: { textAlign: 'start'  },resizable: true },
-          { headerName: 'Name', field: 'name',  cellStyle: { textAlign: 'start' },resizable: true },
+          { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
+          { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
+          { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
 
   ];
 
