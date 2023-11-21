@@ -1,10 +1,11 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
+import {Spinner} from "react-bootstrap";
 
 
 const ListClients: React.FC<any> = () => {
@@ -12,22 +13,31 @@ const ListClients: React.FC<any> = () => {
     const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
     const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
     const [clients, setClients] = useState<any[]>([]);
-    const getClients = async() => {
+    const gridRef = useRef(null);
+    const getClients = async(gridRef:any) => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
             }
         })
             .then((response:any) => {
-                setClients(response.data);
+                setTimeout(() => {
+                    setClients(response.data);
+                }, 2000);
+
             })
             .catch((error:any) => {
                 //toast.current?.show({ severity: 'error', summary: 'Client', detail: String(error.response.data.detail), life: 3000 });
+            }).finally(() => {
+
             });
     }
     useEffect(() => {
-        getClients()
-    },[clients])
+
+    },[])
+    const onGridReady = useCallback((params:any) => {
+        getClients(gridRef)
+    }, []);
 
     const columnDefs:any = [
 
@@ -40,28 +50,32 @@ const ListClients: React.FC<any> = () => {
           { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
           { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
           { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
-        { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
+          { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'num registe commerce', field: 'num_registre_commerce',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'est_client_cosider', field: 'est_client_cosider',  cellStyle: { textAlign: 'start' },resizable: true },
 
   ];
 
-  const rowData = [
-    // Your data goes here
-      { id: 1, name: 'John Doe' },
-]
+
     const onPageSizeChanged = (newPageSize:any) => {
         setPaginationPageSize(newPageSize);
     };
+
 
     const gridOptions:any = {
         pagination: true,
         domLayout: 'autoHeight', // or 'autoHeight' for auto-sizing
         paginationPageSize: paginationPageSize,
         onPageSizeChanged: onPageSizeChanged,
+
+
     };
+
 
 
     return (
         <>
+
             <div id="wrapper">
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">
@@ -106,12 +120,19 @@ const ListClients: React.FC<any> = () => {
                                             <div style={{ width:"100%", height: '100%', boxSizing: 'border-box' }}>
 
                                                 <div style={gridStyle} className="ag-theme-alpine  ">
-                                                    <AgGridReact rowData={rowData} columnDefs={columnDefs}
+                                                    <AgGridReact ref={gridRef}
+                                                                 rowData={clients} columnDefs={columnDefs}
                                                                  pagination={gridOptions.pagination}
                                                                  domLayout={gridOptions.domLayout}
                                                                  paginationPageSize={gridOptions.paginationPageSize}
                                                                  rowSelection={'multiple'}
                                                                  suppressRowClickSelection={true}
+                                                                 onGridReady={onGridReady}
+                                                                 overlayNoRowsTemplate={'<div class="spinner-border text-primary" role="status">\n' +
+                                                                     '  <span class="visually-hidden">Loading...</span>\n' +
+                                                                     '</div>'}
+
+
                                                     />
                                                 </div>
                                             </div>
