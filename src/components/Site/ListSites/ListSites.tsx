@@ -29,11 +29,9 @@ const ListSites: React.FC<any> = () => {
 
   }
   useEffect(() => {
-
-  },[])
-  const onGridReady = useCallback((params:any) => {
     getSites()
-  }, []);
+  },[])
+
 
   const columnDefs:any = [
 
@@ -129,7 +127,7 @@ const ListSites: React.FC<any> = () => {
                                          paginationPageSize={gridOptions.paginationPageSize}
                                          rowSelection={'multiple'}
                                          suppressRowClickSelection={true}
-                                         onGridReady={onGridReady}
+
                                          overlayNoRowsTemplate={'<div class="spinner-border text-primary" role="status">\n' +
                                              '  <span class="visually-hidden">Loading...</span>\n' +
                                              '</div>'}
