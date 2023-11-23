@@ -11,12 +11,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 
 const ListClients: React.FC<any> = () => {
+    const [gridApi, setGridApi] = useState<any>();
+
     const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
     const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
     const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
     const [clients, setClients] = useState<any[]>([]);
     const gridRef = useRef(null);
     const navigate=useNavigate();
+
     const getClients = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
             headers: {
@@ -40,14 +43,22 @@ const ListClients: React.FC<any> = () => {
     useEffect(() => {
         getClients()
     },[])
+    const onGridReady = (params: any) => {
+        setGridApi(params.api);
 
+
+    };
+
+    const onFilterButtonClick = () => {
+        const filterModel = gridApi.getFilterModel();
+        console.log(filterModel)
+
+    }
     const columnDefs:any = [
-
-
-          { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
-          { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
-          { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
-          { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
+        { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
+        { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
         { headerName: 'num registe commerce', field: 'num_registre_commerce',  cellStyle: { textAlign: 'start' },resizable: true },
         { headerName: 'est_client_cosider', field: 'est_client_cosider',  cellStyle: { textAlign: 'start' },resizable: true },
 
@@ -75,70 +86,6 @@ const ListClients: React.FC<any> = () => {
 
     };
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const SearchClient: React.FC<any> = () => {
-
-        return(
-    <>
-
-
-            <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header >
-                    <Modal.Title>
-                        <h2 className="modal-title">
-                            <i className="fas fa-search" style={{ fontSize: 40 }} />
-                            &nbsp;Recherche
-                        </h2>
-
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="container">
-                        <div className="row" style={{ marginBottom: 10 }}>
-                            <div className="col-md-6" style={{ marginTop: 5 }}>
-                                <Form.Select className="form-control" >
-                                    <option value="__exact">égale</option>
-                                    <option value="__icontains">contient</option>
-                                    <option value="">commence par</option>
-                                    <option value="3">termine par</option>
-                                    <option value="__lte">inferieur ou égale</option>
-                                    <option value="__gte">superieur ou égale</option>
-                                    <option value="">entre</option>
-
-                                </Form.Select>
-                            </div>
-                            <div className="col-md-6" style={{ marginTop: 5 }}>
-                                <input className="form-control" type="text" placeholder="Code Client" />
-                            </div>
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className="btn btn-light" type="button" onClick={handleClose} >
-                        Annuler
-                    </button>
-                    <button className="btn btn-primary" type="button"
-                            style={{ background: "#df162c", borderWidth: 0 }}>
-                        Rechercher
-                    </button>
-                </Modal.Footer>
-            </Modal>
-
-
-    </>
-        );
-
-
-    }
 
 
 
@@ -171,11 +118,7 @@ const ListClients: React.FC<any> = () => {
                                             <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                                                 <ButtonGroup style={{ height: 35}}>
-                                                    <Button className="btn btn-primary btn-sm" type="button" onClick={handleShow}
-                                                            style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
-                                                    <i className="fas fa-search" />
-                                                    &nbsp;Recherche
-                                                    </Button>
+
                                                     <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                                     onClick={() => navigate('/ajout_c')}>
                                                         <i className="fas fa-plus" />
@@ -183,7 +126,8 @@ const ListClients: React.FC<any> = () => {
                                                     </Button>
                                                     <Dropdown>
                                                         <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                                        ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic">
+                                                        ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
+                                                            onClick={onFilterButtonClick}>
                                                             <i className="fas fa-print" />
                                                             &nbsp;Imprimer
                                                         </Dropdown.Toggle>
@@ -224,6 +168,7 @@ const ListClients: React.FC<any> = () => {
                                                                  paginationPageSize={gridOptions.paginationPageSize}
                                                                  suppressRowClickSelection={true}
                                                                  rowSelection={'multiple'}
+                                                                 onGridReady={onGridReady}
                                                                  overlayNoRowsTemplate={'<div class="spinner-border text-primary" role="status">\n' +
                                                                      '  <span class="visually-hidden">Loading...</span>\n' +
                                                                      '</div>'}
@@ -240,7 +185,7 @@ const ListClients: React.FC<any> = () => {
                     </div>
                 </div>
             </div>
-            <SearchClient/>
+
         </>
 
 
