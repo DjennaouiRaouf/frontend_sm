@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
-import {Button, ButtonGroup, Spinner} from "react-bootstrap";
-
+import {Button, ButtonGroup, Dropdown, Spinner} from "react-bootstrap";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const ListClients: React.FC<any> = () => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
@@ -39,13 +40,7 @@ const ListClients: React.FC<any> = () => {
 
     const columnDefs:any = [
 
-        {
-            field: ' ',
-            headerCheckboxSelection: true,
-            checkboxSelection: true,
-            showDisabledCheckboxes: true,
-            width:50,
-        },
+
           { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
           { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
           { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
@@ -54,6 +49,7 @@ const ListClients: React.FC<any> = () => {
         { headerName: 'est_client_cosider', field: 'est_client_cosider',  cellStyle: { textAlign: 'start' },resizable: true },
 
   ];
+
 
 
     const onPageSizeChanged = (newPageSize:any) => {
@@ -66,6 +62,12 @@ const ListClients: React.FC<any> = () => {
         domLayout: 'autoHeight', // or 'autoHeight' for auto-sizing
         paginationPageSize: paginationPageSize,
         onPageSizeChanged: onPageSizeChanged,
+        defaultColDef: {
+            flex: 1,
+            minWidth: 300,
+        },
+        rowSelection: 'multiple',
+
 
 
     };
@@ -105,14 +107,30 @@ const ListClients: React.FC<any> = () => {
                                                     <i className="fas fa-search" />
                                                     &nbsp;Recherche
                                                     </Button>
-                                                    <Button variant="secondary">Middle</Button>
-                                                    <Button variant="secondary">Right</Button>
+                                                    <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
+                                                        <i className="fas fa-plus" />
+                                                        &nbsp;Ajouter
+                                                    </Button>
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
+                                                        ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic">
+                                                            <i className="fas fa-print" />
+                                                            &nbsp;Imprimer
+                                                        </Dropdown.Toggle>
+
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item href="#/action-1">
+                                                                <i className="bi bi-file-earmark-pdf-fill"></i>
+                                                                &nbsp;pdf</Dropdown.Item>
+                                                            <Dropdown.Item href="#/action-2">
+                                                                <i className="bi bi-filetype-xlsx"></i>
+                                                                &nbsp;xlsx</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+
                                                 </ButtonGroup>
 
-                                                <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
-                                                    <i className="fas fa-search" />
-                                                    &nbsp;Recherche
-                                                </Button>
+
 
 
                                             </div>
@@ -134,7 +152,7 @@ const ListClients: React.FC<any> = () => {
                                                                  pagination={gridOptions.pagination}
                                                                  domLayout={gridOptions.domLayout}
                                                                  paginationPageSize={gridOptions.paginationPageSize}
-                                                                 rowSelection={'multiple'}
+                                                                 enableRangeSelection={true}
                                                                  suppressRowClickSelection={true}
                                                                  onGridReady={onGridReady}
                                                                  overlayNoRowsTemplate={'<div class="spinner-border text-primary" role="status">\n' +

@@ -4,6 +4,9 @@ import {useRef, useState} from "react";
 import axios  from "axios";
 import Cookies from "js-cookie";
 import {Button, Carousel, Form} from "react-bootstrap";
+import AlertMessage from "../../AlertMessage/AlertMessage";
+import {useDispatch} from "react-redux";
+import {show, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
 
 
 
@@ -21,6 +24,7 @@ interface Opt {
   label:string;
 }
 const AddClientForm: React.FC<any> = () => {
+  const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState<FormState>({
     Code_Client  : '',
@@ -68,13 +72,13 @@ const AddClientForm: React.FC<any> = () => {
       })
           .then((response:any) => {
 
-
+            dispatch(show({variant:Variants.SUCCESS,heading:"Ajout Client",text:response.data.message}))
 
 
 
           })
           .catch((error:any) => {
-
+            dispatch(show({variant:Variants.DANGER,heading:"Ajout Client",text:error.response.data.message}))
 
           });
 
@@ -103,7 +107,7 @@ const opt:Opt[] = [
 return (
     <>
 
-
+            <AlertMessage/>
 
             <div className="container-fluid" style={{marginTop:"20px" , width:"100%"}}>
 
