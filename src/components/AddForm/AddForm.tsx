@@ -9,6 +9,7 @@ import usr from "../icons/user.png";
 
 type AddFormProps = {
   fields:any[];
+  endpoint:string;
   title:string;
   img:string;
 };
@@ -41,22 +42,42 @@ const AddForm: React.FC<AddFormProps> = (props) => {
             ...formData,
             [e.target.name]: e.target.value,
         });
-
     };
     const handleInputChange = (e:any) => {
-
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
 
     };
     const handleSubmit = async(e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
-        console.log(formData)
-
+        const formDataObject = new FormData();
+        for (const key in formData) {
+            if (formData.hasOwnProperty(key)) {
+                formDataObject.append(key, formData[key]);
+            }
+        }
         if (form.checkValidity()) {
             setValidated(false)
-            dispatch(show({variant:Variants.SUCCESS,heading:"Ajout Client",text:"ok"}))
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint}`,formDataObject,{
+                headers: {
+                    Authorization: `Token ${Cookies.get("token")}`,
+                    'Content-Type': 'application/json',
+
+                },
+
+            })
+                .then((response:any) => {
+                    dispatch(show({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
+
+
+                })
+                .catch((error:any) => {
+
+
+                });
+
+
+
 
         }
         else {

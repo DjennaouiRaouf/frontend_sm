@@ -92,20 +92,7 @@ const AddMarcheForm: React.FC<any> = () => {
         })
             .then((response:any) => {
 
-                setFormData({
-                    code_site:"",
-                    num_nt:"",
-                    libelle : "",
-                    ods_depart: "",
-                    delais:0,
-                    revisable:true,
-                    rabais:0,
-                    tva:0,
-                    num_contrat:"",
-                    date_signature:"",
-                    nouveau:true,
-                    retenue_garantie:0,
-                })
+
 
 
 

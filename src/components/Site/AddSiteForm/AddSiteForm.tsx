@@ -13,7 +13,6 @@ import site from '../../icons/location.png';
 const AddSiteForm: React.FC<any> = () => {
   const dispatch = useDispatch();
     const [sField,setSField]=useState([]);
-    const [formState, setFormState] = useState({});
   const getSiteFields = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/sitefields/?flag=f`,{
       headers: {
@@ -30,22 +29,7 @@ const AddSiteForm: React.FC<any> = () => {
         });
   }
 
-  const getSiteFieldsState = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/sitefieldsstate/`,{
-      headers: {
-        Authorization: `Token ${Cookies.get("token")}`,
-      }
-    })
-        .then((response:any) => {
 
-          setFormState(response.data);
-        })
-        .catch((error:any) => {
-
-        }).finally(() => {
-
-        });
-  }
 
     useEffect(() => {
         getSiteFields();
@@ -64,7 +48,7 @@ const AddSiteForm: React.FC<any> = () => {
             <div className="card-body">
 
 
-              <AddForm fields={sField}  title={"Nouveau Site"} img={site} />
+              <AddForm fields={sField}  title={"Nouveau Site"} img={site} endpoint={"/sm/addsite/"} />
 
 
             </div>

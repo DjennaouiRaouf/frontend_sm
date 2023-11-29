@@ -49,7 +49,7 @@ const AddClientForm: React.FC<any> = () => {
                 <div className="card-body">
 
 
-                      <AddForm fields={cField}  title={"Nouveau Client"} img={usr} />
+                      <AddForm fields={cField}  title={"Nouveau Client"} img={usr} endpoint={"/sm/addclient/"} />
 
 
                 </div>
