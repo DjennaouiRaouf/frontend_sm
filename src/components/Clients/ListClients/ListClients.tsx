@@ -1,37 +1,43 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+
 import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
 import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
+import DataGrid from "../../DataGrid";
 
 const ListClients: React.FC<any> = () => {
-    const [gridApi, setGridApi] = useState<any>();
+    const [rows, setRows] = useState<any[]>([]);
+    const [cols, setCols] = useState<any[]>([]);
 
-    const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
-    const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
-    const [paginationPageSize, setPaginationPageSize] = useState(20); // Initial page size
-    const [clients, setClients] = useState<any[]>([]);
-    const gridRef = useRef(null);
     const navigate=useNavigate();
 
-    const getClients = async() => {
+    const getClientsRows = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
             }
         })
             .then((response:any) => {
+                setRows(response.data);
+            })
+            .catch((error:any) => {
 
-                setClients(response.data);
+            }).finally(() => {
 
+            });
+    }
 
-
+    const getClientsCols = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/clientfields/?flag=l`,{
+            headers: {
+                Authorization: `Token ${Cookies.get("token")}`,
+            }
+        })
+            .then((response:any) => {
+                setCols(response.data.fields);
             })
             .catch((error:any) => {
 
@@ -41,50 +47,19 @@ const ListClients: React.FC<any> = () => {
     }
 
     useEffect(() => {
-        getClients()
+        getClientsCols();
     },[])
-    const onGridReady = (params: any) => {
-        setGridApi(params.api);
 
-
-    };
+    useEffect(() => {
+        getClientsRows();
+    },[])
 
     const onFilterButtonClick = () => {
-        const filterModel = gridApi.getFilterModel();
-        console.log(filterModel)
+        console.log(cols)
 
     }
-    const columnDefs:any = [
-        { headerName: 'code', field: 'code_client',  cellStyle: { textAlign: 'start'  },resizable: true },
-        { headerName: 'libelle', field: 'libelle_client',  cellStyle: { textAlign: 'start' },resizable: true },
-        { headerName: 'nif', field: 'nif',  cellStyle: { textAlign: 'start' },resizable: true },
-        { headerName: 'raison social', field: 'raison_social',  cellStyle: { textAlign: 'start' },resizable: true },
-        { headerName: 'num registe commerce', field: 'num_registre_commerce',  cellStyle: { textAlign: 'start' },resizable: true },
-        { headerName: 'est_client_cosider', field: 'est_client_cosider',  cellStyle: { textAlign: 'start' },resizable: true },
-
-  ];
 
 
-
-    const onPageSizeChanged = (newPageSize:any) => {
-        setPaginationPageSize(newPageSize);
-    };
-
-
-    const gridOptions:any = {
-        pagination: true,
-        domLayout: 'autoHeight', // or 'autoHeight' for auto-sizing
-        paginationPageSize: paginationPageSize,
-        onPageSizeChanged: onPageSizeChanged,
-        defaultColDef: {
-            flex: 1,
-            minWidth: 300,
-        },
-        rowSelection: 'multiple',
-
-
-
-    };
 
 
 
@@ -105,7 +80,7 @@ const ListClients: React.FC<any> = () => {
                                                 className="dataTables_length"
                                                 aria-controls="dataTable"
                                             />
-                                            <Form.Select className="form-control-user" style={{ height: 35 ,width:120 }} aria-label="Default select example" onChange={(e) => onPageSizeChanged(Number(e.target.value))} value={paginationPageSize}>
+                                            <Form.Select className="form-control-user" style={{ height: 35 ,width:120 }} aria-label="Default select example" >
                                                 <option value="20">20</option>
                                                 <option value="40">40</option>
                                                 <option value="60">60</option>
@@ -157,27 +132,7 @@ const ListClients: React.FC<any> = () => {
                                         role="grid"
                                         aria-describedby="dataTable_info"
                                     >
-                                        <div style={containerStyle}>
-                                            <div style={{ width:"100%", height: '600px', boxSizing: 'border-box' }}>
-
-                                                <div style={gridStyle} className="ag-theme-alpine  ">
-                                                    <AgGridReact ref={gridRef}
-                                                                 rowData={clients} columnDefs={columnDefs}
-                                                                 pagination={gridOptions.pagination}
-                                                                 domLayout={gridOptions.domLayout}
-                                                                 paginationPageSize={gridOptions.paginationPageSize}
-                                                                 suppressRowClickSelection={true}
-                                                                 rowSelection={'multiple'}
-                                                                 onGridReady={onGridReady}
-                                                                 overlayNoRowsTemplate={'<div class="spinner-border text-primary" role="status">\n' +
-                                                                     '  <span class="visually-hidden">Loading...</span>\n' +
-                                                                     '</div>'}
-
-
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <DataGrid columns={cols} rows={rows}/>
                                     </div>
                                 </div>
                             </div>
