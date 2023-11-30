@@ -28,7 +28,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     const gridOptions:any = {
         pagination: true,
-        domLayout: 'autoHeight', // or 'autoHeight' for auto-sizing
+        domLayout: 'autoHeight',
         paginationPageSize: paginationPageSize,
         rowSelection: 'multiple',
         defaultColDef:defaultColDefs
