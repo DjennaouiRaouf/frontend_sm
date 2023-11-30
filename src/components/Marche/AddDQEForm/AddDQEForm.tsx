@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import AddForm from "../../AddForm/AddForm";
-import site from "../../icons/location.png";
+import layout from "../../icons/layout.png";
 
 
 
@@ -42,7 +42,7 @@ const AddDQEForm: React.FC<any> = () => {
         <div className="container-fluid" style={{marginTop:"20px" , width:"100%"}}>
           <div className=" mb-3" style={{border:"none",background:"transparent"}}>
             <div className="card-body">
-              <AddForm fields={dqField}  title={"Nouveau DQE"} img={site} endpoint={"/sm/adddqe/"} />
+              <AddForm fields={dqField}  title={"Nouveau DQE"} img={layout} endpoint={"/sm/adddqe/"} />
             </div>
           </div>
         </div>

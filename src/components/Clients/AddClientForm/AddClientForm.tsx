@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import axios  from "axios";
 import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
-
+import customer from '../../icons/customer.png'
 import AddForm from "../../AddForm/AddForm";
 
 
@@ -45,7 +45,7 @@ const AddClientForm: React.FC<any> = () => {
                 <div className="card-body">
 
 
-                      <AddForm fields={cField}  title={"Nouveau Client"} img={usr} endpoint={"/sm/addclient/"} />
+                      <AddForm fields={cField}  title={"Nouveau Client"} img={customer} endpoint={"/sm/addclient/"} />
 
 
                 </div>

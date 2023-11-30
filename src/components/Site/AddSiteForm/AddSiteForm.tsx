@@ -1,12 +1,11 @@
 import * as React from "react";
-import  usr from "../../icons/user.png"
 import {useEffect, useRef, useState} from "react";
 import axios  from "axios";
 import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import {useDispatch} from "react-redux";
 import AddForm from "../../AddForm/AddForm";
-import site from '../../icons/location.png';
+import hook from '../../icons/hook.png';
 
 
 
@@ -48,7 +47,7 @@ const AddSiteForm: React.FC<any> = () => {
             <div className="card-body">
 
 
-              <AddForm fields={sField}  title={"Nouveau Site"} img={site} endpoint={"/sm/addsite/"} />
+              <AddForm fields={sField}  title={"Nouveau Site"} img={hook} endpoint={"/sm/addsite/"} />
 
 
             </div>
