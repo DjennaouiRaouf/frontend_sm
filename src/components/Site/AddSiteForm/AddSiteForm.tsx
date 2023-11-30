@@ -10,7 +10,6 @@ import hook from '../../icons/hook.png';
 
 
 const AddSiteForm: React.FC<any> = () => {
-  const dispatch = useDispatch();
     const [sField,setSField]=useState([]);
   const getSiteFields = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/sitefields/?flag=f`,{

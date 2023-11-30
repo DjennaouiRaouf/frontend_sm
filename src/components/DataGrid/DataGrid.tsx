@@ -5,7 +5,6 @@ import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
-import Cookies from "js-cookie";
 import {ColDef} from "ag-grid-community";
 
 type DataGridProps = {
@@ -17,7 +16,6 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
     const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
     const [paginationPageSize, setPaginationPageSize] = useState(20);
-    const[columnsDefs,setColumnsDefs]=useState([])
     const gridRef = useRef(null);
     const defaultColDefs: ColDef = {
         sortable: true,
@@ -34,14 +32,11 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
         paginationPageSize: paginationPageSize,
         rowSelection: 'multiple',
         defaultColDef:defaultColDefs
-
-
-
     };
 
-    useEffect(() => {
 
-    },[])
+
+
 
 
 
