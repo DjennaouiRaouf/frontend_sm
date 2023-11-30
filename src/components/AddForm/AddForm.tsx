@@ -73,7 +73,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                 })
                 .catch((error:any) => {
 
-
+                    dispatch(show({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
                 });
 
 
