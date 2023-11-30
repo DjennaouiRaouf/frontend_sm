@@ -10,6 +10,7 @@ import NavigationBar from "../NavigationBar/NavigationBar";
 import PageFooter from "../PageFooter/PageFooter";
 import ListClients from "../Clients/ListClients/ListClients";
 import ListSites from "../Site/ListSites/ListSites";
+import AddDQEForm from "../Marche/AddDQEForm/AddDQEForm";
 
 
 
@@ -120,6 +121,21 @@ const Routes: React.FC<any> = () => {
 
                           <PageFooter/>
 
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/ajout_dqe"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <AddDQEForm />
+
+                          <PageFooter/>
                       </>
                   ): (
                       <Navigate to="/"  />

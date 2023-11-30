@@ -1,19 +1,16 @@
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
-import contrat from './contract.png'
 import axios from "axios";
 import Cookies from "js-cookie";
-import {Console} from "inspector";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import AddForm from "../../AddForm/AddForm";
 import site from "../../icons/location.png";
-import {useDispatch} from "react-redux";
+
 
 
 
 const AddMarcheForm: React.FC<any> = () => {
 
-    const dispatch = useDispatch();
     const [mField,setMField]=useState([]);
     const getMarcheFields = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/marchefields/?flag=f`,{
