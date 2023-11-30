@@ -16,7 +16,7 @@ const AddMarcheForm: React.FC<any> = () => {
     const dispatch = useDispatch();
     const [mField,setMField]=useState([]);
     const getMarcheFields = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/marchefields//?flag=f`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/marchefields/?flag=f`,{
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
             }
@@ -41,26 +41,14 @@ const AddMarcheForm: React.FC<any> = () => {
 
     return (
         <>
-
             <AlertMessage/>
-
             <div className="container-fluid" style={{marginTop:"20px" , width:"100%"}}>
-
                 <div className=" mb-3" style={{border:"none",background:"transparent"}}>
                     <div className="card-body">
-
-
-                        <AddForm fields={mField}  title={"Nouveau Site"} img={site} endpoint={"/sm/addmarche/"} />
-
-
+                        <AddForm fields={mField}  title={"Nouveau Marché"} img={site} endpoint={"/sm/addmarche/"} />
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </>
   );
 };

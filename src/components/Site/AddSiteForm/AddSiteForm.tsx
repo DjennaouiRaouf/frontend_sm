@@ -14,7 +14,7 @@ const AddSiteForm: React.FC<any> = () => {
   const dispatch = useDispatch();
     const [sField,setSField]=useState([]);
   const getSiteFields = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/sitefields/?flag=f`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/sitefields/?flag=f`,{
       headers: {
         Authorization: `Token ${Cookies.get("token")}`,
       }

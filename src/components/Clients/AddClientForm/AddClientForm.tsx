@@ -1,25 +1,21 @@
 import * as React from "react";
 import  usr from "../../icons/user.png"
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import axios  from "axios";
 import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
-import {useDispatch} from "react-redux";
+
 import AddForm from "../../AddForm/AddForm";
 
 
 
-interface Opt {
-  value:string;
-  label:string;
-}
+
 const AddClientForm: React.FC<any> = () => {
-  const dispatch = useDispatch();
   const [cField,setCField]=useState([]);
 
 
   const getClientFields = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/clientfields/?flag=f`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/clientfields/?flag=f`,{
       headers: {
         Authorization: `Token ${Cookies.get("token")}`,
       }
