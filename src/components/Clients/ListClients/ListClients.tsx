@@ -31,7 +31,7 @@ const ListClients: React.FC<any> = () => {
     }
 
     const getClientsCols = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/clientfields/?flag=l`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/clientfields/?flag=l`,{
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
             }

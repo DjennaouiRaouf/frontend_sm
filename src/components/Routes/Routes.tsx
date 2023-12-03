@@ -9,7 +9,7 @@ import AddSiteForm from "../Site/AddSiteForm/AddSiteForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import PageFooter from "../PageFooter/PageFooter";
 import ListClients from "../Clients/ListClients/ListClients";
-import ListSites from "../Site/ListSites/ListSites";
+
 import AddDQEForm from "../Marche/AddDQEForm/AddDQEForm";
 
 
@@ -84,7 +84,7 @@ const Routes: React.FC<any> = () => {
                   authenticated ? (
                       <>
                           <NavigationBar/>
-                          <ListSites />
+
                           <PageFooter/>
 
                       </>
