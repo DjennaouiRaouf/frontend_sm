@@ -16,14 +16,15 @@ type DataGridProps = {
 const DataGrid: React.FC<DataGridProps> = (props) => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
     const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
-    const[rows,setRows]=useState([]);
-    const[cols,setCols]=useState([]);
+    const[rows,setRows]=useState <any[]>([]);
+    const[cols,setCols]=useState <any[]>([]);
     const gridRef = useRef(null);
     const defaultColDefs: ColDef = {
         sortable: true,
         resizable: true,
         minWidth: 300,
-        cellStyle: { textAlign: 'start'  }
+        cellStyle: { textAlign: 'start'  },
+
     };
 
 
@@ -32,10 +33,46 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
         pagination: true,
         domLayout: 'autoHeight',
         rowSelection: 'multiple',
-        defaultColDef:defaultColDefs
+        defaultColDef:defaultColDefs,
+
     };
 
 
+    const ActionsRenderer: React.FC<any>  = (props:any) => {
+        const handleButtonClick = () => {
+            // Access the row data using props.data
+            const rowData = props.data;
+            console.log('Button Clicked for Row:', rowData);
+            // Add your custom actions here
+        };
+
+        return (
+            <div className="btn-group btn-group-sm" role="group">
+                <button
+                    className="btn btn-primary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    type="button"
+                    style={{ background: "#df162c", borderWidth: 0 }}
+                    title="Editer"
+                >
+                    <i className="far fa-edit" />
+                </button>
+                <button
+                    className="btn btn-primary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    type="button"
+                    style={{ background: "#df162c", borderWidth: 0 }}
+                    title="Visualiser"
+                >
+                    <i className="far fa-eye" />
+                </button>
+            </div>
+
+
+        );
+    };
     const getCols = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_cols}`,{
             headers: {
@@ -45,7 +82,13 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
             },
         })
             .then((response:any) => {
-                setCols(response.data.fields);
+
+                const updatedCols:any[] = [...response.data.fields, {
+                    headerName:'Action',
+                    cellRenderer:ActionsRenderer
+                }];
+
+                setCols(updatedCols);
 
 
 
@@ -97,6 +140,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
                                    gridOptions={gridOptions}
                                    suppressRowClickSelection={true}
                                    rowSelection={'multiple'}
+
 
 
 

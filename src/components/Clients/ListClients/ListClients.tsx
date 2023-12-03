@@ -21,12 +21,12 @@ const ListClients: React.FC<any> = () => {
     return (
         <>
 
-            <div id="wrapper">
+            <div id="wrapper" >
                 <div id="content-wrapper" className="d-flex flex-column">
-                    <div id="content">
-                        <div className="container-fluid">
-                            <div className="card shadow">
-                                <div className="card-body">
+                    <div id="content" >
+                        <div className="container-fluid" >
+                            <div className="card shadow" >
+                                <div className="card-body" >
                                     <div className="row">
                                         <div className="col-md-6 text-nowrap">
                                             <div
