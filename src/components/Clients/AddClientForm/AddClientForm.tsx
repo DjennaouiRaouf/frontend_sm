@@ -11,28 +11,6 @@ import AddForm from "../../AddForm/AddForm";
 
 
 const AddClientForm: React.FC<any> = () => {
-  const [cField,setCField]=useState([]);
-
-
-  const getClientFields = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/clientfields/?flag=f`,{
-      headers: {
-        Authorization: `Token ${Cookies.get("token")}`,
-      }
-    })
-        .then((response:any) => {
-          setCField(response.data.fields);
-        })
-        .catch((error:any) => {
-
-        }).finally(() => {
-
-        });
-  }
-
-    useEffect(() => {
-        getClientFields();
-    },[])
 
   return (
     <>
@@ -45,7 +23,11 @@ const AddClientForm: React.FC<any> = () => {
                 <div className="card-body">
 
 
-                      <AddForm fields={cField}  title={"Nouveau Client"} img={customer} endpoint={"/sm/addclient/"} />
+                      <AddForm   title={"Nouveau Client"} img={customer}
+                                 endpoint_submit={"/sm/addclient/"}
+                                 endpoint_fields={"/forms/clientfields/?flag=f"}
+                                endpoint_state={"/forms/clientfieldsstate/"}
+                      />
 
 
                 </div>

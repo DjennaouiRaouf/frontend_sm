@@ -8,56 +8,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 import DataGrid from "../../DataGrid";
 
-const ListClients: React.FC<any> = () => {
-    const [rows, setRows] = useState<any[]>([]);
-    const [cols, setCols] = useState<any[]>([]);
 
+const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
 
-    const getClientsRows = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/`,{
-            headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
-            }
-        })
-            .then((response:any) => {
-                setRows(response.data);
-            })
-            .catch((error:any) => {
-
-            }).finally(() => {
-
-            });
-    }
-
-    const getClientsCols = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/clientfields/?flag=l`,{
-            headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
-            }
-        })
-            .then((response:any) => {
-                setCols(response.data.fields);
-            })
-            .catch((error:any) => {
-
-            }).finally(() => {
-
-            });
-    }
-
-    useEffect(() => {
-        getClientsCols();
-    },[])
-
-    useEffect(() => {
-        getClientsRows();
-    },[])
-
-    const onFilterButtonClick = () => {
-        console.log(cols)
-
-    }
 
 
 
@@ -80,13 +34,7 @@ const ListClients: React.FC<any> = () => {
                                                 className="dataTables_length"
                                                 aria-controls="dataTable"
                                             />
-                                            <Form.Select className="form-control-user" style={{ height: 35 ,width:120 }} aria-label="Default select example" >
-                                                <option value="20">20</option>
-                                                <option value="40">40</option>
-                                                <option value="60">60</option>
-                                                <option value="80">80</option>
-                                                <option value="100">100</option>
-                                            </Form.Select>
+
 
                                         </div>
                                         <div className="col-md-6">
@@ -102,7 +50,7 @@ const ListClients: React.FC<any> = () => {
                                                     <Dropdown>
                                                         <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
                                                         ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
-                                                            onClick={onFilterButtonClick}>
+                                                            >
                                                             <i className="fas fa-print" />
                                                             &nbsp;Imprimer
                                                         </Dropdown.Toggle>
@@ -132,7 +80,7 @@ const ListClients: React.FC<any> = () => {
                                         role="grid"
                                         aria-describedby="dataTable_info"
                                     >
-                                        <DataGrid columns={cols} rows={rows}/>
+                                        <DataGrid endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={"/sm/getclients/"} />
                                     </div>
                                 </div>
                             </div>

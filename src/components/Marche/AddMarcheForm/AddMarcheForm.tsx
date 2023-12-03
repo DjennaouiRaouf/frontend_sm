@@ -1,39 +1,13 @@
 import * as React from "react";
-import {useEffect, useRef, useState} from "react";
-import axios from "axios";
 import agreement from '../../icons/agreement.png'
-import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import AddForm from "../../AddForm/AddForm";
-import site from "../../icons/location.png";
+
 
 
 
 
 const AddMarcheForm: React.FC<any> = () => {
-
-    const [mField,setMField]=useState([]);
-    const getMarcheFields = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/marchefields/?flag=f`,{
-            headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
-            }
-        })
-            .then((response:any) => {
-                setMField(response.data.fields);
-            })
-            .catch((error:any) => {
-
-            }).finally(() => {
-
-            });
-    }
-
-
-
-    useEffect(() => {
-        getMarcheFields();
-    },[])
 
 
 
@@ -43,7 +17,10 @@ const AddMarcheForm: React.FC<any> = () => {
             <div className="container-fluid" style={{marginTop:"20px" , width:"100%"}}>
                 <div className=" mb-3" style={{border:"none",background:"transparent"}}>
                     <div className="card-body">
-                        <AddForm fields={mField}  title={"Nouveau Marché"} img={agreement} endpoint={"/sm/addmarche/"} />
+                        <AddForm   title={"Nouveau Marché"} img={agreement}
+                                   endpoint_fields={'/forms/marchefields/?flag=f'}
+                                   endpoint_state={"/forms/marchefieldsstate/"}
+                                   endpoint_submit={"/sm/addmarche/"} />
                     </div>
                 </div>
             </div>

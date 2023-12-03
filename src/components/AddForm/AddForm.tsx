@@ -8,10 +8,11 @@ import {useDispatch} from "react-redux";
 import usr from "../icons/user.png";
 
 type AddFormProps = {
-  fields:any[];
-  endpoint:string;
-  title:string;
-  img:string;
+    endpoint_submit:string;
+    endpoint_state:string;
+    endpoint_fields:string;
+    title:string;
+    img:string;
 };
 
 interface Opt {
@@ -22,8 +23,10 @@ interface Opt {
 const AddForm: React.FC<AddFormProps> = (props) => {
     const [validated, setValidated] = useState(false);
     const dispatch = useDispatch();
+    const [fields,setFields]=useState<any[]>([]);
+    const [defaultState,setDefaultState]=useState<any>({});
     const [formData, setFormData] = useState<any>({});
-    const [error,setError]=useState(false);
+
     const opt:Opt[] = [
 
         {
@@ -58,7 +61,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         }
         if (form.checkValidity()) {
             setValidated(false)
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint}`,formDataObject,{
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}`,formDataObject,{
                 headers: {
                     Authorization: `Token ${Cookies.get("token")}`,
                     'Content-Type': 'application/json',
@@ -68,7 +71,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
             })
                 .then((response:any) => {
                     dispatch(show({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
-
+                    setFormData(defaultState);
 
                 })
                 .catch((error:any) => {
@@ -87,6 +90,50 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
     }
 
+    const getFields = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_fields}`,{
+            headers: {
+                Authorization: `Token ${Cookies.get("token")}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+                setFields(response.data.fields);
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
+
+    }
+
+    const getDdfaultState = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_state}`,{
+            headers: {
+                Authorization: `Token ${Cookies.get("token")}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+                setDefaultState(response.data.state);
+                setFormData(response.data.state);
+
+            })
+            .catch((error:any) => {
+
+            });
+
+    }
+    useEffect(() => {
+        getFields();
+        getDdfaultState();
+
+
+    },[]);
 
 
     return (
@@ -122,7 +169,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                   </div>
 
 
-                  {props.fields.map((field,index) => (
+                  {fields.map((field,index) => (
                       <div className="col-md-6 text-start" key={index}>
                           <div className="mb-3">
 
@@ -141,9 +188,9 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               name={field.name}
                                               required
                                               className="w-100"
-
+                                              value={formData[field.name]}
                                               onChange={(e)=>handleSelectChange(e)}>
-                                              <option></option>
+
                                               {opt.map((item,index) => (
                                                   <option key={index} value={String(item.value)}>{item.label}</option>
                                               ))}
@@ -157,6 +204,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                   required
                                                   className="w-100"
                                                   type="date"
+                                                  value={formData[field.name]}
                                                   onChange={(e)=>handleInputChange(e)}
                                               />
                                               :
@@ -165,6 +213,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                   required
                                                   className="w-100"
                                                   type="text"
+                                                  value={formData[field.name]}
                                                   onChange={(e)=>handleInputChange(e)}
                                               />
 
