@@ -7,6 +7,9 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import {ColDef} from "ag-grid-community";
 import Cookies from "js-cookie";
+import {useDispatch} from "react-redux";
+import {show} from "../../Redux-Toolkit/Slices/DataGridModalSlice";
+import DataGridModal from "../DataGridModal/DataGridModal";
 
 type DataGridProps = {
   endpoint_rows:string;
@@ -37,38 +40,45 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     };
 
-
+    const dispatch = useDispatch();
     const ActionsRenderer: React.FC<any>  = (props:any) => {
-        const handleButtonClick = () => {
-            // Access the row data using props.data
+
+        const handleEditClick = () => {
+            dispatch(show(props.data))
             const rowData = props.data;
             console.log('Button Clicked for Row:', rowData);
             // Add your custom actions here
         };
 
         return (
-            <div className="btn-group btn-group-sm" role="group">
-                <button
-                    className="btn btn-primary"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    type="button"
-                    style={{ background: "#df162c", borderWidth: 0 }}
-                    title="Editer"
-                >
-                    <i className="far fa-edit" />
-                </button>
-                <button
-                    className="btn btn-primary"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    type="button"
-                    style={{ background: "#df162c", borderWidth: 0 }}
-                    title="Visualiser"
-                >
-                    <i className="far fa-eye" />
-                </button>
-            </div>
+            <>
+                <DataGridModal endpoint_submit={''} endpoint_state={''} img={''} title={''} endpoint_fields={''}/>
+                <div className="btn-group btn-group-sm" role="group">
+                    <button
+                        className="btn btn-primary"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        type="button"
+                        style={{ background: "#df162c", borderWidth: 0 }}
+                        title="Editer"
+                        onClick={handleEditClick}
+                    >
+                        <i className="far fa-edit" />
+                    </button>
+                    <button
+                        className="btn btn-primary"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        type="button"
+                        style={{ background: "#df162c", borderWidth: 0 }}
+                        title="Visualiser"
+                    >
+                        <i className="far fa-eye" />
+                    </button>
+                </div>
+
+            </>
+
 
 
         );
@@ -99,14 +109,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     }
 
-    const getRowHeight = (params:any ) => {
-        // Access row data using params.data
-        const rowData = params.data;
 
-        // Example: Calculate row height based on the length of the description field
-        const descriptionLength = rowData.description ? rowData.description.length : 0;
-        return 25 + descriptionLength * 2; // Adjust this calculation based on your content
-    };
+
     const getRows = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}`,{
             headers: {
@@ -140,6 +144,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     return (
       <>
           <div style={containerStyle}>
+
               <div style={{ width:"100%", height: '600px', boxSizing: 'border-box' }}>
 
                   <div style={gridStyle} className="ag-theme-alpine  ">

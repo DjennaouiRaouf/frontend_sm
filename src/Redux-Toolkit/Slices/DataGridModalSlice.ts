@@ -1,39 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {stat} from "fs";
 
-export enum Variants {
 
-
-    SUCCESS ='#d1e7dd',
-    DANGER = '#f8d7da',
-    WARNING = '#fff3cd',
-    INFO = '#cff4fc',
-
-}
 export interface DataGridModalState {
-    variant:Variants;
     show:boolean;
-    heading:string;
-    text:string;
+    jsx:any;
+
+
 
 
 }
 
 const initialState: DataGridModalState = {
-    variant:Variants.INFO,
-    show:false,
-    heading:"",
-    text:"",
+   show:false,
+   jsx:null,
+
 };
 
 export const DataGridModalSlice = createSlice({
     name: "DataGridModal",
     initialState,
     reducers: {
-        show: (state, action: PayloadAction<{ variant: Variants;heading:string;text:string }>) => {
+        show: (state, action: PayloadAction) => {
+            state.jsx=action.payload
             state.show=true;
-            state.variant=action.payload.variant;
-            state.heading=action.payload.heading;
-            state.text=action.payload.text;
+
+
 
 
         },
