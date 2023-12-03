@@ -236,6 +236,7 @@ const DataGridModal: React.FC<DataGridModalProps> = (props) => {
 
 
                             ))}
+
                         </div>
                         <div
                             className="col-md-12"
