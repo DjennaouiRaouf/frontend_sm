@@ -99,6 +99,14 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     }
 
+    const getRowHeight = (params:any ) => {
+        // Access row data using params.data
+        const rowData = params.data;
+
+        // Example: Calculate row height based on the length of the description field
+        const descriptionLength = rowData.description ? rowData.description.length : 0;
+        return 25 + descriptionLength * 2; // Adjust this calculation based on your content
+    };
     const getRows = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}`,{
             headers: {

@@ -129,8 +129,9 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
     }
     useEffect(() => {
-        getFields();
         getDdfaultState();
+        getFields();
+
 
 
     },[]);
