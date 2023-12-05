@@ -8,12 +8,15 @@ import axios from "axios";
 import {ColDef} from "ag-grid-community";
 import Cookies from "js-cookie";
 import {useDispatch} from "react-redux";
-import {show} from "../../Redux-Toolkit/Slices/DataGridModalSlice";
-import DataGridModal from "../DataGridModal/DataGridModal";
+import { showModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
+import DisplayDataGridModal from "./DisplayDataGridModal/DisplayDataGridModal";
+
 
 type DataGridProps = {
   endpoint_rows:string;
   endpoint_cols:string;
+  img:string;
+  title:string;
 };
 
 const DataGrid: React.FC<DataGridProps> = (props) => {
@@ -21,6 +24,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
     const[rows,setRows]=useState <any[]>([]);
     const[cols,setCols]=useState <any[]>([]);
+
+
     const gridRef = useRef(null);
     const defaultColDefs: ColDef = {
         sortable: true,
@@ -40,49 +45,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     };
 
-    const dispatch = useDispatch();
-    const ActionsRenderer: React.FC<any>  = (props:any) => {
-
-        const handleEditClick = () => {
-            dispatch(show(props.data))
-            const rowData = props.data;
-            console.log('Button Clicked for Row:', rowData);
-            // Add your custom actions here
-        };
-
-        return (
-            <>
-                <DataGridModal endpoint_submit={''} endpoint_state={''} img={''} title={''} endpoint_fields={''}/>
-                <div className="btn-group btn-group-sm" role="group">
-                    <button
-                        className="btn btn-primary"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="bottom"
-                        type="button"
-                        style={{ background: "#df162c", borderWidth: 0 }}
-                        title="Editer"
-                        onClick={handleEditClick}
-                    >
-                        <i className="far fa-edit" />
-                    </button>
-                    <button
-                        className="btn btn-primary"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="bottom"
-                        type="button"
-                        style={{ background: "#df162c", borderWidth: 0 }}
-                        title="Visualiser"
-                    >
-                        <i className="far fa-eye" />
-                    </button>
-                </div>
-
-            </>
 
 
-
-        );
-    };
     const getCols = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_cols}`,{
             headers: {
@@ -93,13 +57,13 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
         })
             .then((response:any) => {
 
+
                 const updatedCols:any[] = [...response.data.fields, {
                     headerName:'Action',
                     cellRenderer:ActionsRenderer
                 }];
 
                 setCols(updatedCols);
-
 
 
             })
@@ -139,13 +103,45 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     },[]);
 
+    const ActionsRenderer: React.FC<any>  = (prop:any) => {
+        const dispatch = useDispatch();
+        const handleEditClick = () => {
+            const rowData:any =  prop.data  ;
+            console.log(cols)
+            dispatch(showModal({data:rowData,title:props.title,img:props.img}));
 
+        };
+
+        return (
+            <>
+                <DisplayDataGridModal cols={cols}  />
+                <div className="btn-group btn-group-sm" role="group">
+
+                    <button
+                        className="btn btn-primary"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        type="button"
+                        style={{ background: "#df162c", borderWidth: 0 }}
+                        title="Visualiser"
+                        onClick={handleEditClick}
+                    >
+                        <i className="far fa-eye" />
+                    </button>
+                </div>
+
+            </>
+
+
+
+        );
+    };
 
     return (
       <>
           <div style={containerStyle}>
 
-              <div style={{ width:"100%", height: '600px', boxSizing: 'border-box' }}>
+              <div style={{ width:"100%", height: '500px', boxSizing: 'border-box' }}>
 
                   <div style={gridStyle} className="ag-theme-alpine  ">
                       <AgGridReact ref={gridRef}
@@ -153,6 +149,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
                                    gridOptions={gridOptions}
                                    suppressRowClickSelection={true}
                                    rowSelection={'multiple'}
+                                   domLayout={'autoHeight'}
 
 
 

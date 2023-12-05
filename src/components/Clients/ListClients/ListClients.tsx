@@ -7,7 +7,7 @@ import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 import DataGrid from "../../DataGrid";
-
+import customer from '../../icons/customer.png'
 
 const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
@@ -76,11 +76,12 @@ const ListClients: React.FC<any> = () => {
 
                                     <div
                                         id="dataTable"
-                                        className="table-responsive table mt-2"
+                                        className="table-responsive table mt-5 mb-3"
                                         role="grid"
                                         aria-describedby="dataTable_info"
+
                                     >
-                                        <DataGrid endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={"/sm/getclients/"} />
+                                        <DataGrid img={customer} title={"Client"} endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={"/sm/getclients/"} />
                                     </div>
                                 </div>
                             </div>

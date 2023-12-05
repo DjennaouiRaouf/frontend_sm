@@ -3,7 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {show, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import { showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
 import usr from "../icons/user.png";
 
@@ -70,13 +70,13 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
             })
                 .then((response:any) => {
-                    dispatch(show({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
+                    dispatch(showAlert({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
                     setFormData(defaultState);
 
                 })
                 .catch((error:any) => {
 
-                    dispatch(show({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
+                    dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
                 });
 
 
@@ -178,7 +178,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                   <Form.Label>
                                       <strong>
                                           {field.label +" "}
-                                          <span style={{ color: "rgb(255, 0, 0)" }}>*</span>
+
                                       </strong>
                                   </Form.Label>
                                   {

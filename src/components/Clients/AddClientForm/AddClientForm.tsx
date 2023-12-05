@@ -1,8 +1,4 @@
 import * as React from "react";
-import  usr from "../../icons/user.png"
-import {useEffect, useState} from "react";
-import axios  from "axios";
-import Cookies from "js-cookie";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import customer from '../../icons/customer.png'
 import AddForm from "../../AddForm/AddForm";

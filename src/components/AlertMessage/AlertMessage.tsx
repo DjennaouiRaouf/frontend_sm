@@ -3,7 +3,7 @@ import {Alert, Toast, ToastContainer} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Redux-Toolkit/Store/Sotre";
 import {useEffect, useState} from "react";
-import {hide} from "../../Redux-Toolkit/Slices/AlertSlice";
+import { hideAlert} from "../../Redux-Toolkit/Slices/AlertSlice";
 
 
 type AlertMessageProps = {
@@ -19,7 +19,7 @@ const AlertMessage: React.FC<any> = () => {
 
 
             timeoutId = setTimeout(() => {
-                dispatch(hide());
+                dispatch(hideAlert());
             }, 3000);
 
 

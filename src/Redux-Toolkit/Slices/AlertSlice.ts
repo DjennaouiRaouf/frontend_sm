@@ -29,7 +29,7 @@ export const AlertSlice = createSlice({
     name: "Alert",
     initialState,
     reducers: {
-        show: (state, action: PayloadAction<{ variant: Variants;heading:string;text:string }>) => {
+        showAlert: (state, action: PayloadAction<{ variant: Variants;heading:string;text:string }>) => {
             state.show=true;
             state.variant=action.payload.variant;
             state.heading=action.payload.heading;
@@ -37,12 +37,12 @@ export const AlertSlice = createSlice({
 
 
         },
-        hide: (state) => {
+        hideAlert: (state) => {
             state.show=false;
             },
     }
 });
 
-export const { show,hide} = AlertSlice.actions;
+export const { showAlert,hideAlert} = AlertSlice.actions;
 
 export default AlertSlice.reducer;

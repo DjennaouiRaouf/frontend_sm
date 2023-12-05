@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import {useDispatch} from "react-redux";
-import {show, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 
 
 const LoginForm: React.FC<any> = () => {
@@ -61,7 +61,7 @@ const LoginForm: React.FC<any> = () => {
         })
         .catch((error:any) => {
           console.log(error)
-          dispatch(show({variant:Variants.DANGER,heading:"Connexion",text:error.response.data.message}))
+          dispatch(showAlert({variant:Variants.DANGER,heading:"Connexion",text:error.response.data.message}))
 
         });
 

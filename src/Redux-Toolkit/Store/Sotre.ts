@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import AlertReducer from "../Slices/AlertSlice";
-import DataGridModalReducer from "../Slices/DataGridModalSlice";
+import DisplayDataGridModalReducer from "../Slices/DisplayDataGridModalSlice";
 const store = configureStore({
     reducer: {
         alertReducer: AlertReducer,
-        dataGridModal:DataGridModalReducer,
+        displayDataGridModal:DisplayDataGridModalReducer,
     }
 });
 
