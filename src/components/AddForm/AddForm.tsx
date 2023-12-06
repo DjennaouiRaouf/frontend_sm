@@ -169,7 +169,6 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                       </div>
                   </div>
 
-
                   {fields.map((field,index) => (
                       <div className="col-md-6 text-start" key={index}>
                           <div className="mb-3">
