@@ -11,6 +11,7 @@ import PageFooter from "../PageFooter/PageFooter";
 import ListClients from "../Clients/ListClients/ListClients";
 
 import AddDQEForm from "../Marche/AddDQEForm/AddDQEForm";
+import ListMarche from "../Marche/ListMarche/ListMarche";
 
 
 
@@ -85,6 +86,21 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
 
+                          <PageFooter/>
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/liste_m"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ListMarche/>
                           <PageFooter/>
 
                       </>

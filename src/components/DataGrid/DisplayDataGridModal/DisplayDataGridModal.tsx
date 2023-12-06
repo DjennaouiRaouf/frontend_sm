@@ -73,10 +73,10 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                                               <Form.Group className="w-100" >
 
                                                                   <Form.Label >
-                                                                      {props.cols.map((col,index) => (
-                                                                          col.field=== key &&
+                                                                      {props.cols.map((c,index) => (
+                                                                          c.field=== key &&
                                                                           <strong  key={index}>
-                                                                              {col.headerName+' :'}
+                                                                              {c.headerName+' :'}
                                                                           </strong>
                                                                       ))}
 

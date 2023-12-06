@@ -80,6 +80,7 @@ const ListClients: React.FC<any> = () => {
                                         role="grid"
                                         aria-describedby="dataTable_info"
 
+
                                     >
                                         <DataGrid img={customer} title={"Client"} endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={"/sm/getclients/"} />
                                     </div>

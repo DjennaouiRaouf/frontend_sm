@@ -20,8 +20,8 @@ type DataGridProps = {
 };
 
 const DataGrid: React.FC<DataGridProps> = (props) => {
-    const containerStyle = useMemo(() => ({ width: '100%', height: '600px' }), []);
-    const gridStyle = useMemo(() => ({ height: '600px', width: '100%' }), []);
+    const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
+    const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
     const[rows,setRows]=useState <any[]>([]);
     const[cols,setCols]=useState <any[]>([]);
 
@@ -31,7 +31,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
         sortable: true,
         resizable: true,
         minWidth: 300,
-        cellStyle: { textAlign: 'start'  },
+        cellStyle: { textAlign: 'start', border: "none"  },
 
     };
 
@@ -39,8 +39,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     const gridOptions:any = {
         pagination: true,
-        domLayout: 'autoHeight',
-        rowSelection: 'multiple',
+
         defaultColDef:defaultColDefs,
 
     };
@@ -107,14 +106,12 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
         const dispatch = useDispatch();
         const handleEditClick = () => {
             const rowData:any =  prop.data  ;
-            console.log(cols)
             dispatch(showModal({data:rowData,title:props.title,img:props.img}));
-
         };
 
         return (
             <>
-                <DisplayDataGridModal cols={cols}  />
+
                 <div className="btn-group btn-group-sm" role="group">
 
                     <button
@@ -139,18 +136,15 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     return (
       <>
+          <DisplayDataGridModal cols={cols}  />
           <div style={containerStyle}>
 
-              <div style={{ width:"100%", height: '500px', boxSizing: 'border-box' }}>
+              <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
 
-                  <div style={gridStyle} className="ag-theme-alpine  ">
+                  <div style={gridStyle} className="ag-theme-alpine  " >
                       <AgGridReact ref={gridRef}
                                    rowData={rows} columnDefs={cols}
                                    gridOptions={gridOptions}
-                                   suppressRowClickSelection={true}
-                                   rowSelection={'multiple'}
-                                   domLayout={'autoHeight'}
-
 
 
 
