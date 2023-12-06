@@ -76,19 +76,46 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                                                       {props.cols.map((col,index) => (
                                                                           col.field=== key &&
                                                                           <strong  key={index}>
-                                                                              {col.headerName}
+                                                                              {col.headerName+' :'}
                                                                           </strong>
                                                                       ))}
 
 
 
                                                                   </Form.Label>
+                                                                  {
+                                                                      data[key] === true ?
+                                                                          <Form.Label
+                                                                              className="w-100"
+                                                                          >
+                                                                              Oui
+                                                                          </Form.Label>
+                                                                      :
+                                                                          data[key] === false ?
+                                                                              <Form.Label
+                                                                                  className="w-100"
+                                                                              >
+                                                                                  Non
+                                                                              </Form.Label>
+                                                                              :
+                                                                              data[key] === null ?
+                                                                                  <Form.Label
+                                                                                      className="w-100"
+                                                                                  >
+                                                                                      -
+                                                                                  </Form.Label>
+                                                                                  :
+                                                                                  data[key] !== null &&
+                                                                                  <Form.Label
+                                                                                      className="w-100"
+                                                                                  >
+                                                                                      {data[key]}
+                                                                                  </Form.Label>
 
-                                                                  <Form.Label
-                                                                      className="w-100"
-                                                                      >
-                                                                      {data[key]}
-                                                              </Form.Label>
+
+                                                                  }
+
+
                                                               </Form.Group>
 
 
