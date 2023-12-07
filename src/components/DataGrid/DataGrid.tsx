@@ -7,10 +7,9 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import {ColDef} from "ag-grid-community";
 import Cookies from "js-cookie";
-import {useDispatch} from "react-redux";
-import { showModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
 import DisplayDataGridModal from "./DisplayDataGridModal/DisplayDataGridModal";
-
+import ActionRenderer from "./ActionRenderer/ActionRenderer";
+import AddDataGridModal from "./AddDataGridModal/AddDataGridModal";
 
 type DataGridProps = {
   endpoint_rows:string;
@@ -24,7 +23,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
     const[rows,setRows]=useState <any[]>([]);
     const[cols,setCols]=useState <any[]>([]);
-
+    const[modelName,setModelName]=useState <string>("");
+    const[pk,setPk]=useState <string>("");
 
     const gridRef = useRef(null);
     const defaultColDefs: ColDef = {
@@ -55,14 +55,22 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
             },
         })
             .then((response:any) => {
-
+                setModelName(response.data.models);
+                setPk(response.data.pk);
 
                 const updatedCols:any[] = [...response.data.fields, {
                     headerName:'Action',
-                    cellRenderer:ActionsRenderer
+                    cellRenderer:ActionRenderer,
+                    cellRendererParams:{
+                        img:props.img,
+                        title:props.title,
+                        modelName:response.data.models,
+                        pk:response.data.pk
+                    }
                 }];
 
                 setCols(updatedCols);
+
 
 
             })
@@ -102,41 +110,15 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     },[]);
 
-    const ActionsRenderer: React.FC<any>  = (prop:any) => {
-        const dispatch = useDispatch();
-        const handleEditClick = () => {
-            const rowData:any =  prop.data  ;
-            dispatch(showModal({data:rowData,title:props.title,img:props.img}));
-        };
 
-        return (
-            <>
-
-                <div className="btn-group btn-group-sm" role="group">
-
-                    <button
-                        className="btn btn-primary"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="bottom"
-                        type="button"
-                        style={{ background: "#df162c", borderWidth: 0 }}
-                        title="Visualiser"
-                        onClick={handleEditClick}
-                    >
-                        <i className="far fa-eye" />
-                    </button>
-                </div>
-
-            </>
-
-
-
-        );
-    };
 
     return (
       <>
-          <DisplayDataGridModal cols={cols}  />
+          <DisplayDataGridModal cols={cols}   />
+          {
+              modelName === "Marche"&&
+              <AddDataGridModal cols={cols}   />
+          }
           <div style={containerStyle}>
 
               <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>

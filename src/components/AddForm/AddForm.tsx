@@ -177,7 +177,9 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                   <Form.Label>
                                       <strong>
                                           {field.label +" "}
-
+                                          <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+                                              *
+                                          </span>
                                       </strong>
                                   </Form.Label>
                                   {
