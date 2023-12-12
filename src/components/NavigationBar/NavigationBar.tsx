@@ -90,6 +90,10 @@ const NavigationBar: React.FC<any> = () => {
                             <NavDropdown.Item href="/ajout_m">Ajouter un Marché/un Avenant</NavDropdown.Item>
                             <NavDropdown.Item href="/liste_m">Lister les Marchés</NavDropdown.Item>
                         </NavDropdown>
+                        <NavDropdown title="NT" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/ajout_nt">Ajouter un numero de travail</NavDropdown.Item>
+                            <NavDropdown.Item href="/liste_nt">Lister les numeros des traveaux </NavDropdown.Item>
+                        </NavDropdown>
 
 
 

@@ -12,6 +12,7 @@ import ListClients from "../Clients/ListClients/ListClients";
 
 import ListMarche from "../Marche/ListMarche/ListMarche";
 import ListSites from "../Site/ListeSites/ListeSites";
+import ListeNT from "../NT/ListeNT/ListeNT";
 
 
 
@@ -86,6 +87,21 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListSites/>
+                          <PageFooter/>
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/liste_nt"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ListeNT/>
                           <PageFooter/>
 
                       </>

@@ -251,15 +251,6 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                               type="date"
                                               onChange={(e)=>handleInputChange(e)}
                                           />
-
-                                      : field.type === 'DateField' ?
-                                          <Form.Control
-                                              name={field.name}
-                                              required
-                                              className="w-100"
-                                              type="date"
-                                              onChange={(e)=>handleInputChange(e)}
-                                          />
                                           :
                                           <Form.Control
                                               name={field.name}
