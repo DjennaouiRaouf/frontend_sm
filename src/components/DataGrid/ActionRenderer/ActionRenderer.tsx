@@ -18,10 +18,9 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
 
     dispatch(displayModal({data:rowData,title:props.title,img:props.img}));
   };
-  if(props.modelName === 'Marche'){}
   const handleDQEClick = () => {
     const rowData:any =  props.data  ;
-    console.log(rowData[props.pk])
+
     dispatch(addModal({data:rowData,title:props.title,img:props.img,pk:props.pk,pkValue:rowData[props.pk]}));
   };
 

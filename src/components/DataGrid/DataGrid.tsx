@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import DisplayDataGridModal from "./DisplayDataGridModal/DisplayDataGridModal";
 import ActionRenderer from "./ActionRenderer/ActionRenderer";
 import AddDataGridModal from "./AddDataGridModal/AddDataGridModal";
-
+import layout from "../icons/layout.png";
 type DataGridProps = {
   endpoint_rows:string;
   endpoint_cols:string;
@@ -115,10 +115,13 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     return (
       <>
           <DisplayDataGridModal cols={cols}   />
-          {
+          { /*ajouter dqe au marché */
               modelName === "Marche"&&
-              <AddDataGridModal cols={cols}   />
+
+              <AddDataGridModal img={layout} title={"DQE"} endpoint_fields={"/forms/dqefields/?flag=f"} endpoint_submit={"/sm/adddqe/"}
+                                endpoint_upload={"/sm/importdqe/"} />
           }
+
           <div style={containerStyle}>
 
               <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
