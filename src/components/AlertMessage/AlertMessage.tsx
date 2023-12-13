@@ -31,7 +31,7 @@ const AlertMessage: React.FC<any> = () => {
 
     return (
       <>
-          <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
+          <ToastContainer position="top-start" className="p-3" style={{ zIndex: 1 }}>
           <Toast show={show} style={{background:variant}} >
               <Toast.Header closeButton={false}>
                   <strong className="me-auto">{heading}</strong>

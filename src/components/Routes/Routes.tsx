@@ -7,12 +7,12 @@ import {AuthContext} from "../Context/AuthContext/AuthContext";
 import AddMarcheForm from "../Marche/AddMarcheForm/AddMarcheForm";
 import AddSiteForm from "../Site/AddSiteForm/AddSiteForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
-import PageFooter from "../PageFooter/PageFooter";
 import ListClients from "../Clients/ListClients/ListClients";
 
 import ListMarche from "../Marche/ListMarche/ListMarche";
 import ListSites from "../Site/ListeSites/ListeSites";
 import ListeNT from "../NT/ListeNT/ListeNT";
+import AddNT from "../NT/AddNT/AddNT";
 
 
 
@@ -39,7 +39,7 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <Home/>
-                          <PageFooter/>
+                          
 
 
                       </>
@@ -55,7 +55,7 @@ const Routes: React.FC<any> = () => {
                        <>
                            <NavigationBar/>
                            <AddClientForm />
-                           <PageFooter/>
+                           
 
                        </>
                   ): (
@@ -72,7 +72,7 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListClients />
-                          <PageFooter/>
+                          
 
                       </>
                   ): (
@@ -87,7 +87,7 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListSites/>
-                          <PageFooter/>
+                          
 
                       </>
                   ): (
@@ -102,7 +102,7 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListeNT/>
-                          <PageFooter/>
+                          
 
                       </>
                   ): (
@@ -117,7 +117,7 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListMarche/>
-                          <PageFooter/>
+                          
 
                       </>
                   ): (
@@ -125,7 +125,21 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+          <Route
+              path="/ajout_nt"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <AddNT />
 
+                        
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
 
           <Route
               path="/ajout_s"
@@ -135,7 +149,7 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <AddSiteForm />
 
-                          <PageFooter/>
+                         
                       </>
                   ): (
                       <Navigate to="/"  />
@@ -150,7 +164,6 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <ListSites />
 
-                          <PageFooter/>
                       </>
                   ): (
                       <Navigate to="/"  />
@@ -165,7 +178,7 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <AddMarcheForm />
 
-                          <PageFooter/>
+                          
 
                       </>
                   ): (

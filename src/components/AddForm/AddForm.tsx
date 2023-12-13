@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
-import usr from "../icons/user.png";
+
 
 type AddFormProps = {
     endpoint_submit:string;
@@ -53,6 +53,8 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     const handleSubmit = async(e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
+        console.log(formData)
+
         const formDataObject = new FormData();
         for (const key in formData) {
             if (formData.hasOwnProperty(key)) {
@@ -70,13 +72,13 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
             })
                 .then((response:any) => {
+
                     dispatch(showAlert({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
                     setFormData(defaultState);
 
                 })
                 .catch((error:any) => {
-
-                    dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
+                    dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.request.response}))
                 });
 
 
@@ -176,13 +178,33 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                               <Form.Group className="w-100"  controlId={"validation"+index}>
                                   <Form.Label>
                                       <strong>
-                                          {field.label +" "}
+                                          {field.label  +" "}
                                           <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
                                               *
                                           </span>
                                       </strong>
                                   </Form.Label>
                                   {
+                                      field.type === "PrimaryKeyRelatedField"?
+                                          <div>
+                                              <input id={field.name} className="form-control w-100"
+                                                     list={"datalistOptions"+field.name}
+
+                                                     value={formData[field.name]}
+                                                     onChange={(e)=>handleSelectChange(e)}
+                                                     />
+                                              <datalist id={"datalistOptions"+field.name}>
+                                                  <option value="San Francisco"/>
+                                                  {field.queryset.map((qs:any, index:any) => (
+                                                      <option  key={index} value={qs.id}></option>
+                                                  ))}
+                                              </datalist>
+
+
+
+                                          </div>
+
+                                          :
                                       field.type === 'BooleanField' ?
 
                                           <Form.Control
@@ -209,15 +231,17 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                   value={formData[field.name]}
                                                   onChange={(e)=>handleInputChange(e)}
                                               />
+
                                               :
-                                              <Form.Control
-                                                  name={field.name}
-                                                  required
-                                                  className="w-100"
-                                                  type="text"
-                                                  value={formData[field.name]}
-                                                  onChange={(e)=>handleInputChange(e)}
-                                              />
+                                                  <Form.Control
+                                                      name={field.name}
+                                                      required
+                                                      className="w-100"
+                                                      type="text"
+                                                      value={formData[field.name]}
+                                                      onChange={(e)=>handleInputChange(e)}
+                                                  />
+
 
 
                                   }
