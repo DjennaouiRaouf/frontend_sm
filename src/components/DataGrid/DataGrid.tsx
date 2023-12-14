@@ -49,7 +49,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const getCols = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_cols}`,{
             headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
+                Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
 
             },
@@ -85,7 +85,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const getRows = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}`,{
             headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
+                Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
 
             },

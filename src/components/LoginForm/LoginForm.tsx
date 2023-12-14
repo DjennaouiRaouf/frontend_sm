@@ -53,8 +53,10 @@ const LoginForm: React.FC<any> = () => {
       withCredentials:true,
     })
         .then((response:any) => {
-          setAuthenticated(Cookies.get("token"))
+          sessionStorage.setItem("token",response.data.token);
+          setAuthenticated(response.data.token)
           navigate('/home');
+
 
 
 
@@ -159,7 +161,7 @@ const LoginForm: React.FC<any> = () => {
                 <Button type="submit" className="w-100" style={{ background: "#df162c", borderWidth: 0 }}   >
                   Connexion</Button>
                 <hr className="my-4" />
-
+                <a href="/signup">Créer un nouveau compte</a>
               </Form>
             </div>
           </div>

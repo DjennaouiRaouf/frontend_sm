@@ -13,6 +13,7 @@ import ListMarche from "../Marche/ListMarche/ListMarche";
 import ListSites from "../Site/ListeSites/ListeSites";
 import ListeNT from "../NT/ListeNT/ListeNT";
 import AddNT from "../NT/AddNT/AddNT";
+import Signup from "../Signup/Signup";
 
 
 
@@ -30,6 +31,12 @@ const Routes: React.FC<any> = () => {
                   ) : (
                       <Navigate to="/home"  />
                   )
+              }
+          />
+          <Route
+              path="/signup"
+              element={
+                          <Signup/>
               }
           />
           <Route
@@ -83,7 +90,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_s"
               element={
-                  authenticated ? (
+                  authenticated? (
                       <>
                           <NavigationBar/>
                           <ListSites/>

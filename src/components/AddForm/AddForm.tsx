@@ -186,23 +186,20 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                   </Form.Label>
                                   {
                                       field.type === "PrimaryKeyRelatedField"?
-                                          <div>
-                                              <input id={field.name} className="form-control w-100"
-                                                     list={"datalistOptions"+field.name}
+                                          <Form.Control
+                                              as="select"
+                                              name={field.name}
+                                              required
+                                              className="w-100"
+                                              value={formData[field.name]}
+                                              onChange={(e)=>handleSelectChange(e)}>
 
-                                                     value={formData[field.name]}
-                                                     onChange={(e)=>handleSelectChange(e)}
-                                                     />
-                                              <datalist id={"datalistOptions"+field.name}>
-                                                  <option value="San Francisco"/>
-                                                  {field.queryset.map((qs:any, index:any) => (
-                                                      <option  key={index} value={qs.id}></option>
-                                                  ))}
-                                              </datalist>
+                                              {field.queryset.map((qs:any, key:any) => (
+                                                  <option  key={key} value={qs.id}>{qs.libelle}</option>
+                                              ))}
 
+                                          </Form.Control>
 
-
-                                          </div>
 
                                           :
                                       field.type === 'BooleanField' ?
