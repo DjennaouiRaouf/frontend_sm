@@ -40,6 +40,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
     const gridOptions:any = {
         pagination: true,
         defaultColDef:defaultColDefs,
+        multiSortKey:'ctrl',
+        animateRows:true,
     };
 
 

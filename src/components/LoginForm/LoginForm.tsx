@@ -53,8 +53,7 @@ const LoginForm: React.FC<any> = () => {
       withCredentials:true,
     })
         .then((response:any) => {
-          sessionStorage.setItem("token",response.data.token);
-          setAuthenticated(response.data.token)
+          setAuthenticated(Cookies.get('token'))
           navigate('/home');
 
 
