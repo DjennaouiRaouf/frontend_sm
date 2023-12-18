@@ -158,18 +158,23 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                 </Form.Label>
                                 {
                                   field.type === "PrimaryKeyRelatedField"?
-                                      <Form.Control
-                                          as="select"
-                                          name={field.name}
-                                          className="w-100"
-                                          value={formData[field.name]}
-                                          onChange={(e)=>handleSelectChange(e)}>
+                                      <>
+                                        <Form.Control
+                                            name={field.name}
+                                            as="input"
+                                            list={field.name}
+                                            className="w-100"
+                                            value={formData[field.name]}
+                                            onChange={(e)=>handleSelectChange(e)}
+                                        />
+                                        <datalist id={field.name}>
+                                          {field.queryset.map((qs:any, key:any) => (
+                                              <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
+                                          ))}
 
-                                        {field.queryset.map((qs:any, key:any) => (
-                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                        ))}
+                                        </datalist>
 
-                                      </Form.Control>
+                                      </>
 
 
                                           :
