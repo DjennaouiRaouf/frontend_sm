@@ -217,6 +217,22 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                   </strong>
                                 </Form.Label>
                                 {
+                                  field.type === "PrimaryKeyRelatedField"?
+                                      <Form.Control
+                                          as="select"
+                                          name={field.name}
+                                          required
+                                          className="w-100"
+                                          value={formData[field.name]}
+                                          onChange={(e)=>handleSelectChange(e)}>
+
+                                        {field.queryset.map((qs:any, key:any) => (
+                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
+                                        ))}
+
+                                      </Form.Control>
+
+                                      :
                                   field.name === pk ?
                                       <Form.Control
                                           name={field.name}

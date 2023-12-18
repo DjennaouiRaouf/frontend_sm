@@ -11,21 +11,25 @@ import DisplayDataGridModal from "./DisplayDataGridModal/DisplayDataGridModal";
 import ActionRenderer from "./ActionRenderer/ActionRenderer";
 import AddDataGridModal from "./AddDataGridModal/AddDataGridModal";
 import layout from "../icons/layout.png";
+import {useModal} from "../Context/FilterModalContext/FilterModalContext";
+import {Button} from "react-bootstrap";
 type DataGridProps = {
   endpoint_rows:string;
   endpoint_cols:string;
   img:string;
   title:string;
+  filterState?:string;
 };
 
 const DataGrid: React.FC<DataGridProps> = (props) => {
+    const { url } = useModal();
     const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
     const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
     const[rows,setRows]=useState <any[]>([]);
     const[cols,setCols]=useState <any[]>([]);
     const[modelName,setModelName]=useState <string>("");
     const[pk,setPk]=useState <string>("");
-
+    const [gridApi, setGridApi] = useState<any>(null);
     const gridRef = useRef(null);
     const defaultColDefs: ColDef = {
         sortable: true,
@@ -83,7 +87,8 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
 
     const getRows = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}`,{
+
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}${url}`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -103,13 +108,20 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     }
 
+
+
+
+
+
     useEffect(() => {
         getCols();
         getRows();
 
-
     },[]);
 
+    const click = () => {
+      getRows()
+    }
 
 
     return (
@@ -137,6 +149,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
                   </div>
               </div>
           </div>
+
       </>
     );
 };

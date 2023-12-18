@@ -18,6 +18,7 @@ const ListeNT: React.FC<any> = () => {
               <div className="container-fluid" >
                 <div className="card shadow" >
                   <div className="card-body" >
+                    <h3 className="text-dark mb-0">{"Liste des NT"}</h3>
                     <div className="row">
                       <div className="col-md-6 text-nowrap">
                         <div

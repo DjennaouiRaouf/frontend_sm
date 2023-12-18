@@ -23,6 +23,7 @@ const AddClientForm: React.FC<any> = () => {
                                  endpoint_submit={"/sm/addclient/"}
                                  endpoint_fields={"/forms/clientfields/?flag=f"}
                                 endpoint_state={"/forms/clientfieldsstate/"}
+
                       />
 
 

@@ -14,6 +14,8 @@ import ListSites from "../Site/ListeSites/ListeSites";
 import ListeNT from "../NT/ListeNT/ListeNT";
 import AddNT from "../NT/AddNT/AddNT";
 import Signup from "../Signup/Signup";
+import ListDQE from "../Marche/ListDQE/ListDQE";
+import {ModalProvider} from "../Context/FilterModalContext/FilterModalContext";
 
 
 
@@ -56,6 +58,22 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
+              path="/liste_dqe"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ListDQE/>
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
               path="/ajout_c"
               element={
                    authenticated ? (
@@ -78,7 +96,9 @@ const Routes: React.FC<any> = () => {
                   authenticated ? (
                       <>
                           <NavigationBar/>
+                          <ModalProvider>
                           <ListClients />
+                          </ModalProvider>
                           
 
                       </>

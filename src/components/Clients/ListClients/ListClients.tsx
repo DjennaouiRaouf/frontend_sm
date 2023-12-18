@@ -8,11 +8,22 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 import DataGrid from "../../DataGrid";
 import customer from '../../icons/customer.png'
+import {ModalProvider, useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import FilterModal from "../../DataGrid/FilterModal/FilterModal";
 
 const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
 
+    const {url,openModal } = useModal();
 
+    const Filterone = () => {
+
+    }
+    const Filtertwo = () => {
+    }
+    const filter = () => {
+        openModal()
+    }
 
 
 
@@ -21,12 +32,14 @@ const ListClients: React.FC<any> = () => {
     return (
         <>
 
+            <FilterModal img={customer} title={"Rechercher un client"} endpoint_fields={"/forms/clientfilterfields/"} />
             <div id="wrapper" >
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content" >
                         <div className="container-fluid" >
                             <div className="card shadow" >
                                 <div className="card-body" >
+                                    <h3 className="text-dark mb-0">{"Liste des clients"}</h3>
                                     <div className="row">
                                         <div className="col-md-6 text-nowrap">
                                             <div
@@ -47,6 +60,11 @@ const ListClients: React.FC<any> = () => {
                                                         <i className="fas fa-plus" />
                                                         &nbsp;Ajouter
                                                     </Button>
+                                                    <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                                            onClick={()=>filter()}>
+                                                        <i className="fas fa-plus" />
+                                                        &nbsp;Recherche
+                                                    </Button>
                                                     <Dropdown>
                                                         <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
                                                         ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
@@ -56,10 +74,10 @@ const ListClients: React.FC<any> = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu>
-                                                            <Dropdown.Item href="#/action-1">
+                                                            <Dropdown.Item onClick={()=>Filterone()}>
                                                                 <i className="bi bi-file-earmark-pdf-fill"></i>
                                                                 &nbsp;pdf</Dropdown.Item>
-                                                            <Dropdown.Item href="#/action-2">
+                                                            <Dropdown.Item onClick={()=>Filtertwo()}>
                                                                 <i className="bi bi-filetype-xlsx"></i>
                                                                 &nbsp;xlsx</Dropdown.Item>
                                                         </Dropdown.Menu>
@@ -82,7 +100,8 @@ const ListClients: React.FC<any> = () => {
 
 
                                     >
-                                        <DataGrid img={customer} title={"Client"} endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={"/sm/getclients/"} />
+                                        <DataGrid img={customer} title={"Client"} endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={`/sm/getclients/`}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +110,8 @@ const ListClients: React.FC<any> = () => {
                 </div>
             </div>
 
-        </>
 
+        </>
 
   );
 };
