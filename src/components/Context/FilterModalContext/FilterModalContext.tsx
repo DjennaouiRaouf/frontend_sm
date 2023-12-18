@@ -6,17 +6,14 @@ interface ModalContextProps {
 
 type ModalContextValue ={
     showModal: boolean;
-    url:string;
     openModal: () => void;
     closeModal: () => void;
-    setSearchUrl: (u:string) => void;
+
 }
 const contextInitialValue: ModalContextValue = {
     showModal:true,
-    url:'',
     openModal: () => {},
     closeModal: () => {},
-    setSearchUrl: () => {},
 };
 
 const ModalContext = createContext<ModalContextValue>(contextInitialValue);
@@ -33,16 +30,13 @@ const ModalProvider = ({ children }:ModalContextProps) => {
         setShowModal(false);
 
     };
-    const setSearchUrl = (u:string) => {
-      setUrl(u)
-    }
+
 
     const contextValue: ModalContextValue = {
         showModal,
-        url,
         openModal,
         closeModal,
-        setSearchUrl,
+
 
     };
 

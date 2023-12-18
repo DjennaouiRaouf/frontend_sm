@@ -1,28 +1,113 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-
-import Form from 'react-bootstrap/Form';
 import Cookies from "js-cookie";
 import axios from "axios";
 import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
-import DataGrid from "../../DataGrid";
 import customer from '../../icons/customer.png'
 import {ModalProvider, useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
+import {AgGridReact} from "ag-grid-react";
+import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import {ColDef} from "ag-grid-community";
+import * as XLSX from "xlsx";
 
 const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
+    const { openModal } = useModal();
+    const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
+    const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
+    const gridRef = useRef(null);
+    const[rows,setRows]=useState <any[]>([]);
+    const[cols,setCols]=useState <any[]>([]);
+    const[filter,setFilter]=useState('');
 
-    const {url,openModal } = useModal();
+    const defaultColDefs: ColDef = {
+        sortable: true,
+        resizable: true,
+        minWidth: 300,
+        cellStyle: { textAlign: 'start', border: "none"  },
 
-    const Filterone = () => {
+    };
+
+
+
+    const gridOptions:any = {
+        pagination: true,
+        defaultColDef:defaultColDefs,
+        multiSortKey:'ctrl',
+        animateRows:true,
+    };
+
+    const getCols = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/clientfields/?flag=l`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+
+                const updatedCols:any[] = [...response.data.fields, {
+                    headerName:'Action',
+                    cellRenderer:ActionRenderer,
+                    cellRendererParams:{
+                        img:customer,
+                        title:"Clients",
+                    }
+                }];
+
+                setCols(updatedCols);
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
 
     }
-    const Filtertwo = () => {
+
+
+
+    const getRows = async(url:string) => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/${url}`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+
+                setRows(response.data);
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
+
     }
-    const filter = () => {
-        openModal()
+
+
+    useEffect(() => {
+        getCols();
+    },[]);
+
+    useEffect(() => {
+        getRows("");
+    },[]);
+
+
+    const export_xlsx = () => {
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, 'clients.xlsx');
     }
 
 
@@ -32,7 +117,7 @@ const ListClients: React.FC<any> = () => {
     return (
         <>
 
-            <FilterModal img={customer} title={"Rechercher un client"} endpoint_fields={"/forms/clientfilterfields/"} />
+            <FilterModal img={customer} title={"Rechercher un client"} endpoint_fields={"/forms/clientfilterfields/"} filter={getRows}  />
             <div id="wrapper" >
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content" >
@@ -61,7 +146,7 @@ const ListClients: React.FC<any> = () => {
                                                         &nbsp;Ajouter
                                                     </Button>
                                                     <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                                            onClick={()=>filter()}>
+                                                            onClick={openModal}>
                                                         <i className="fas fa-plus" />
                                                         &nbsp;Recherche
                                                     </Button>
@@ -74,10 +159,10 @@ const ListClients: React.FC<any> = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu>
-                                                            <Dropdown.Item onClick={()=>Filterone()}>
+                                                            <Dropdown.Item >
                                                                 <i className="bi bi-file-earmark-pdf-fill"></i>
                                                                 &nbsp;pdf</Dropdown.Item>
-                                                            <Dropdown.Item onClick={()=>Filtertwo()}>
+                                                            <Dropdown.Item onClick={export_xlsx} >
                                                                 <i className="bi bi-filetype-xlsx"></i>
                                                                 &nbsp;xlsx</Dropdown.Item>
                                                         </Dropdown.Menu>
@@ -100,8 +185,27 @@ const ListClients: React.FC<any> = () => {
 
 
                                     >
-                                        <DataGrid img={customer} title={"Client"} endpoint_cols={"/forms/clientfields/?flag=l"} endpoint_rows={`/sm/getclients/`}
-                                        />
+
+
+
+                                        <>
+                                            <DisplayDataGridModal cols={cols}   />
+
+                                            <div style={containerStyle}>
+
+                                                <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
+                                                    <div style={gridStyle} className="ag-theme-alpine  " >
+                                                        <AgGridReact ref={gridRef}
+                                                                     rowData={rows} columnDefs={cols}
+                                                                     gridOptions={gridOptions}
+
+
+
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
                                     </div>
                                 </div>
                             </div>
@@ -109,8 +213,6 @@ const ListClients: React.FC<any> = () => {
                     </div>
                 </div>
             </div>
-
-
         </>
 
   );

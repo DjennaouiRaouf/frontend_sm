@@ -7,12 +7,12 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import {ColDef} from "ag-grid-community";
 import Cookies from "js-cookie";
-import DisplayDataGridModal from "./DisplayDataGridModal/DisplayDataGridModal";
+import DisplayDataGridModal from "../DisplayDataGridModal/DisplayDataGridModal";
 import ActionRenderer from "./ActionRenderer/ActionRenderer";
 import AddDataGridModal from "./AddDataGridModal/AddDataGridModal";
 import layout from "../icons/layout.png";
 import {useModal} from "../Context/FilterModalContext/FilterModalContext";
-import {Button} from "react-bootstrap";
+
 type DataGridProps = {
   endpoint_rows:string;
   endpoint_cols:string;
@@ -22,7 +22,6 @@ type DataGridProps = {
 };
 
 const DataGrid: React.FC<DataGridProps> = (props) => {
-    const { url } = useModal();
     const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
     const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
     const[rows,setRows]=useState <any[]>([]);
@@ -50,78 +49,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
 
 
-    const getCols = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_cols}`,{
-            headers: {
-                Authorization: `Token ${Cookies.get('token')}`,
-                'Content-Type': 'application/json',
 
-            },
-        })
-            .then((response:any) => {
-                setModelName(response.data.models);
-                setPk(response.data.pk);
-
-                const updatedCols:any[] = [...response.data.fields, {
-                    headerName:'Action',
-                    cellRenderer:ActionRenderer,
-                    cellRendererParams:{
-                        img:props.img,
-                        title:props.title,
-                        modelName:response.data.models,
-                        pk:response.data.pk
-                    }
-                }];
-
-                setCols(updatedCols);
-
-
-
-            })
-            .catch((error:any) => {
-
-            });
-
-    }
-
-
-
-    const getRows = async() => {
-
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_rows}${url}`,{
-            headers: {
-                Authorization: `Token ${Cookies.get('token')}`,
-                'Content-Type': 'application/json',
-
-            },
-        })
-            .then((response:any) => {
-
-                setRows(response.data);
-
-
-
-            })
-            .catch((error:any) => {
-
-            });
-
-    }
-
-
-
-
-
-
-    useEffect(() => {
-        getCols();
-        getRows();
-
-    },[]);
-
-    const click = () => {
-      getRows()
-    }
 
 
     return (
@@ -137,7 +65,6 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
           <div style={containerStyle}>
 
               <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
-
                   <div style={gridStyle} className="ag-theme-alpine  " >
                       <AgGridReact ref={gridRef}
                                    rowData={rows} columnDefs={cols}

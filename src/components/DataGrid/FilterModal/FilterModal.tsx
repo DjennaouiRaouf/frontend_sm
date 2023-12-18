@@ -10,6 +10,7 @@ type FilterModalProps = {
   title:string;
   img?:string;
   endpoint_fields:string;
+  filter: (url:string) => void;
 
 };
 interface Opt {
@@ -18,7 +19,7 @@ interface Opt {
 }
 
 const FilterModal: React.FC<FilterModalProps> = (props) => {
-  const { showModal, closeModal,setSearchUrl,url } = useModal();
+  const { showModal, closeModal } = useModal();
   const [fields,setFields]=useState<any[]>([]);
   const [formData, setFormData] = useState<any>({});
 
@@ -48,11 +49,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
   };
 
   useEffect(() => {
-
     getFields();
-
-
-
   },[]);
 
   const getFields = async() => {
@@ -91,7 +88,9 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
       }
 
     });
-    setSearchUrl(url_tmp.join(''))
+    props.filter(url_tmp.join(''));
+
+
     closeModal()
     setFormData({})
 
@@ -140,7 +139,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                           <div className="row">
                             <div className="col-md-12 text-start">
                               <div className="mb-5">
-                                <h1 className="text-center">{url}</h1>
+                                <h1 className="text-center">{props.title}</h1>
                               </div>
                             </div>
                           </div>
