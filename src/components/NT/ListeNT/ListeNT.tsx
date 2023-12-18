@@ -3,6 +3,17 @@ import {Button, ButtonGroup, Dropdown} from "react-bootstrap";
 import DataGrid from "../../DataGrid";
 import hook from "../../icons/hook.png";
 import {useNavigate} from "react-router-dom";
+import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {ColDef} from "ag-grid-community";
+import axios from "axios";
+import Cookies from "js-cookie";
+import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import customer from "../../icons/customer.png";
+import * as XLSX from "xlsx";
+import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
+import {AgGridReact} from "ag-grid-react";
 
 type ListeNTProps = {
   //
@@ -10,8 +21,106 @@ type ListeNTProps = {
 
 const ListeNT: React.FC<any> = () => {
   const navigate=useNavigate();
+  const { openModal } = useModal();
+  const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
+  const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
+  const gridRef = useRef(null);
+  const[rows,setRows]=useState <any[]>([]);
+  const[cols,setCols]=useState <any[]>([]);
+  const[filter,setFilter]=useState('');
+
+  const defaultColDefs: ColDef = {
+    sortable: true,
+    resizable: true,
+    minWidth: 300,
+    cellStyle: { textAlign: 'start', border: "none"  },
+
+  };
+
+
+
+  const gridOptions:any = {
+    pagination: true,
+    defaultColDef:defaultColDefs,
+    multiSortKey:'ctrl',
+    animateRows:true,
+  };
+
+  const getCols = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/ntfields/?flag=l`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          const updatedCols:any[] = [...response.data.fields, {
+            headerName:'Action',
+            cellRenderer:ActionRenderer,
+            cellRendererParams:{
+              img:customer,
+              title:"Clients",
+            }
+          }];
+
+          setCols(updatedCols);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+
+
+  const getRows = async(url:string) => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getnt/${url}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          setRows(response.data);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+
+  useEffect(() => {
+    getCols();
+  },[]);
+
+  useEffect(() => {
+    getRows("");
+  },[]);
+
+
+  const export_xlsx = () => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'nt.xlsx');
+  }
+
+
+
   return (
       <>
+        <FilterModal img={hook} title={"Rechercher un numero de travail"} endpoint_fields={"/forms/ntfilterfields/"} filter={getRows}  />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content" >
@@ -39,6 +148,11 @@ const ListeNT: React.FC<any> = () => {
                               <i className="fas fa-plus" />
                               &nbsp;Ajouter
                             </Button>
+                            <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                    onClick={openModal}>
+                              <i className="fas fa-plus" />
+                              &nbsp;Recherche
+                            </Button>
                             <Dropdown>
                               <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
                                 ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
@@ -51,7 +165,7 @@ const ListeNT: React.FC<any> = () => {
                                 <Dropdown.Item href="#/action-1">
                                   <i className="bi bi-file-earmark-pdf-fill"></i>
                                   &nbsp;pdf</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">
+                                <Dropdown.Item onClick={export_xlsx}>
                                   <i className="bi bi-filetype-xlsx"></i>
                                   &nbsp;xlsx</Dropdown.Item>
                               </Dropdown.Menu>
@@ -74,7 +188,24 @@ const ListeNT: React.FC<any> = () => {
 
 
                     >
-                      <DataGrid img={hook} title={"Numero de travail"} endpoint_cols={"/forms/ntfields/?flag=l"} endpoint_rows={"/sm/getnt/"} />
+                      <>
+                        <DisplayDataGridModal cols={cols}   />
+
+                        <div style={containerStyle}>
+
+                          <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
+                            <div style={gridStyle} className="ag-theme-alpine  " >
+                              <AgGridReact ref={gridRef}
+                                           rowData={rows} columnDefs={cols}
+                                           gridOptions={gridOptions}
+
+
+
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </>
                     </div>
                   </div>
                 </div>

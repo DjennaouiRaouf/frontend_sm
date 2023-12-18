@@ -186,19 +186,24 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                   </Form.Label>
                                   {
                                       field.type === "PrimaryKeyRelatedField"?
+                                      <>
                                           <Form.Control
-                                              as="select"
                                               name={field.name}
+                                              as="input"
                                               required
+                                              list={field.name}
                                               className="w-100"
                                               value={formData[field.name]}
-                                              onChange={(e)=>handleSelectChange(e)}>
-
+                                              onChange={(e)=>handleSelectChange(e)}
+                                          />
+                                          <datalist id={field.name}>
                                               {field.queryset.map((qs:any, key:any) => (
-                                                  <option  key={key} value={qs.id}>{qs.libelle}</option>
+                                                  <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
                                               ))}
 
-                                          </Form.Control>
+                                          </datalist>
+
+                                        </>
 
 
                                           :
