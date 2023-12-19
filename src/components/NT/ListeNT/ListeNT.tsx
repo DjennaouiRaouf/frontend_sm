@@ -189,7 +189,7 @@ const ListeNT: React.FC<any> = () => {
 
                     >
                       <>
-                        <DisplayDataGridModal cols={cols}   />
+                        <DisplayDataGridModal img={hook} title={"Numero du travail"}cols={cols}   />
 
                         <div style={containerStyle}>
 

@@ -8,12 +8,14 @@ import {useEffect} from "react";
 
 type DisplayDataGridModalProps = {
     cols:any[];
+    title:string,
+    img:string,
  
 };
 
 const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
   const dispatch = useDispatch();
-  const { show,data,title,img } = useSelector((state: RootState) => state.displayDataGridModal);
+  const { show,data, } = useSelector((state: RootState) => state.displayDataGridModal);
   const handleClose = () => {
       dispatch(hideModal())
 
@@ -47,7 +49,7 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                       <div
                                           style={{
                                               height: "150px",
-                                              background: `url(${img}) center / auto no-repeat`,
+                                              background: `url(${props.img}) center / auto no-repeat`,
 
                                           }}
                                       />
@@ -58,7 +60,7 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                           <div className="row">
                                               <div className="col-md-12 text-start">
                                                   <div className="mb-5">
-                                                      <h1 className="text-center">{title}</h1>
+                                                      <h1 className="text-center">{props.title}</h1>
                                                   </div>
                                               </div>
                                           </div>

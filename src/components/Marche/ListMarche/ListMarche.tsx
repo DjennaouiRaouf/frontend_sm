@@ -1,22 +1,122 @@
-import React from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 import DataGrid from "../../DataGrid";
 import agreement from '../../icons/agreement.png'
+import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import {ColDef} from "ag-grid-community";
+import axios from "axios";
+import Cookies from "js-cookie";
+import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import customer from "../../icons/customer.png";
+import * as XLSX from "xlsx";
+import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
+import {AgGridReact} from "ag-grid-react";
+import hook from "../../icons/hook.png";
+import FilterModal from "../../DataGrid/FilterModal/FilterModal";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
+  const { openModal } = useModal();
+  const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
+  const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
+  const gridRef = useRef(null);
+  const[rows,setRows]=useState <any[]>([]);
+  const[cols,setCols]=useState <any[]>([]);
+  const[filter,setFilter]=useState('');
+
+  const defaultColDefs: ColDef = {
+    sortable: true,
+    resizable: true,
+    minWidth: 300,
+    cellStyle: { textAlign: 'start', border: "none"  },
+
+  };
 
 
 
+  const gridOptions:any = {
+    pagination: true,
+    defaultColDef:defaultColDefs,
+    multiSortKey:'ctrl',
+    animateRows:true,
+  };
+
+  const getCols = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/marchefields/?flag=l`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          const updatedCols:any[] = [...response.data.fields, {
+            headerName:'Action',
+            cellRenderer:ActionRenderer,
+            cellRendererParams:{
+              img:customer,
+              title:"Clients",
+            }
+          }];
+
+          setCols(updatedCols);
 
 
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+
+
+  const getRows = async(url:string) => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getmarche/${url}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          setRows(response.data);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+
+  useEffect(() => {
+    getCols();
+  },[]);
+
+  useEffect(() => {
+    getRows("");
+  },[]);
+
+
+  const export_xlsx = () => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'nt.xlsx');
+  }
 
 
   return (
       <>
-
+        <FilterModal img={agreement} title={"Rechercher un marche"} endpoint_fields={"/forms/marchefilterfields/"} filter={getRows}  />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content" >
@@ -43,6 +143,11 @@ const ListMarche: React.FC<any> = () => {
                                     onClick={() => navigate('/ajout_m')}>
                               <i className="fas fa-plus" />
                               &nbsp;Ajouter
+                            </Button>
+                            <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                    onClick={openModal}>
+                              <i className="fas fa-plus" />
+                              &nbsp;Recherche
                             </Button>
                             <Dropdown>
                               <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
@@ -79,7 +184,24 @@ const ListMarche: React.FC<any> = () => {
 
 
                     >
-                      <DataGrid img={agreement} title={"Marché"} endpoint_cols={"/forms/marchefields/?flag=l"} endpoint_rows={"/sm/getmarche/"} />
+                      <>
+                        <DisplayDataGridModal img={agreement} title={"Marché"} cols={cols}   />
+
+                        <div style={containerStyle}>
+
+                          <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
+                            <div style={gridStyle} className="ag-theme-alpine  " >
+                              <AgGridReact ref={gridRef}
+                                           rowData={rows} columnDefs={cols}
+                                           gridOptions={gridOptions}
+
+
+
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </>
                     </div>
                   </div>
                 </div>

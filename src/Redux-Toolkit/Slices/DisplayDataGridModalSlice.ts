@@ -6,30 +6,22 @@ interface Obj {
 export interface DisplayDataGridModalState {
     show:boolean;
     data:any;
-    title:string;
-    img:string;
+
 }
 
 const initialState: DisplayDataGridModalState = {
     show:false,
     data:"",
-    title:"",
-    img:"",
+
 };
 
 export const DisplayDataGridModal = createSlice({
     name: "DisplayDG",
     initialState,
     reducers: {
-        showModal: (state,action: PayloadAction<{ data: {};title:string;img:string }>) => {
+        showModal: (state,action: PayloadAction<{ data: {} }>) => {
             state.data=action.payload.data;
-            state.img=action.payload.img;
-            state.title=action.payload.title;
             state.show=true;
-
-
-
-
         },
         hideModal: (state) => {
             state.show=false;

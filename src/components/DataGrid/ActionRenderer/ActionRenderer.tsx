@@ -18,7 +18,7 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
   const handleEditClick = () => {
     const rowData:any =  props.data  ;
 
-    dispatch(displayModal({data:rowData,title:props.title,img:props.img}));
+    dispatch(displayModal({data:rowData}));
   };
   const handleDQEClick = () => {
     const rowData:any =  props.data  ;

@@ -149,7 +149,10 @@ const Routes: React.FC<any> = () => {
                   authenticated ? (
                       <>
                           <NavigationBar/>
-                          <ListMarche/>
+                          <ModalProvider>
+                              <ListMarche/>
+                          </ModalProvider>
+
                           
 
                       </>

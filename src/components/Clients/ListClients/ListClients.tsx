@@ -189,7 +189,7 @@ const ListClients: React.FC<any> = () => {
 
 
                                         <>
-                                            <DisplayDataGridModal cols={cols}   />
+                                            <DisplayDataGridModal img={customer} title={"Client"} cols={cols}   />
 
                                             <div style={containerStyle}>
 

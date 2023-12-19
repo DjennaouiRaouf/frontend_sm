@@ -54,7 +54,7 @@ const DataGrid: React.FC<DataGridProps> = (props) => {
 
     return (
       <>
-          <DisplayDataGridModal cols={cols}   />
+
           { /*ajouter dqe au marché */
               modelName === "Marche"&&
 

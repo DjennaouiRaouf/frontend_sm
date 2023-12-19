@@ -193,7 +193,7 @@ const ListeSites: React.FC<any> = () => {
 
 
                       <>
-                        <DisplayDataGridModal cols={cols}   />
+                        <DisplayDataGridModal  img={hook} title={"Site"} cols={cols}   />
 
                         <div style={containerStyle}>
 

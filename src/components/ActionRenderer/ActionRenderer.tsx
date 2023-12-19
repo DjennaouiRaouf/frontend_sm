@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useDispatch} from "react-redux";
-import {showModal as displayModal} from "../../../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
+import {showModal as displayModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
 import {useNavigate} from "react-router-dom";
 
 type ActionRendererProps = {
@@ -17,7 +17,7 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
   const handleDisplayClick = () => {
     const rowData:any =  props.data  ;
 
-    dispatch(displayModal({data:rowData,title:props.title,img:props.img}));
+    dispatch(displayModal({data:rowData}));
   };
 
 
