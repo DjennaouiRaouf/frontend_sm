@@ -63,7 +63,10 @@ const Routes: React.FC<any> = () => {
                   authenticated ? (
                       <>
                           <NavigationBar/>
-                          <ListDQE/>
+                          <ModalProvider>
+                              <ListDQE/>
+                          </ModalProvider>
+
 
 
 

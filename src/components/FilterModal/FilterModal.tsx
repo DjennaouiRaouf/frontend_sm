@@ -85,7 +85,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
     Object.entries(formData).forEach(([key, value], index) => {
       if(index == 0){
 
-        url_tmp.push(`?${key}=${value}`);
+        url_tmp.push(`${key}=${value}`);
       }
       if(index >= 1){
         url_tmp.push(`&${key}=${value}`);

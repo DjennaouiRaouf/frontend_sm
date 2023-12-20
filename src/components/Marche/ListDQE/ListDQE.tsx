@@ -14,6 +14,9 @@ import {useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import settings from "../../icons/settings.png";
 import {ColDef} from "ag-grid-community";
+import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import FilterModal from "../../FilterModal/FilterModal";
+import customer from "../../icons/customer.png";
 type ListDQEProps = {
   //
 };
@@ -24,7 +27,7 @@ const ListDQE: React.FC<any> = () => {
   const gridRef = useRef(null);
   const[rows,setRows]=useState <any[]>([]);
   const[cols,setCols]=useState <any[]>([]);
-
+  const { openModal } = useModal();
   const navigate=useNavigate();
   const location = useLocation();
   const mid = location.state;
@@ -77,7 +80,7 @@ const ListDQE: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}&${url}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -109,6 +112,7 @@ const ListDQE: React.FC<any> = () => {
   return (
       <>
         <>
+          <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"} filter={getRows}  />
 
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
@@ -135,6 +139,11 @@ const ListDQE: React.FC<any> = () => {
                               <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
                                 <i className="fas fa-plus" />
                                 &nbsp;Ajouter
+                              </Button>
+                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                      onClick={openModal}>
+                                <i className="fas fa-filter" />
+                                &nbsp;Recherche
                               </Button>
                               <Dropdown>
                                 <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0

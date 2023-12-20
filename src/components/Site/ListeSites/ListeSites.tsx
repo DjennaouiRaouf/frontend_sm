@@ -81,7 +81,7 @@ const ListeSites: React.FC<any> = () => {
 
   const getRows = async(url:string) => {
 
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getsites/${url}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getsites/?${url}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
