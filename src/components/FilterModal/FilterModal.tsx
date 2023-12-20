@@ -14,7 +14,7 @@ type FilterModalProps = {
 
 };
 interface Opt {
-  value:boolean;
+  value:boolean|null;
   label:string;
 }
 
@@ -25,6 +25,10 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
 
   const opt:Opt[] = [
+    {
+      value:null,
+      label:'Tout',
+    },
 
     {
       value: false,
