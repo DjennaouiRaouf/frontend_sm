@@ -33,6 +33,13 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
   };
 
 
+  const handlelistDQE = () => {
+    const rowData:any =  props.data  ;
+    if (props.pk){
+      navigate('/liste_dqe', { state: { marche: rowData[props.pk] } })
+    }
+
+  };
   const handleAddMulitpleDQE = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -153,6 +160,17 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
                   onClick={handledownloadDQE}
               >
                 <i className="fas fa-download" />
+              </button>
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Liste DQE"
+                  onClick={handlelistDQE}
+              >
+                <i className="fas fa-list-ul" />
               </button>
             </>
           </>
