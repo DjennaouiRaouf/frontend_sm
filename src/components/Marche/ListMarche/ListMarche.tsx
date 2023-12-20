@@ -57,8 +57,10 @@ const ListMarche: React.FC<any> = () => {
             headerName:'Action',
             cellRenderer:ActionRenderer,
             cellRendererParams:{
-              img:customer,
-              title:"Clients",
+              modelName:response.data.models,
+              pk:response.data.pk,
+              endpoint_upload:'/sm/importdqe/',
+              endpoint_download:'/sm/getdqe/',
             }
           }];
 
@@ -146,7 +148,7 @@ const ListMarche: React.FC<any> = () => {
                             </Button>
                             <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                     onClick={openModal}>
-                              <i className="fas fa-plus" />
+                              <i className="fas fa-filter" />
                               &nbsp;Recherche
                             </Button>
                             <Dropdown>

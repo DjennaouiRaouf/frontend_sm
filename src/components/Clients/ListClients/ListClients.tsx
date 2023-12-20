@@ -24,7 +24,8 @@ const ListClients: React.FC<any> = () => {
     const gridRef = useRef(null);
     const[rows,setRows]=useState <any[]>([]);
     const[cols,setCols]=useState <any[]>([]);
-    const[filter,setFilter]=useState('');
+    const[model,setModel]=useState('');
+
 
     const defaultColDefs: ColDef = {
         sortable: true,
@@ -57,7 +58,7 @@ const ListClients: React.FC<any> = () => {
                     headerName:'Action',
                     cellRenderer:ActionRenderer,
                     cellRendererParams:{
-
+                        modelName:response.data.models,
                     }
                 }];
 
@@ -149,7 +150,7 @@ const ListClients: React.FC<any> = () => {
                                                     </Button>
                                                     <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                                             onClick={openModal}>
-                                                        <i className="fas fa-plus" />
+                                                        <i className="fas fa-filter" />
                                                         &nbsp;Recherche
                                                     </Button>
                                                     <Dropdown>

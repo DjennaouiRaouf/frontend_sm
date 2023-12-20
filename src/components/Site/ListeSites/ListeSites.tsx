@@ -154,7 +154,7 @@ const ListeSites: React.FC<any> = () => {
                             </Button>
                             <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                     onClick={openModal}>
-                              <i className="fas fa-plus" />
+                              <i className="fas fa-filter" />
                               &nbsp;Recherche
                             </Button>
                             <Dropdown>

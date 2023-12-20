@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit" />
+    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/DisplayDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/DisplayDataGridModalSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1703058566432</updated>
-      <workItem from="1703058567433" duration="1452000" />
+      <workItem from="1703058567433" duration="12151000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -69,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703061729499</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Initial commit">
+      <created>1703062241645</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703062241645</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

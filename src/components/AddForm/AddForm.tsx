@@ -194,7 +194,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               list={field.name}
                                               className="w-100"
                                               value={formData[field.name]}
-                                              onChange={(e)=>handleSelectChange(e)}
+                                              onChange={(e)=>handleInputChange(e)}
                                           />
                                           <datalist id={field.name}>
                                               {field.queryset.map((qs:any, key:any) => (

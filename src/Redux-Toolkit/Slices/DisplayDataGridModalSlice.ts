@@ -11,7 +11,7 @@ export interface DisplayDataGridModalState {
 
 const initialState: DisplayDataGridModalState = {
     show:false,
-    data:"",
+    data:'',
 
 };
 
