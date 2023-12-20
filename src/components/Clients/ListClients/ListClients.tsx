@@ -185,11 +185,7 @@ const ListClients: React.FC<any> = () => {
                                         className="table-responsive table mt-5 mb-3"
                                         role="grid"
                                         aria-describedby="dataTable_info"
-
-
                                     >
-
-
 
                                         <>
                                             <DisplayDataGridModal img={customer} title={"Client"} cols={cols}   />
