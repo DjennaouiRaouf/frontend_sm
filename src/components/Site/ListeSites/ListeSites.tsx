@@ -3,16 +3,19 @@ import {Button, ButtonGroup, Dropdown} from "react-bootstrap";
 import {ModalProvider, useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import {useNavigate} from "react-router-dom";
 import hook from '../../icons/hook.png';
-import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
-import {AgGridReact} from "ag-grid-react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {ColDef} from "ag-grid-community";
 import * as XLSX from 'xlsx';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 type ListeSitesProps = {
   //
 };

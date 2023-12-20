@@ -3,19 +3,19 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
-import DataGrid from "../../DataGrid";
+
 import agreement from '../../icons/agreement.png'
 import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import {ColDef} from "ag-grid-community";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import {AgGridReact} from "ag-grid-react";
 import hook from "../../icons/hook.png";
-import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import FilterModal from "../../FilterModal/FilterModal";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -161,7 +161,7 @@ const ListMarche: React.FC<any> = () => {
                                 <Dropdown.Item href="#/action-1">
                                   <i className="bi bi-file-earmark-pdf-fill"></i>
                                   &nbsp;pdf</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">
+                                <Dropdown.Item onClick={export_xlsx}>
                                   <i className="bi bi-filetype-xlsx"></i>
                                   &nbsp;xlsx</Dropdown.Item>
                               </Dropdown.Menu>

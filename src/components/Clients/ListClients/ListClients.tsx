@@ -6,12 +6,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 import customer from '../../icons/customer.png'
 import {ModalProvider, useModal} from "../../Context/FilterModalContext/FilterModalContext";
-import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import FilterModal from "../../FilterModal/FilterModal";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
-import {AgGridReact} from "ag-grid-react";
-import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import {ColDef} from "ag-grid-community";
 import * as XLSX from "xlsx";
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
@@ -54,8 +57,7 @@ const ListClients: React.FC<any> = () => {
                     headerName:'Action',
                     cellRenderer:ActionRenderer,
                     cellRendererParams:{
-                        img:customer,
-                        title:"Clients",
+
                     }
                 }];
 

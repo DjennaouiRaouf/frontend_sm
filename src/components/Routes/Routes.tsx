@@ -213,17 +213,12 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <AddMarcheForm />
-
-                          
-
                       </>
                   ): (
                       <Navigate to="/"  />
                   )
               }
           />
-
-
       </Router>
 
   )

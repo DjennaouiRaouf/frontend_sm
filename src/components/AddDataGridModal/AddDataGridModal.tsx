@@ -1,13 +1,13 @@
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../Redux-Toolkit/Store/Sotre";
-import {hideModal as hideModalAdd} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import {RootState} from "../../Redux-Toolkit/Store/Sotre";
+import {hideModal as hideModalAdd} from "../../Redux-Toolkit/Slices/AddDataGridModalSlice";
 import {Button, Form, Modal} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useRef, useState} from "react";
-import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
-import AlertMessage from "../../AlertMessage/AlertMessage";
+import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import AlertMessage from "../AlertMessage/AlertMessage";
 
 type AddDataGridModalProps = {
   title:string;

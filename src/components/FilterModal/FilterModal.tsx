@@ -3,8 +3,8 @@ import {Button, Form, Modal} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useRef, useState} from "react";
-import AlertMessage from "../../AlertMessage/AlertMessage";
-import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import AlertMessage from "../AlertMessage/AlertMessage";
+import {useModal} from "../Context/FilterModalContext/FilterModalContext";
 
 type FilterModalProps = {
   title:string;

@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Button, ButtonGroup, Dropdown} from "react-bootstrap";
-import DataGrid from "../../DataGrid";
 import hook from "../../icons/hook.png";
 import {useNavigate} from "react-router-dom";
 import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
@@ -8,12 +7,15 @@ import {useEffect, useMemo, useRef, useState} from "react";
 import {ColDef} from "ag-grid-community";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../DataGrid/ActionRenderer/ActionRenderer";
+import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
-import FilterModal from "../../DataGrid/FilterModal/FilterModal";
+import FilterModal from "../../FilterModal/FilterModal";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
-import {AgGridReact} from "ag-grid-react";
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 type ListeNTProps = {
   //

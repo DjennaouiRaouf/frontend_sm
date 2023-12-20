@@ -1,9 +1,12 @@
 import * as React from "react";
 import {Breadcrumb, Button, ButtonGroup, Dropdown} from "react-bootstrap";
-import DataGrid from "../../DataGrid";
+
 import agreement from "../../icons/agreement.png";
 import {useLocation} from "react-router-dom";
-
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 type ListDQEProps = {
   //
 };
@@ -11,6 +14,7 @@ type ListDQEProps = {
 const ListDQE: React.FC<any> = () => {
   const location = useLocation();
   const mid = location.state;
+  /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
   return (
       <>
         <>
@@ -76,7 +80,7 @@ const ListDQE: React.FC<any> = () => {
 
 
                       >
-                        <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />
+
                       </div>
                     </div>
                   </div>
