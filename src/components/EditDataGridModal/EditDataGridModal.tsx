@@ -82,17 +82,18 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     delete formData[props.pk]
-    console.log(formData)
-    /*
+    delete formData['prix_q']
+    console.log(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${props.pkValue}`,)
+
     const formDataObject = new FormData();
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {
         formDataObject.append(key, formData[key]);
       }
     }
-    console.log(formDataObject)
 
-    await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${props.pkValue}`,formDataObject,{
+/*
+    await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${props.pkValue}`,formData,{
       headers: {
         Authorization: `Token ${Cookies.get("token")}`,
         'Content-Type': 'application/json',
@@ -106,8 +107,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
         .catch((error:any) => {
 
         });
-    */
-
+*/
   }
 
 

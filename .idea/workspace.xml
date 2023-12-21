@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/AddDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Store/Sotre.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Store/Sotre.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDataGridModal/AddDataGridModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddDataGridModal/AddDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Context/FilterModalContext/FilterModalContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Context/FilterModalContext/FilterModalContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703058566432</updated>
       <workItem from="1703058567433" duration="15380000" />
-      <workItem from="1703142637811" duration="22284000" />
+      <workItem from="1703142637811" duration="22784000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -156,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703142995074</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Initial commit">
+      <created>1703168921268</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1703168921268</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
