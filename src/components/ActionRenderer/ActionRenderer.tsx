@@ -27,10 +27,6 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
     dispatch(displayModal({data:rowData}));
 
   };
-  const handleAddDQE = () => {
-    const rowData:any =  props.data  ;
-
-  };
 
 
   const handlelistDQE = () => {
@@ -119,17 +115,6 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
           {
             props.modelName === 'Marche'&&
             <>
-              <button
-                  className="btn btn-primary"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  type="button"
-                  style={{ background: "#df162c", borderWidth: 0 }}
-                  title="Ajouter un DQE"
-                  onClick={handleAddDQE}
-              >
-                <i className="fas fa-plus" />
-              </button>
             <>
               <input
                   type="file"
