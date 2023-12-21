@@ -1,39 +1,39 @@
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Redux-Toolkit/Store/Sotre";
-import {hideModal as hideModalAdd} from "../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import {hideModal as hideModalAdd} from "../../Redux-Toolkit/Slices/EditDataGridModalSlice";
 import {Button, Form, Modal} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useEffect, useRef, useState} from "react";
-import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import {useEffect,  useState} from "react";
 import AlertMessage from "../AlertMessage/AlertMessage";
 
 type AddDataGridModalProps = {
-  title:string;
-  img:string;
-  endpoint_fields:string;
-  endpoint_submit:string;
-  endpoint_upload?:string|null;
+  title?:string;
+  img?:string;
+  endpoint_fields?:string;
+  endpoint_submit?:string;
+  endpoint_state?:string;
+  pk:any;
+  pkValue:any;
+
 };
 interface Opt {
   value:boolean;
   label:string;
 }
 
-const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
+const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
   const dispatch = useDispatch();
-  const { show,data,title,img,pk,pkValue } = useSelector((state: RootState) => state.addDataGridModal);
   const [fields,setFields]=useState<any[]>([]);
   const [formData, setFormData] = useState<any>({});
-  const [validated, setValidated] = useState(false);
-  const fileInputRef:any = useRef(null);
+  const { show } = useSelector((state: RootState) => state.editDataGridModal);
   const handleClose = () => {
     dispatch(hideModalAdd())
-    setValidated(false)
-
 
   }
+
+
   const opt:Opt[] = [
 
     {
@@ -58,13 +58,6 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
 
   };
 
-  useEffect(() => {
-
-    getFields();
-
-
-
-  },[]);
 
   const getFields = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_fields}`,{
@@ -85,74 +78,64 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
         });
 
   }
-  const charger = () => {
 
-    fileInputRef.current.click();
-  };
-  const handleFileChange = async(event:any) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      try {
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append(pk,pkValue);
-
-        // Make a POST request using Axios
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_upload}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-
-        // Handle the response as needed
-        dispatch(showAlert({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
-
-
-      } catch (error:any) {
-        // Handle errors
-        dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
-      }
-    }
-  };
   const handleSubmit = async(e: any) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    formData[pk]=pkValue;
-
+    delete formData[props.pk]
+    console.log(formData)
+    /*
     const formDataObject = new FormData();
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {
         formDataObject.append(key, formData[key]);
       }
     }
-    if (form.checkValidity()) {
-      setValidated(false)
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}`,formDataObject,{
-        headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
-          'Content-Type': 'application/json',
+    console.log(formDataObject)
 
-        },
+    await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${props.pkValue}`,formDataObject,{
+      headers: {
+        Authorization: `Token ${Cookies.get("token")}`,
+        'Content-Type': 'application/json',
 
-      })
-          .then((response:any) => {
-            dispatch(showAlert({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
-
-          })
-          .catch((error:any) => {
-
-            dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.data.message}))
-          });
+      },
+    })
+        .then((response:any) => {
 
 
+        })
+        .catch((error:any) => {
 
-
-    }
-    else {
-      setValidated(true)
-    }
+        });
+    */
 
   }
+
+
+  const getDdfaultState = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_state}?${props.pk}=${props.pkValue}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get("token")}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          setFormData(response.data.state)
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+  useEffect(() => {
+    getDdfaultState();
+  },[]);
+  useEffect(() => {
+    getFields();
+  },[]);
 
 
   return (
@@ -167,7 +150,7 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
 
         >
           <AlertMessage/>
-          <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"  noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"  noValidate  onSubmit={handleSubmit}>
 
           <Modal.Body style={{border:"none",background:"#f8f9fa" ,borderRadius:"25px"}} >
 
@@ -218,28 +201,33 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                 </Form.Label>
                                 {
                                   field.type === "PrimaryKeyRelatedField"?
-                                      <Form.Control
-                                          as="select"
-                                          name={field.name}
-                                          required
-                                          className="w-100"
-                                          value={formData[field.name]}
-                                          onChange={(e)=>handleSelectChange(e)}>
+                                      <>
+                                        <Form.Control
+                                            name={field.name}
+                                            as="input"
+                                            required
+                                            list={field.name}
+                                            value={formData[field.name]}
+                                            className="w-100"
+                                            onChange={(e)=>handleInputChange(e)}
+                                        />
+                                        <datalist id={field.name}>
+                                          {field.queryset.map((qs:any, key:any) => (
+                                              <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
+                                          ))}
 
-                                        {field.queryset.map((qs:any, key:any) => (
-                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                        ))}
+                                        </datalist>
 
-                                      </Form.Control>
+                                      </>
 
                                       :
-                                  field.name === pk ?
+                                  field.name === props.pk ?
                                       <Form.Control
                                           name={field.name}
                                           required
                                           className="w-100"
                                           type="text"
-                                          value={pkValue}
+                                          value={props.pkValue}
                                           readOnly
 
 
@@ -251,6 +239,7 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                           as="select"
                                           name={field.name}
                                           required
+                                          value={formData[field.name]}
                                           className="w-100"
                                           onChange={(e)=>handleSelectChange(e)}>
 
@@ -265,6 +254,7 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                               required
                                               className="w-100"
                                               type="date"
+                                              value={formData[field.name]}
                                               onChange={(e)=>handleInputChange(e)}
                                           />
                                           :
@@ -273,6 +263,7 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                               required
                                               className="w-100"
                                               type="text"
+                                              value={formData[field.name]}
                                               onChange={(e)=>handleInputChange(e)}
                                           />
 
@@ -301,21 +292,7 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
               <i className="fa fa-send" style={{marginRight:5 }}></i>
               Envoyer
             </Button>
-            {
-              props.endpoint_upload  &&
-              <div>
-                <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }} onClick={charger}>
-                  <i className="fas fa-upload" style={{marginRight:5 }}></i>
-                  Charger
-                </Button>
-                <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                />
-              </div>
-            }
+
 
 
 
@@ -327,4 +304,4 @@ const AddDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
   );
 };
 
-export default AddDataGridModal;
+export default EditDataGridModal;

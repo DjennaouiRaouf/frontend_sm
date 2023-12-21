@@ -2,7 +2,7 @@ import * as React from "react";
 import {Button, Form, Modal} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {useEffect, useRef, useState} from "react";
+import {useEffect,  useState} from "react";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import {useModal} from "../Context/FilterModalContext/FilterModalContext";
 
@@ -54,7 +54,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
   useEffect(() => {
     getFields();
-  },[]);
+  });
 
   const getFields = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_fields}`,{
@@ -79,11 +79,9 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formDataLength:number=Object.entries(formData).length;
     const url_tmp:string[]=[];
     Object.entries(formData).forEach(([key, value], index) => {
-      if(index == 0){
+      if(index === 0){
 
         url_tmp.push(`${key}=${value}`);
       }

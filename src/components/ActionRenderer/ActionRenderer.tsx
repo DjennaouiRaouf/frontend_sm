@@ -7,11 +7,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import * as XLSX from "xlsx";
+import {showModal as editModal} from "../../Redux-Toolkit/Slices/EditDataGridModalSlice";
+import EditDataGridModal from "../EditDataGridModal/EditDataGridModal";
+import settings from '../icons/settings.png'
 
 type ActionRendererProps = {
   data:any;
   modelName:string;
-  pk?:string;
+  pk?:any;
   endpoint_upload?:string;
   endpoint_download?:string;
 };
@@ -95,6 +98,15 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
 
 
   }
+  
+  const handleEditDQE = () => {
+    const rowData:any =  props.data  ;
+
+    if(props.pk){
+      dispatch(editModal())
+    }
+
+  }
 
   return (
       <>
@@ -159,6 +171,25 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
               </button>
             </>
           </>
+          }
+          {
+            props.modelName === 'DQE'&&
+            <>
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Editer le DQE"
+                  onClick={handleEditDQE}
+              >
+                <i className="fas fa-edit" />
+              </button>
+            <EditDataGridModal title={"Editer un DQE"} pk={props.pk} pkValue={props.data[props.pk]}
+                               img={settings} endpoint_fields={'/forms/dqefields/?flag=f'}
+                               endpoint_submit={'/sm/updatedqe/'} endpoint_state={'/forms/dqefieldsstate/'}/>
+            </>
           }
 
         </div>

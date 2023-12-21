@@ -13,10 +13,11 @@ import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import {useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import settings from "../../icons/settings.png";
-import {ColDef} from "ag-grid-community";
+import {ColDef, GridApi, RowNode} from "ag-grid-community";
 import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
+import * as XLSX from "xlsx";
 type ListDQEProps = {
   //
 };
@@ -28,6 +29,11 @@ const ListDQE: React.FC<any> = () => {
   const[rows,setRows]=useState <any[]>([]);
   const[cols,setCols]=useState <any[]>([]);
   const { openModal } = useModal();
+  const [gridApi, setGridApi] = useState<GridApi | null>(null);
+  const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const[models,setModels]=useState<string>('')
+  const[pk,setPk]=useState<string>('')
+
   const navigate=useNavigate();
   const location = useLocation();
   const mid = location.state;
@@ -41,12 +47,15 @@ const ListDQE: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
+          setModels(response.data.models)
+          setPk(response.data.pk)
 
           const updatedCols:any[] = [...response.data.fields, {
             headerName:'Action',
             cellRenderer:ActionRenderer,
             cellRendererParams:{
               modelName:response.data.models,
+              pk:response.data.pk
             }
           }];
 
@@ -76,6 +85,7 @@ const ListDQE: React.FC<any> = () => {
     defaultColDef:defaultColDefs,
     multiSortKey:'ctrl',
     animateRows:true,
+    rowSelection:'multiple',
   };
 
 
@@ -100,6 +110,88 @@ const ListDQE: React.FC<any> = () => {
 
   }
 
+  const export_xlsx = () => {
+    if (rows.length > 0 ){
+      const currentDate = new Date();
+      const yearString = currentDate.getFullYear().toString();
+      const monthString = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+      const dayString = currentDate.getDate().toString().padStart(2, '0');
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb, `DQE_${yearString}-${monthString}-${dayString}.xlsx`);
+    }
+
+  }
+
+
+
+  const onGridReady = (params: { api: GridApi }) => {
+    setGridApi(params.api);
+  };
+
+  const onSelectionChanged = () => {
+    if (gridApi) {
+      const selectedNodes: any[] = gridApi.getSelectedNodes();
+      const selectedData: any[] = selectedNodes.map((node) => node.data);
+      setSelectedRows(selectedData);
+    }
+  };
+  const delSelected = async() => {
+    const pks:any[]=[]
+    const myDictionary: { [key: string]: any } = {};
+    selectedRows.forEach(obj => {
+
+        pks.push(obj[pk])
+
+
+    });
+    const pkList:any={}
+    pkList[pk]=pks
+    console.log(pkList)
+    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/deldqe/`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+      data: pkList,
+
+    })
+        .then((response:any) => {
+
+          getRows("");
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+    setSelectedRows([])
+  }
+  
+  const displayDeleted = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdeleteddqe/?marche__id=${mid.marche}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          setRows(response.data);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+  }
   useEffect(() => {
     getCols();
   },[]);
@@ -135,16 +227,35 @@ const ListDQE: React.FC<any> = () => {
                           <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                             <ButtonGroup style={{ height: 35}}>
-
-                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}>
-                                <i className="fas fa-plus" />
-                                &nbsp;Ajouter
-                              </Button>
                               <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                       onClick={openModal}>
                                 <i className="fas fa-filter" />
                                 &nbsp;Recherche
                               </Button>
+
+                              <Dropdown>
+                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
+                                  ,borderRadius:0}} id="dropdown-basic"
+                                >
+                                  <i className="far fa-trash-alt"></i>
+                                  &nbsp;Supprimer
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                  <Dropdown.Item onClick={delSelected}>
+                                    <i className="fas fa-eraser"></i>
+                                    &nbsp;Suppression</Dropdown.Item>
+                                  <Dropdown.Item onClick={displayDeleted}>
+                                    <i className="far fa-trash-alt"></i>
+                                    &nbsp;Corbeille</Dropdown.Item>
+                                  <Dropdown.Item onClick={export_xlsx}>
+                                    <i className="fas fa-list-ul"></i>
+                                    &nbsp;Elements supprimés</Dropdown.Item>
+                                </Dropdown.Menu>
+                              </Dropdown>
+
+
+
                               <Dropdown>
                                 <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
                                   ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
@@ -157,7 +268,7 @@ const ListDQE: React.FC<any> = () => {
                                   <Dropdown.Item href="#/action-1">
                                     <i className="bi bi-file-earmark-pdf-fill"></i>
                                     &nbsp;pdf</Dropdown.Item>
-                                  <Dropdown.Item href="#/action-2">
+                                  <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;xlsx</Dropdown.Item>
                                 </Dropdown.Menu>
@@ -189,7 +300,9 @@ const ListDQE: React.FC<any> = () => {
                               <div style={gridStyle} className="ag-theme-alpine  " >
                                 <AgGridReact ref={gridRef}
                                              rowData={rows} columnDefs={cols}
+                                             onGridReady={onGridReady}
                                              gridOptions={gridOptions}
+                                             onSelectionChanged={onSelectionChanged}
 
 
 

@@ -20,7 +20,6 @@ const ModalContext = createContext<ModalContextValue>(contextInitialValue);
 
 const ModalProvider = ({ children }:ModalContextProps) => {
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [url, setUrl] = useState<string>('');
 
     const openModal = () => {
         setShowModal(true);
