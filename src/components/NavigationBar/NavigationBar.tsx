@@ -94,8 +94,10 @@ const NavigationBar: React.FC<any> = () => {
                             <NavDropdown.Item href="/ajout_nt">Ajouter un numero de travail</NavDropdown.Item>
                             <NavDropdown.Item href="/liste_nt">Lister les numeros des traveaux </NavDropdown.Item>
                         </NavDropdown>
-
-
+                        <NavDropdown title="Facturation" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/ajout_facture">Ajouter une facture</NavDropdown.Item>
+                            <NavDropdown.Item href="/detail_facture">Detail de facture </NavDropdown.Item>
+                        </NavDropdown>
 
                     </Nav>
                     <Nav className="navbar-nav ms-auto">

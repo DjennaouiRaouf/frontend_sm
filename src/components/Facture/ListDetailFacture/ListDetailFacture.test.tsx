@@ -1,10 +1,10 @@
 import * as React from "react";
 import { shallow } from "enzyme";
-import ListFacture from "./ListFacture";
+import ListDetailFacture from "./ListDetailFacture";
 
-describe("ListFacture", () => {
+describe("ListDetailFacture", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<ListFacture />);
+    const wrapper = shallow(<ListDetailFacture />);
     expect(wrapper).toMatchSnapshot();
   });
 });

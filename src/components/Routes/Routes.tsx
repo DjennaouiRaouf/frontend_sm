@@ -16,6 +16,7 @@ import AddNT from "../NT/AddNT/AddNT";
 import Signup from "../Signup/Signup";
 import ListDQE from "../Marche/ListDQE/ListDQE";
 import {ModalProvider} from "../Context/FilterModalContext/FilterModalContext";
+import AddFacture from "../Facture/AddFacture/AddFacture";
 
 
 
@@ -78,14 +79,12 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/liste_facture"
+              path="/ajout_facture"
               element={
                   authenticated ? (
                       <>
                           <NavigationBar/>
-                          <ModalProvider>
-
-                          </ModalProvider>
+                          <AddFacture/>
 
 
 
