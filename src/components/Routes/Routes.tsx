@@ -76,6 +76,28 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+
+          <Route
+              path="/liste_facture"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ModalProvider>
+
+                          </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
+
           <Route
               path="/ajout_c"
               element={

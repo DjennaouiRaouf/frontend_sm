@@ -7,7 +7,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import * as XLSX from "xlsx";
-import {showModal as editModal} from "../../Redux-Toolkit/Slices/EditDataGridModalSlice";
+import {
+  fetchFields, fetchStateFields,
+  setPk,
+  showModal as editModal
+} from "../../Redux-Toolkit/Slices/EditDataGridModalSlice";
 import EditDataGridModal from "../EditDataGridModal/EditDataGridModal";
 import settings from '../icons/settings.png'
 
@@ -26,7 +30,6 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
 
   const handleDisplayClick = () => {
     const rowData:any =  props.data  ;
-    console.log(props.modelName)
     dispatch(displayModal({data:rowData}));
 
   };
@@ -103,6 +106,9 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
     const rowData:any =  props.data  ;
 
     if(props.pk){
+      dispatch(setPk({pk:props.pk,pkValue:rowData[props.pk]}))
+      dispatch(fetchFields({ endpoint_fields:'/forms/dqefields/?flag=f' }));
+      dispatch(fetchStateFields({ pk: props.pk,pkValue:rowData[props.pk],endpoint_state:"/forms/dqefieldsstate/" }));
       dispatch(editModal())
     }
 
@@ -186,9 +192,9 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
               >
                 <i className="fas fa-edit" />
               </button>
-            <EditDataGridModal title={"Editer un DQE"} pk={props.pk} pkValue={props.data[props.pk]}
-                               img={settings} endpoint_fields={'/forms/dqefields/?flag=f'}
-                               endpoint_submit={'/sm/updatedqe/'} endpoint_state={'/forms/dqefieldsstate/'}/>
+            <EditDataGridModal title={"Editer un DQE"}
+                               img={settings}
+                               endpoint_submit={'/sm/updatedqe/'}/>
             </>
           }
 

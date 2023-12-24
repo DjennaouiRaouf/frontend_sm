@@ -54,7 +54,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
   useEffect(() => {
     getFields();
-  });
+  },[]);
 
   const getFields = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_fields}`,{

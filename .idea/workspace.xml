@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/src/components/icons/bill.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +55,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\icons" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Facture" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
@@ -69,7 +77,8 @@
       <option name="presentableId" value="Default" />
       <updated>1703058566432</updated>
       <workItem from="1703058567433" duration="15380000" />
-      <workItem from="1703142637811" duration="22784000" />
+      <workItem from="1703142637811" duration="24374000" />
+      <workItem from="1703401641921" duration="17554000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -155,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703168921268</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Initial commit">
+      <created>1703169506232</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1703169506232</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
