@@ -2,10 +2,10 @@ import * as React from "react";
 import {useDispatch} from "react-redux";
 import {showModal as displayModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
 import {useNavigate} from "react-router-dom";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import {showModal as displayfactureModal} from "../../Redux-Toolkit/Slices/AddDataGridModalSlice";
 import * as XLSX from "xlsx";
 import {
   fetchFields, fetchStateFields,
@@ -14,6 +14,7 @@ import {
 } from "../../Redux-Toolkit/Slices/EditDataGridModalSlice";
 import EditDataGridModal from "../EditDataGridModal/EditDataGridModal";
 import settings from '../icons/settings.png'
+import AddFacture from "../Marche/Facture/AddFacture/AddFacture";
 
 type ActionRendererProps = {
   data:any;
@@ -113,6 +114,20 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
     }
 
   }
+  
+  const handleAddInvoice = () => {
+    const rowData:any =  props.data  ;
+    if (props.pk){
+      dispatch(displayfactureModal(rowData[props.pk]));
+    }
+  }
+
+  const handleListInvoice = () => {
+    const rowData:any =  props.data  ;
+    if (props.pk){
+      navigate('/liste_facture', { state: { marche: rowData[props.pk] } })
+    }
+  }
 
   return (
       <>
@@ -175,6 +190,30 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
               >
                 <i className="fas fa-list-ul" />
               </button>
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Facturation"
+                  onClick={handleAddInvoice}
+              >
+                <i className="fas fa-file-invoice"></i>
+              </button>
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Liste des factures"
+                  onClick={handleListInvoice}
+              >
+                <i className="far fa-list-alt"></i>
+              </button>
+
+              <AddFacture />
             </>
           </>
           }
