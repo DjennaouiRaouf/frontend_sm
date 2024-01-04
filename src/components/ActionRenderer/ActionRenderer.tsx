@@ -128,6 +128,25 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
       navigate('/liste_facture', { state: { marche: rowData[props.pk] } })
     }
   }
+  const handlePrintInvoice = async() => {
+    const rowData:any =  props.data  ;
+
+    if (props.pk){
+
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacture/?numero_facture=${rowData[props.pk]}`,{
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+          'Content-Type': 'application/json',
+
+        },
+      })
+          .then((response:any) => {
+            navigate('/print_facture', { state: { facture: response.data[0] } })
+          })
+          .catch((error:any) => {
+          });
+    }
+  }
 
   return (
       <>
@@ -210,12 +229,27 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
                   title="Liste des factures"
                   onClick={handleListInvoice}
               >
-                <i className="far fa-list-alt"></i>
+                <i className="fas fa-list"></i>
               </button>
 
               <AddFacture />
             </>
           </>
+          }
+          {
+              props.modelName === 'Factures'&&
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Imprimer la facture"
+                  onClick={handlePrintInvoice}
+              >
+                <i className="fas fa-print"></i>
+              </button>
+            
           }
           {
             props.modelName === 'DQE'&&

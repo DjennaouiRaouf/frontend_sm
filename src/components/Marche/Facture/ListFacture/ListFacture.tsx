@@ -16,9 +16,12 @@ import {useModal} from "../../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../../FilterModal/FilterModal";
 import bill from "../../../icons/bill.png"
 import * as XLSX from "xlsx";
+
+
 type ListFactureProps = {
     //
 };
+
 
 const ListFacture: React.FC<any> = () => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);

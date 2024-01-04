@@ -18,6 +18,7 @@ import ListDQE from "../Marche/ListDQE/ListDQE";
 import {ModalProvider} from "../Context/FilterModalContext/FilterModalContext";
 import AddFacture from "../Marche/Facture/AddFacture/AddFacture";
 import ListFacture from "../Marche/Facture/ListFacture/ListFacture";
+import InvoicePDFViewPrinter from "../InvoicePDFViewPrinter/InvoicePDFViewPrinter";
 
 
 
@@ -98,6 +99,21 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+
+          <Route
+              path="/print_facture"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <InvoicePDFViewPrinter/>
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
 
 
           <Route

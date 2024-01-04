@@ -26,6 +26,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     const [fields,setFields]=useState<any[]>([]);
     const [defaultState,setDefaultState]=useState<any>({});
     const [formData, setFormData] = useState<any>({});
+    const [modelName, setModelName] = useState<string>("");
 
     const opt:Opt[] = [
 
@@ -53,7 +54,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     const handleSubmit = async(e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
-        console.log(formData)
+
 
         const formDataObject = new FormData();
         for (const key in formData) {
@@ -102,6 +103,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         })
             .then((response:any) => {
                 setFields(response.data.fields);
+                setModelName(response.data.model);
 
 
 
@@ -191,12 +193,12 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               name={field.name}
                                               as="input"
                                               required
-                                              list={field.name}
+                                              list={modelName+field.name}
                                               className="w-100"
                                               value={formData[field.name]}
                                               onChange={(e)=>handleInputChange(e)}
                                           />
-                                          <datalist id={field.name}>
+                                          <datalist id={modelName+field.name}>
                                               {field.queryset.map((qs:any, key:any) => (
                                                   <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
                                               ))}

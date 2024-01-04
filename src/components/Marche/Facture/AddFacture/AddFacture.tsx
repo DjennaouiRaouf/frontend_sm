@@ -194,7 +194,6 @@ const AddFacture: React.FC<any> = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                     {fields.map((field,index) => (
                                         <div className="col-md-6 text-start" key={index}>
                                             <div className="mb-3">
