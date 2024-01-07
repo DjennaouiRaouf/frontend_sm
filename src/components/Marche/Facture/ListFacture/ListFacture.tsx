@@ -184,6 +184,22 @@ const ListFacture: React.FC<any> = () => {
     },[]);
     // get rows and cold dqe
     /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
+
+    const rgFacture = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacturerg/?marche=${mid.marche}`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+                console.log(response)
+                navigate('/print_rg_facture', { state: { factures: response.data.factures, extra:response.data.extra} })
+            })
+            .catch((error:any) => {
+            });
+    }
     return (
         <>
             <>
@@ -248,12 +264,12 @@ const ListFacture: React.FC<any> = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu>
-                                                                <Dropdown.Item href="#/action-1">
+                                                                <Dropdown.Item onClick={rgFacture}>
                                                                     <i className="bi bi-file-earmark-pdf-fill"></i>
-                                                                    &nbsp;pdf</Dropdown.Item>
+                                                                    &nbsp;Facture Retenue de garantie</Dropdown.Item>
                                                                 <Dropdown.Item onClick={export_xlsx}>
                                                                     <i className="bi bi-filetype-xlsx"></i>
-                                                                    &nbsp;xlsx</Dropdown.Item>
+                                                                    &nbsp;Exporter les factures</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
 
