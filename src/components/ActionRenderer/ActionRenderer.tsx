@@ -15,6 +15,7 @@ import {
 import EditDataGridModal from "../EditDataGridModal/EditDataGridModal";
 import settings from '../icons/settings.png'
 import AddFacture from "../Marche/Facture/AddFacture/AddFacture";
+import Encaissement from "../Marche/Encaissement/Encaissement";
 
 type ActionRendererProps = {
   data:any;
@@ -147,6 +148,13 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
           });
     }
   }
+  
+  const handlePaymentInvoice = () => {
+    const rowData:any =  props.data  ;
+    if (props.pk){
+      dispatch(displayfactureModal(rowData[props.pk]));
+    }
+  }
 
   return (
       <>
@@ -238,6 +246,7 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
           }
           {
               props.modelName === 'Factures'&&
+            <>
               <button
                   className="btn btn-primary"
                   data-bs-toggle="tooltip"
@@ -249,6 +258,21 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
               >
                 <i className="fas fa-print"></i>
               </button>
+
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Encaissement"
+                  onClick={handlePaymentInvoice}
+              >
+                <i className="bi bi-cash-coin"></i>
+              </button>
+              <Encaissement/>
+            </>
+              
             
           }
           {

@@ -35,9 +35,9 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
   const MyDocument = () => {
     return (
     <Document>
-      <Page size="A4" style={{padding:10,margin:10,fontSize:9}} >
-        <Image src={"https://th.bing.com/th/id/R.59efe8bb1965f3d0e0b67916e4df91cc?rik=3gnDGqTAQPT%2fLQ&riu=http%3a%2f%2fwww.conset-dz.com%2fwp-content%2fuploads%2f2016%2f07%2fcosider-1.jpg&ehk=n6dqllGHUv1aVfwTNtNrM6%2bKmcx6b963woAplJVffrI%3d&risl=&pid=ImgRaw&r=0"}
-               style={{ width: '50%',height:60 ,marginTop:0 }} />
+      <Page size="A4" style={{padding:1,margin:1,fontSize:8}} >
+        <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
+               style={{ width: '100%',height:110 ,position:"relative",top:-5}} />
 
         <View style={{margin:10}}>
           <Text style={{ position: "absolute",right: 45,textDecoration: 'underline', }}>{`Facture N° : ${facture.numero_facture}`}</Text>
@@ -98,8 +98,8 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
 
 
-        <Image src={"https://th.bing.com/th/id/R.59efe8bb1965f3d0e0b67916e4df91cc?rik=3gnDGqTAQPT%2fLQ&riu=http%3a%2f%2fwww.conset-dz.com%2fwp-content%2fuploads%2f2016%2f07%2fcosider-1.jpg&ehk=n6dqllGHUv1aVfwTNtNrM6%2bKmcx6b963woAplJVffrI%3d&risl=&pid=ImgRaw&r=0"}
-               style={{ width: '50%',height:60, position:"absolute",bottom:20,marginTop:5 }} />
+        <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
+               style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
         </Page>
     </Document>
     );
