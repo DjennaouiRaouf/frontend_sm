@@ -21,6 +21,7 @@ import ListFacture from "../Marche/Facture/ListFacture/ListFacture";
 import InvoicePDFViewPrinter from "../InvoicePDFViewPrinter/InvoicePDFViewPrinter";
 import InvoiceRGPDFViewPrinter from "../InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter";
 import Creances from "../Marche/Creances/Creances";
+import DelDQE from "../Marche/DelDQE/DelDQE";
 
 
 
@@ -101,6 +102,25 @@ const Routes: React.FC<any> = () => {
               }
           />
 
+          <Route
+              path="/del_dqe"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ModalProvider>
+                              <DelDQE/>
+                          </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
           <Route
               path="/liste_facture"
               element={

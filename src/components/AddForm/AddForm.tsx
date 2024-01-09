@@ -193,14 +193,14 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               name={field.name}
                                               as="input"
                                               required
-                                              list={modelName+field.name}
+                                              list={field.name}
                                               className="w-100"
                                               value={formData[field.name]}
                                               onChange={(e)=>handleInputChange(e)}
                                           />
-                                          <datalist id={modelName+field.name}>
+                                          <datalist id={field.name}>
                                               {field.queryset.map((qs:any, key:any) => (
-                                                  <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
+                                                  <option  key={key} value={qs.id}>{qs.libelle}</option>
                                               ))}
 
                                           </datalist>

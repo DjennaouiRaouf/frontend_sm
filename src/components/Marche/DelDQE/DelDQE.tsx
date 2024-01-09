@@ -18,11 +18,11 @@ import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
-type ListDQEProps = {
+type DelDQEProps = {
   //
 };
 
-const ListDQE: React.FC<any> = () => {
+const DelDQE: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
   const gridRef = useRef(null);
@@ -47,14 +47,14 @@ const ListDQE: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-          setModels(response.data.models)
+          setModels("del_"+response.data.models)
           setPk(response.data.pk)
 
           const updatedCols:any[] = [...response.data.fields, {
             headerName:'Action',
             cellRenderer:ActionRenderer,
             cellRendererParams:{
-              modelName:response.data.models,
+              modelName:"del_"+response.data.models,
               pk:response.data.pk
             }
           }];
@@ -90,7 +90,7 @@ const ListDQE: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}&${url}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/deleteddqe/?marche__id=${mid.marche}&${url}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const ListDQE: React.FC<any> = () => {
       const ws = XLSX.utils.json_to_sheet(rows);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb, `DQE_${yearString}-${monthString}-${dayString}.xlsx`);
+      XLSX.writeFile(wb, `Corbeille_DQE_${yearString}-${monthString}-${dayString}.xlsx`);
     }
 
   }
@@ -138,45 +138,9 @@ const ListDQE: React.FC<any> = () => {
       setSelectedRows(selectedData);
     }
   };
-  const delSelected = async() => {
-    const pks:any[]=[]
-    const myDictionary: { [key: string]: any } = {};
-    selectedRows.forEach(obj => {
-
-        pks.push(obj[pk])
-
-
-    });
-    const pkList:any={}
-    pkList[pk]=pks
-    console.log(pkList)
-    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/deldqe/`,{
-      headers: {
-        Authorization: `Token ${Cookies.get('token')}`,
-        'Content-Type': 'application/json',
-
-      },
-      data: pkList,
-
-    })
-        .then((response:any) => {
-
-          getRows("");
 
 
 
-        })
-        .catch((error:any) => {
-
-        });
-
-    setSelectedRows([])
-  }
-  
-  const displayDeleted = async() => {
-
-    navigate('/del_dqe', { state: { marche: mid.marche } })
-  }
   useEffect(() => {
     getCols();
   },[]);
@@ -197,7 +161,8 @@ const ListDQE: React.FC<any> = () => {
                 <div className="container-fluid" >
                   <div className="card shadow" >
                     <div className="card-body" >
-
+                      <h3 className="text-dark mb-0">{"Corbeille"}</h3>
+                      <br/>
                       <h3 className="text-dark mb-0">{"DQE du marche N° "+mid.marche}</h3>
                       <div className="row">
                         <div className="col-md-6 text-nowrap">
@@ -218,26 +183,7 @@ const ListDQE: React.FC<any> = () => {
                                 &nbsp;Recherche
                               </Button>
 
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderRadius:0}} id="dropdown-basic"
-                                >
-                                  <i className="far fa-trash-alt"></i>
-                                  &nbsp;Supprimer
-                                </Dropdown.Toggle>
 
-                                <Dropdown.Menu>
-                                  <Dropdown.Item onClick={delSelected}>
-                                    <i className="fas fa-eraser"></i>
-                                    &nbsp;Suppression</Dropdown.Item>
-                                  <Dropdown.Item onClick={displayDeleted}>
-                                    <i className="far fa-trash-alt"></i>
-                                    &nbsp;Corbeille</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="fas fa-list-ul"></i>
-                                    &nbsp;Elements supprimés</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
 
 
 
@@ -310,4 +256,4 @@ const ListDQE: React.FC<any> = () => {
   );
 };
 
-export default ListDQE;
+export default DelDQE;
