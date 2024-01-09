@@ -196,6 +196,7 @@ const Creances: React.FC<any> = () => {
   return (
       <>
         <>
+          <FilterModal img={bill} title={"Rechercher un paiement"} endpoint_fields={"/forms/encaissementfilterfields/"} filter={getRows}  />
 
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
