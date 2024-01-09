@@ -2,7 +2,7 @@ import * as React from "react";
 import {useDispatch} from "react-redux";
 import {showModal as displayModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
 import {useNavigate} from "react-router-dom";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {showModal as displayfactureModal} from "../../Redux-Toolkit/Slices/AddDataGridModalSlice";
@@ -156,6 +156,8 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
     }
   }
 
+
+
   return (
       <>
 
@@ -247,6 +249,7 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
           {
               props.modelName === 'Factures'&&
             <>
+
               <button
                   className="btn btn-primary"
                   data-bs-toggle="tooltip"

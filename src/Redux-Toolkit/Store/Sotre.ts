@@ -3,6 +3,7 @@ import AlertReducer from "../Slices/AlertSlice";
 import DisplayDataGridModalReducer from "../Slices/DisplayDataGridModalSlice";
 import EditDataGridModalReducer from "../Slices/EditDataGridModalSlice";
 import AddDataGridModalReducer from "../Slices/AddDataGridModalSlice";
+
 const store = configureStore({
     reducer: {
         alertReducer: AlertReducer,

@@ -186,6 +186,7 @@ const ListFacture: React.FC<any> = () => {
     /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
 
     const rgFacture = async() => {
+
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacturerg/?marche=${mid.marche}`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
@@ -194,8 +195,10 @@ const ListFacture: React.FC<any> = () => {
             },
         })
             .then((response:any) => {
-                console.log(response)
-                navigate('/print_rg_facture', { state: { factures: response.data.factures, extra:response.data.extra} })
+                if(response.data.extra.total_rg!='0,00'){
+                    navigate('/print_rg_facture', { state: { factures: response.data.factures, extra:response.data.extra} })
+                }
+
             })
             .catch((error:any) => {
             });
