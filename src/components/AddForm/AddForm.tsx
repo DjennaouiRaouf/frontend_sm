@@ -195,7 +195,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               required
                                               list={field.name}
                                               className="w-100"
-                                              value={formData[field.name]}
+                                              value={formData[field.name] || ''}
                                               onChange={(e)=>handleInputChange(e)}
                                           />
                                           <datalist id={field.name}>
@@ -216,7 +216,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                               name={field.name}
                                               required
                                               className="w-100"
-                                              value={formData[field.name]}
+                                              value={formData[field.name] || '' }
                                               onChange={(e)=>handleSelectChange(e)}>
 
                                               {opt.map((item,index) => (
@@ -232,7 +232,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                   required
                                                   className="w-100"
                                                   type="date"
-                                                  value={formData[field.name]}
+                                                  value={formData[field.name] || ''}
                                                   onChange={(e)=>handleInputChange(e)}
                                               />
 
@@ -242,7 +242,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                       required
                                                       className="w-100"
                                                       type="text"
-                                                      value={formData[field.name]}
+                                                      value={formData[field.name] || ''}
                                                       onChange={(e)=>handleInputChange(e)}
                                                   />
 

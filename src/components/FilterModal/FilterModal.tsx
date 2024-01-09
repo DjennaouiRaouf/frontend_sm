@@ -166,7 +166,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                             as="input"
                                             list={field.name}
                                             className="w-100"
-                                            value={formData[field.name]}
+                                            value={formData[field.name] || ''}
                                             onChange={(e)=>handleInputChange(e)}
                                         />
                                         <datalist id={field.name}>
