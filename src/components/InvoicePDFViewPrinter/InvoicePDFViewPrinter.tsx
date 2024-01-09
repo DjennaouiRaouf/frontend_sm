@@ -40,11 +40,10 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
   // Event handler for option change
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    console.log(selectedOption)
+
     setSelectedOption(selectedValue);
   };
   useEffect(() => {
-    console.log(selectedOption)
   },[selectedOption]);
 
   const MyDocument = () => {
@@ -58,7 +57,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                       style={{ width: '100%',height:110 ,position:"relative",top:0}} />
                :
                <View
-                      style={{ width: '100%',backgroundColor:'red',height:110 ,position:"relative",top:0}} />
+                      style={{ width: '100%',height:110 ,position:"relative",top:0}} />
 
 
         }
@@ -128,7 +127,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                      style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
               :
               <View
-                     style={{ width: '100%',backgroundColor:'red',height:56, position:"absolute",bottom:0,right:1 }} />
+                     style={{ width: '100%',height:56, position:"absolute",bottom:15,right:1 }} />
 
 
         }

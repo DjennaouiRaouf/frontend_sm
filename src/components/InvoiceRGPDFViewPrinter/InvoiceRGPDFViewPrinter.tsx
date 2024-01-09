@@ -9,7 +9,8 @@ import ReactPDF, {
   PDFDownloadLink, PDFViewer,
 } from "@react-pdf/renderer";
 import Image = ReactPDF.Image;
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
+import Form from "react-bootstrap/Form";
 type PDFViewPrinterProps = {
   //
 };
@@ -34,6 +35,27 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
     },
   });
 
+  interface Option {
+    value: string;
+    label: string;
+  }
+
+// List of options
+  const options: Option[] = [
+    { value: '1', label: 'Imprimer sur du papier blanc' },
+    { value: '0', label: 'Imprimer sur du papier à entête' },
+  ];
+
+  const [selectedOption, setSelectedOption] = useState<string>('1');
+
+  // Event handler for option change
+  const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+
+    setSelectedOption(selectedValue);
+  };
+  useEffect(() => {
+  },[selectedOption]);
   const MyDocument = () => {
     const [rgDate,setRgDate]=useState("");
     const [chunks,setChunks]=useState <any[]>([])
@@ -75,8 +97,17 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
               chunks.map((chunk:any, chunks_index:any) => (
                    chunks_index === 0 ?
                     <Page key={chunks_index}size="A4" style={{padding:1,margin:1,fontSize:8}} >
-                      <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
-                             style={{ width: '100%',height:110 ,position:"relative",top:-5}} />
+                      {
+                        selectedOption === "1" ?
+                            <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
+                                   style={{ width: '100%',height:110 ,position:"relative",top:0}} />
+                            :
+                            <View
+                                style={{ width: '100%',height:110 ,position:"relative",top:0}} />
+
+
+                      }
+
 
                       <View style={{marginBottom:20,marginLeft:10,marginRight:10}}>
                         <View style={{margin:10}}>
@@ -149,8 +180,16 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
 
 
                              </View>
-                             <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
-                                    style={{ width: '100%',height:60, position:"absolute",bottom:"0.5cm",marginTop:5 }} />
+                             {
+                               selectedOption === "1" ?
+                                   <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
+                                          style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
+                                   :
+                                   <View
+                                       style={{ width: '100%',height:56, position:"absolute",bottom:15,right:1 }} />
+
+
+                             }
                            </Page>
                            : chunks_index === chunks.length-1 &&
                            <Page key={chunks_index}size="A4" style={{padding:1,margin:1,fontSize:8}} >
@@ -197,8 +236,17 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
             :
                 chunks.length === 0 &&
                 <Page size="A4" style={{padding:1,margin:1,fontSize:8}} >
-                  <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
-                         style={{ width: '100%',height:110 ,position:"relative",top:-5}} />
+                  {
+                    selectedOption === "1" ?
+                        <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
+                               style={{ width: '100%',height:110 ,position:"relative",top:0}} />
+                        :
+                        <View
+                            style={{ width: '100%',height:110 ,position:"relative",top:0}} />
+
+
+                  }
+
                   <View style={{marginBottom:20,marginLeft:10,marginRight:10}}>
                     <View style={{margin:10}}>
                       <Text style={{ position: "absolute",right: 45,textDecoration: 'underline', }}>{`Facture de Retenue de Garantie du Marche N° :  ${data.extra.code_contrat} `}</Text>
@@ -254,8 +302,17 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
 
 
                   </View>
-                   <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
-               style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
+                  {
+                    selectedOption === "1" ?
+                        <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
+                               style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
+                        :
+                        <View
+                            style={{ width: '100%',height:56, position:"absolute",bottom:15,right:1 }} />
+
+
+                  }
+
                 </Page>
 
 
@@ -268,6 +325,16 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
   }
   return (
       <>
+        <div className="container text-center mb-3" >
+          <Form.Select aria-label="Default select example" style={{width:"100%"}} onChange={handleOptionChange} >
+            {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+            ))}
+          </Form.Select>
+        </div>
+
         <div>
           <PDFViewer style={{width:"100%",height:"860px"}}>
             <MyDocument  />

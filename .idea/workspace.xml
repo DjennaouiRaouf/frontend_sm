@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Store/Sotre.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Store/Sotre.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ActionRenderer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +89,7 @@
       <workItem from="1704351713909" duration="19903000" />
       <workItem from="1704611617535" duration="17275000" />
       <workItem from="1704698547392" duration="21929000" />
-      <workItem from="1704784556263" duration="8473000" />
+      <workItem from="1704784556263" duration="9409000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -247,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704722986359</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Initial commit">
+      <created>1704793817848</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1704793817848</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
