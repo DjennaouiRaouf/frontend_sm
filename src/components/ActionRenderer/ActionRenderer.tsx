@@ -155,6 +155,12 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
       dispatch(displayfactureModal(rowData[props.pk]));
     }
   }
+  const handlePaidInvoice = () => {
+    const rowData:any =  props.data  ;
+    if (props.pk){
+      navigate('/creances', { state: { facture: rowData[props.pk] } })
+    }
+  }
 
 
 
@@ -274,6 +280,17 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
                 <i className="bi bi-cash-coin"></i>
               </button>
               <Encaissement/>
+              <button
+                  className="btn btn-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  type="button"
+                  style={{ background: "#df162c", borderWidth: 0 }}
+                  title="Suivi des encaissement et créances"
+                  onClick={handlePaidInvoice}
+              >
+                <i className="far fa-calendar"></i>
+              </button>
             </>
               
             
