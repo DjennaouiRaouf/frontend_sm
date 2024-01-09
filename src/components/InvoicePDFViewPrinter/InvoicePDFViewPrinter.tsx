@@ -124,7 +124,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
         {
           selectedOption === "1" ?
               <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
-                     style={{ width: '95%',height:56, position:"absolute",bottom:20,right:1 }} />
+                     style={{ width: '100%',height:85, position:"absolute",bottom:20,right:1 }} />
               :
               <View
                      style={{ width: '100%',height:56, position:"absolute",bottom:15,right:1 }} />
