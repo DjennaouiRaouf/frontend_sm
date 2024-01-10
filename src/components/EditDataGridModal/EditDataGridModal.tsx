@@ -13,6 +13,7 @@ type AddDataGridModalProps = {
   img?:string;
   endpoint_fields?:string;
   endpoint_submit?:string;
+  getRows: (param: any) => void;
 
 };
 interface Opt {
@@ -74,7 +75,8 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
       },
     })
         .then((response:any) => {
-          console.log(response)
+
+          props.getRows('');
 
         })
         .catch((error:any) => {

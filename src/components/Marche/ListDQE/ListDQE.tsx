@@ -18,10 +18,41 @@ import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
+
 type ListDQEProps = {
   //
 };
 
+const InfoRenderer: React.FC<any> = (props) => {
+  const { value } = props;
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+    if(props.column.colId === 'unite'){
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibum/?id=${value}`,{
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+          'Content-Type': 'application/json',
+
+        },
+      })
+          .then((response:any) => {
+            setLibelle(response.data[0].libelle)
+          })
+          .catch((error:any) => {
+          });
+
+
+    }
+  }
+  useEffect(() => {
+      getLib();
+  },[libelle]);
+  if(props.column.colId === 'unite')
+    return <span>{libelle}</span>
+  else
+    return <span>{value}</span>
+
+};
 const ListDQE: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
@@ -37,57 +68,6 @@ const ListDQE: React.FC<any> = () => {
   const navigate=useNavigate();
   const location = useLocation();
   const mid = location.state;
-
-  const getCols = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/dqefields/?flag=l`,{
-      headers: {
-        Authorization: `Token ${Cookies.get('token')}`,
-        'Content-Type': 'application/json',
-
-      },
-    })
-        .then((response:any) => {
-          setModels(response.data.models)
-          setPk(response.data.pk)
-
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Action',
-            cellRenderer:ActionRenderer,
-            cellRendererParams:{
-              modelName:response.data.models,
-              pk:response.data.pk
-            }
-          }];
-
-          setCols(updatedCols);
-
-
-
-        })
-        .catch((error:any) => {
-
-        });
-
-  }
-
-  const defaultColDefs: ColDef = {
-    sortable: true,
-    resizable: true,
-    minWidth: 300,
-    cellStyle: { textAlign: 'start', border: "none"  },
-
-  };
-
-
-
-  const gridOptions:any = {
-    pagination: true,
-    defaultColDef:defaultColDefs,
-    multiSortKey:'ctrl',
-    animateRows:true,
-    rowSelection:'multiple',
-  };
-
 
   const getRows = async(url:string) => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}&${url}`,{
@@ -109,6 +89,64 @@ const ListDQE: React.FC<any> = () => {
         });
 
   }
+
+  const getCols = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/dqefields/?flag=l`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+          setModels(response.data.models)
+          setPk(response.data.pk)
+
+          const updatedCols:any[] = [...response.data.fields, {
+            headerName:'Action',
+            cellRenderer:ActionRenderer,
+            cellRendererParams:{
+              modelName:response.data.models,
+              pk:response.data.pk,
+              customMethod:getRows
+            }
+          }];
+
+          setCols(updatedCols);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
+  const defaultColDefs: ColDef = {
+    sortable: true,
+    resizable: true,
+    minWidth: 300,
+    cellStyle: { textAlign: 'start', border: "none"  },
+
+
+  };
+
+
+
+  const gridOptions:any = {
+    pagination: true,
+    defaultColDef:defaultColDefs,
+    multiSortKey:'ctrl',
+    animateRows:true,
+    rowSelection:'multiple',
+    components: {
+      InfoRenderer: InfoRenderer,
+    },
+  };
+
+
+
 
   const export_xlsx = () => {
     if (rows.length > 0 ){
@@ -149,7 +187,6 @@ const ListDQE: React.FC<any> = () => {
     });
     const pkList:any={}
     pkList[pk]=pks
-    console.log(pkList)
     await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/deldqe/`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
@@ -178,12 +215,13 @@ const ListDQE: React.FC<any> = () => {
     navigate('/del_dqe', { state: { marche: mid.marche } })
   }
   useEffect(() => {
+    getRows("");
+  },[]);
+  useEffect(() => {
     getCols();
   },[]);
 
-  useEffect(() => {
-    getRows("");
-  },[]);
+
   // get rows and cold dqe
   /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
   return (
@@ -308,6 +346,8 @@ const ListDQE: React.FC<any> = () => {
         </>
       </>
   );
+
+
 };
 
 export default ListDQE;

@@ -23,6 +23,8 @@ type ActionRendererProps = {
   pk?:any;
   endpoint_upload?:string;
   endpoint_download?:string;
+  updateRows: (param: any) => void;
+
 };
 
 const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
@@ -108,11 +110,16 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
     const rowData:any =  props.data  ;
 
     if(props.pk){
+
       dispatch(setPk({pk:props.pk,pkValue:rowData[props.pk]}))
       dispatch(fetchFields({ endpoint_fields:'/forms/dqefields/?flag=f' }));
       dispatch(fetchStateFields({ pk: props.pk,pkValue:rowData[props.pk],endpoint_state:"/forms/dqefieldsstate/" }));
       dispatch(editModal())
+
     }
+
+
+
 
   }
   
@@ -311,7 +318,9 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
               </button>
             <EditDataGridModal title={"Editer un DQE"}
                                img={settings}
+                               getRows={props.updateRows}
                                endpoint_submit={'/sm/updatedqe/'}/>
+
             </>
           }
 
