@@ -64,10 +64,10 @@ const ListDQE: React.FC<any> = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const[models,setModels]=useState<string>('')
   const[pk,setPk]=useState<string>('')
-
   const navigate=useNavigate();
   const location = useLocation();
   const mid = location.state;
+
 
   const getRows = async(url:string) => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}&${url}`,{
@@ -80,7 +80,6 @@ const ListDQE: React.FC<any> = () => {
         .then((response:any) => {
 
           setRows(response.data);
-
 
 
         })
@@ -108,7 +107,7 @@ const ListDQE: React.FC<any> = () => {
             cellRendererParams:{
               modelName:response.data.models,
               pk:response.data.pk,
-              customMethod:getRows
+              updateRows:getRows,
             }
           }];
 

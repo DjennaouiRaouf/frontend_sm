@@ -76,7 +76,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
     })
         .then((response:any) => {
 
-          props.getRows('');
+          props.getRows(``);
 
         })
         .catch((error:any) => {

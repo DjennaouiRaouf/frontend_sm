@@ -23,7 +23,7 @@ type ActionRendererProps = {
   pk?:any;
   endpoint_upload?:string;
   endpoint_download?:string;
-  updateRows: (param: any) => void;
+  updateRows: (params:any) => void;
 
 };
 
@@ -117,6 +117,7 @@ const ActionRenderer: React.FC<ActionRendererProps> = (props) => {
       dispatch(editModal())
 
     }
+
 
 
 
