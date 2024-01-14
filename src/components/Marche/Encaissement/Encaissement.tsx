@@ -17,6 +17,7 @@ interface Opt {
   label:string;
 }
 
+
 const Encaissement: React.FC<any> = () => {
   const [validated, setValidated] = useState(false);
   const { variant,show,heading,text } = useSelector((state: RootState) => state.alertReducer);

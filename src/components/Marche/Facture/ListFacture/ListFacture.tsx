@@ -16,6 +16,9 @@ import {useModal} from "../../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../../FilterModal/FilterModal";
 import bill from "../../../icons/bill.png"
 import * as XLSX from "xlsx";
+import ImprimerFacture from "../../../ActionRenderer/ImprimerFacture/ImprimerFacture";
+import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
+import PaiementFacture from "../../../ActionRenderer/PaiementFacture/PaiementFacture";
 
 
 type ListFactureProps = {
@@ -51,14 +54,33 @@ const ListFacture: React.FC<any> = () => {
                 setModels(response.data.models)
                 setPk(response.data.pk)
 
-                const updatedCols:any[] = [...response.data.fields, {
-                    headerName:'Action',
-                    cellRenderer:ActionRenderer,
-                    cellRendererParams:{
-                        modelName:response.data.models,
-                        pk:response.data.pk
-                    }
-                }];
+                const updatedCols:any[] = [...response.data.fields,
+                    {
+                        headerName:'Afficher',
+                        cellRenderer:DisplayRow,
+                        cellRendererParams:{
+                            modelName:response.data.models,
+                            pk:response.data.pk
+                        }
+
+                },
+                    {
+                        headerName: 'Imprimer',
+                        cellRenderer: ImprimerFacture,
+                        cellRendererParams: {
+                            modelName: response.data.models,
+                            pk: response.data.pk
+                        }
+                    },
+                    {
+                        headerName: 'Paiement & Créances',
+                        cellRenderer: PaiementFacture,
+                        cellRendererParams: {
+                            modelName: response.data.models,
+                            pk: response.data.pk
+                        }
+                    },
+                ];
 
                 setCols(updatedCols);
 

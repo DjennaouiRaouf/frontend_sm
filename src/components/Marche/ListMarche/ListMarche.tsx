@@ -16,6 +16,9 @@ import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModa
 import {AgGridReact} from "ag-grid-react";
 import hook from "../../icons/hook.png";
 import FilterModal from "../../FilterModal/FilterModal";
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
+import DQE from "../../ActionRenderer/DQE/DQE";
+import Facturation from "../../ActionRenderer/Facturation/Facturation";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -54,15 +57,38 @@ const ListMarche: React.FC<any> = () => {
         .then((response:any) => {
 
           const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Action',
-            cellRenderer:ActionRenderer,
+            headerName:'Afficher',
+            cellRenderer:DisplayRow,
             cellRendererParams:{
               modelName:response.data.models,
               pk:response.data.pk,
-              endpoint_upload:'/sm/importdqe/',
-              endpoint_download:'/sm/getdqe/',
             }
-          }];
+          },
+
+            {
+              headerName:'DQE',
+              cellRenderer:DQE,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                endpoint_upload:'/sm/importdqe/',
+                endpoint_download:'/sm/getdqe/',
+              }
+            },
+            {
+              headerName:'Facturation',
+              cellRenderer:Facturation,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+
+              }
+            },
+
+
+
+
+          ];
 
           setCols(updatedCols);
 

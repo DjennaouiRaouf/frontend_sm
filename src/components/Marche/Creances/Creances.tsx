@@ -23,6 +23,37 @@ type CreancesProps = {
 };
 
 
+const InfoRenderer: React.FC<any> = (props) => {
+  const { value } = props;
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+    if(props.column.colId === 'mode_paiement'){
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibmp/?id=${value}`,{
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+          'Content-Type': 'application/json',
+
+        },
+      })
+          .then((response:any) => {
+            setLibelle(response.data[0].libelle)
+          })
+          .catch((error:any) => {
+          });
+
+
+    }
+  }
+  useEffect(() => {
+    getLib();
+  },[libelle]);
+  if(props.column.colId === 'mode_paiement')
+    return <span>{libelle}</span>
+  else
+    return <span>{value}</span>
+
+};
+
 const Creances: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
@@ -87,6 +118,10 @@ const Creances: React.FC<any> = () => {
     multiSortKey:'ctrl',
     animateRows:true,
     rowSelection:'multiple',
+    components: {
+      InfoRenderer: InfoRenderer,
+    },
+
   };
 
 
