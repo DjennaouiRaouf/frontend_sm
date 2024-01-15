@@ -241,9 +241,6 @@ const ListDQE: React.FC<any> = () => {
     getCols();
   },[]);
 
-
-  // get rows and cold dqe
-  /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
   return (
       <>
         <>

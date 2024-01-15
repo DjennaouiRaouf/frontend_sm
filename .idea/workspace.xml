@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +93,7 @@
       <workItem from="1704886439226" duration="4989000" />
       <workItem from="1704956499437" duration="592000" />
       <workItem from="1705218176724" duration="6995000" />
-      <workItem from="1705304012016" duration="11821000" />
+      <workItem from="1705304012016" duration="12678000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -348,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705328404702</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Initial commit">
+      <created>1705329501322</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1705329501322</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
