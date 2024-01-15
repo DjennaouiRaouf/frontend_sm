@@ -72,7 +72,11 @@ const DQE: React.FC<DQEProps> = (props) => {
       })
           .then((response:any) => {
             if(response.data.length > 0){
-              const ws = XLSX.utils.json_to_sheet(response.data);
+              const data:any[]=response.data;
+              const dataset: any[] = data.map(obj => ({ ...obj, annule: 0 }));
+
+              const ws = XLSX.utils.json_to_sheet(dataset);
+
               const wb = XLSX.utils.book_new();
               XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
               XLSX.writeFile(wb, 'dqe.xlsx');
