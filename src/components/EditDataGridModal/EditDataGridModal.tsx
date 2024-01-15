@@ -152,7 +152,7 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
                                   <Form.Group className="w-100"  controlId={"validation"+index}>
                                     <Form.Label>
                                       <strong>
-                                        {field.label +" "+field.readOnly}
+                                        {field.label +" "}
                                         <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
                                               *
                                           </span>

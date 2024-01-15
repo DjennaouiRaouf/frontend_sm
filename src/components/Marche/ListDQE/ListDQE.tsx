@@ -18,6 +18,8 @@ import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
+import DQEAction from "../../ActionRenderer/DQEAction/DQEAction";
 
 type ListDQEProps = {
   //
@@ -101,15 +103,19 @@ const ListDQE: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Action',
-            cellRenderer:ActionRenderer,
-            cellRendererParams:{
-              modelName:response.data.models,
-              pk:response.data.pk,
-              updateRows:getRows,
-            }
-          }];
+          const updatedCols:any[] = [...response.data.fields,
+            {
+              headerName:'Action',
+              cellRenderer:DQEAction,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                updateRows:getRows,
+              }
+            },
+
+
+          ];
 
           setCols(updatedCols);
 
@@ -250,7 +256,13 @@ const ListDQE: React.FC<any> = () => {
                   <div className="card shadow" >
                     <div className="card-body" >
 
-                      <h3 className="text-dark mb-0">{"DQE du marche N° "+mid.marche}</h3>
+                      <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
+                        <div className="card-body text-center">
+                          <h5 className="text-center card-title">DQE du marche</h5>
+                          <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                        </div>
+                      </div>
+
                       <div className="row">
                         <div className="col-md-6 text-nowrap">
                           <div
