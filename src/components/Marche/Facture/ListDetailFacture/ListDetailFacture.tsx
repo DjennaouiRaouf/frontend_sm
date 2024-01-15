@@ -94,6 +94,21 @@ const ListDetailFacture: React.FC<any> = () => {
     multiSortKey:'ctrl',
     animateRows:true,
     rowSelection:'multiple',
+    localeText: {
+      // Default pagination text
+      page: 'Page',
+      to: 'à',
+      of: 'sur',
+      nextPage: 'Suivant',
+      lastPage: 'Dernier',
+      firstPage: 'Premier',
+      previousPage: 'Precedent',
+
+      loadingOoo: 'Chargement...',
+      noRowsToShow: 'Pas de Données',
+
+      // Add more custom texts as needed
+    },
   };
 
 

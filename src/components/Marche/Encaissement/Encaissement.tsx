@@ -188,7 +188,13 @@ const Encaissement: React.FC<any> = () => {
                           <div className="row">
                             <div className="col-md-12 text-start">
                               <div className="mb-5">
-                                <h1 className="text-center">{`Facture du Marche ${pk}` }</h1>
+
+                                <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
+                                  <div className="card-body text-center">
+                                    <h5 className="text-center card-title">Facture du Marche</h5>
+                                    <h5 className="text-center card-title">{`N° : ${pk}` }</h5>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
