@@ -44,6 +44,21 @@ const ListMarche: React.FC<any> = () => {
     defaultColDef:defaultColDefs,
     multiSortKey:'ctrl',
     animateRows:true,
+    localeText: {
+      // Default pagination text
+      page: 'Page',
+      to: 'à',
+      of: 'sur',
+      nextPage: 'Suivant',
+      lastPage: 'Dernier',
+      firstPage: 'Premier',
+      previousPage: 'Precedent',
+
+      loadingOoo: 'Chargement...',
+      noRowsToShow: 'Pas de Données',
+
+      // Add more custom texts as needed
+    },
   };
 
   const getCols = async() => {

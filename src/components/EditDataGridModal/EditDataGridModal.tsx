@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import {useEffect,  useState} from "react";
 import AlertMessage from "../AlertMessage/AlertMessage";
 
-type AddDataGridModalProps = {
+type EditDataGridModalProps = {
   title?:string;
   img?:string;
   endpoint_fields?:string;
@@ -21,7 +21,7 @@ interface Opt {
   label:string;
 }
 
-const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
+const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
   const dispatch = useDispatch();
   const { show,dataField,dataState,pk,pkValue } = useSelector((state: RootState) => state.editDataGridModal);
   const [formData, setFormData] = useState<any>({});
@@ -152,7 +152,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                   <Form.Group className="w-100"  controlId={"validation"+index}>
                                     <Form.Label>
                                       <strong>
-                                        {field.label +" "}
+                                        {field.label +" "+field.readOnly}
                                         <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
                                               *
                                           </span>
@@ -166,7 +166,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                                 as="input"
                                                 required
                                                 list={field.name}
-
+                                                disabled={field.readOnly || false}
                                                 value={formData[field.name]|| ''}
                                                 className="w-100"
                                                 onChange={(e)=>handleInputChange(e)}
@@ -189,7 +189,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                                   type="text"
                                                   value={pkValue}
                                                   readOnly
-
+                                                  disabled={field.readOnly || false}
 
                                               />
                                               :
@@ -201,6 +201,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                                       required
                                                       value={formData[field.name]|| ''}
                                                       className="w-100"
+                                                      disabled={field.readOnly || false}
                                                       onChange={(e)=>handleSelectChange(e)}>
 
                                                     {opt.map((item,index) => (
@@ -215,6 +216,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                                           className="w-100"
                                                           type="date"
                                                           value={formData[field.name]|| ''}
+                                                          disabled={field.readOnly || false}
                                                           onChange={(e)=>handleInputChange(e)}
                                                       />
                                                       :
@@ -224,6 +226,7 @@ const EditDataGridModal: React.FC<AddDataGridModalProps> = (props) => {
                                                           className="w-100"
                                                           type="text"
                                                           value={formData[field.name]|| ''}
+                                                          disabled={field.readOnly || false}
                                                           onChange={(e)=>handleInputChange(e)}
                                                       />
 

@@ -38,6 +38,7 @@ const initialState: EditDataGridModalState = {
 export const fetchStateFields:any = createAsyncThunk('stateFields', async (params:  UrlParamsState) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}${params.endpoint_state}?${params.pk}=${params.pkValue}`);
+
         return response.data.state;
     } catch (error:any) {
         throw error.response ? error.response.data : error.message;

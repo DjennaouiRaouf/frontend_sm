@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/DelDQE/DelDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/DelDQE/DelDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +101,7 @@
       <workItem from="1704886439226" duration="4989000" />
       <workItem from="1704956499437" duration="592000" />
       <workItem from="1705218176724" duration="6995000" />
-      <workItem from="1705304012016" duration="8367000" />
+      <workItem from="1705304012016" duration="10978000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -333,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705325358957</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Initial commit">
+      <created>1705325798149</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1705325798149</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

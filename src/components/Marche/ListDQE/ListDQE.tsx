@@ -142,6 +142,21 @@ const ListDQE: React.FC<any> = () => {
     components: {
       InfoRenderer: InfoRenderer,
     },
+    localeText: {
+      // Default pagination text
+      page: 'Page',
+      to: 'à',
+      of: 'sur',
+      nextPage: 'Suivant',
+      lastPage: 'Dernier',
+      firstPage: 'Premier',
+      previousPage: 'Precedent',
+
+      loadingOoo: 'Chargement...',
+      noRowsToShow: 'Pas de Données',
+
+      // Add more custom texts as needed
+    },
   };
 
 
