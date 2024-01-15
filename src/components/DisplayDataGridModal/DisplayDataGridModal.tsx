@@ -60,7 +60,12 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                           <div className="row">
                                               <div className="col-md-12 text-start">
                                                   <div className="mb-5">
-                                                      <h1 className="text-center">{props.title}</h1>
+                                                      <div className="card" style={{ height:'90px',width: "100%",background:'#ebebeb' }}>
+                                                          <div className="card-body text-center">
+                                                              <h1 className="text-center card-title">{props.title}</h1>
+                                                          </div>
+                                                      </div>
+
                                                   </div>
                                               </div>
                                           </div>

@@ -19,6 +19,7 @@ import * as XLSX from "xlsx";
 import ImprimerFacture from "../../../ActionRenderer/ImprimerFacture/ImprimerFacture";
 import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 import PaiementFacture from "../../../ActionRenderer/PaiementFacture/PaiementFacture";
+import DetailFacture from "../../../ActionRenderer/DetailFacture/DetailFacture";
 
 
 type ListFactureProps = {
@@ -75,6 +76,14 @@ const ListFacture: React.FC<any> = () => {
                     {
                         headerName: 'Paiement & Créances',
                         cellRenderer: PaiementFacture,
+                        cellRendererParams: {
+                            modelName: response.data.models,
+                            pk: response.data.pk
+                        }
+                    },
+                    {
+                        headerName: 'Detail de la facture',
+                        cellRenderer: DetailFacture,
                         cellRendererParams: {
                             modelName: response.data.models,
                             pk: response.data.pk
@@ -237,7 +246,12 @@ const ListFacture: React.FC<any> = () => {
                                 <div className="card shadow" >
                                     <div className="card-body" >
 
-                                        <h3 className="text-dark mb-0">{"Factures du marche N° "+mid.marche}</h3>
+                                        <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
+                                            <div className="card-body text-center">
+                                                <h5 className="text-center card-title">Factures du marche</h5>
+                                                <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                                            </div>
+                                        </div>
                                         <div className="row">
                                             <div className="col-md-6 text-nowrap">
                                                 <div

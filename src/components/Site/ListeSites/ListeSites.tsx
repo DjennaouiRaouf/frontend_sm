@@ -131,7 +131,12 @@ const ListeSites: React.FC<any> = () => {
               <div className="container-fluid" >
                 <div className="card shadow" >
                   <div className="card-body" >
-                    <h3 className="text-dark mb-0">{"Liste des sites"}</h3>
+
+                    <div className="card" style={{ height:'60px',width: "40%",background:'#ebebeb' }}>
+                      <div className="card-body text-center">
+                        <h4 className="text-center card-title">Liste des sites</h4>
+                      </div>
+                    </div>
                     <div className="row">
                       <div className="col-md-6 text-nowrap">
                         <div

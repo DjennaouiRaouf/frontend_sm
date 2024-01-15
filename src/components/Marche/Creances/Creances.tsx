@@ -240,7 +240,13 @@ const Creances: React.FC<any> = () => {
                   <div className="card shadow" >
                     <div className="card-body" >
 
-                      <h3 className="text-dark mb-0">{"Encaissements de la Facture N° "+fid.facture}</h3>
+
+                      <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
+                        <div className="card-body text-center">
+                          <h5 className="text-center card-title">Encaissements de la Facture</h5>
+                          <h5 className="text-center card-title">{`N° : ${fid.facture}` }</h5>
+                        </div>
+                      </div>
                       <div className="row">
                         <div className="col-md-6 text-nowrap">
                           <div
