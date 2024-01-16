@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Form, Modal} from "react-bootstrap";
+import {Button, Form, InputGroup, Modal} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect,  useState} from "react";
@@ -79,6 +79,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
+    console.log(formData)
     const url_tmp:string[]=[];
     Object.entries(formData).forEach(([key, value], index) => {
       if(index === 0){
@@ -141,7 +142,12 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                           <div className="row">
                             <div className="col-md-12 text-start">
                               <div className="mb-5">
-                                <h1 className="text-center">{props.title}</h1>
+                                <div className="card" style={{ height:'90px',width: "100%",background:'#ebebeb' }}>
+                                  <div className="card-body text-center">
+                                    <h1 className="text-center card-title">{props.title}</h1>
+                                  </div>
+                                </div>
+
                               </div>
                             </div>
                           </div>
@@ -159,7 +165,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                    
                                 </Form.Label>
                                 {
-                                  field.type === "PrimaryKeyRelatedField"?
+                                  field.type === "ModelChoiceFilter"?
                                       <>
                                         <Form.Control
                                             name={field.name}
@@ -180,7 +186,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
 
                                           :
-                                          field.type === 'BooleanField' ?
+                                          field.type === 'BooleanFilter' ?
 
                                               <Form.Control
                                                   as="select"
@@ -188,13 +194,13 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
                                                   className="w-100"
                                                   onChange={(e)=>handleSelectChange(e)}>
+                                                  {opt.map((item,index) => (
+                                                      <option key={index} value={String(item.value)}>{item.label}</option>
+                                                  ))}
 
-                                                {opt.map((item,index) => (
-                                                    <option key={index} value={String(item.value)}>{item.label}</option>
-                                                ))}
 
                                               </Form.Control>
-                                              : field.type === 'DateField' ?
+                                              : field.type === 'DateFilter' ?
                                                   <Form.Control
                                                       name={field.name}
 
@@ -203,13 +209,13 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                                       onChange={(e)=>handleInputChange(e)}
                                                   />
                                                   :
-                                                  <Form.Control
-                                                      name={field.name}
+                                                      <Form.Control
+                                                          name={field.name}
 
-                                                      className="w-100"
-                                                      type="text"
-                                                      onChange={(e)=>handleInputChange(e)}
-                                                  />
+                                                          className="w-100"
+                                                          type="text"
+                                                          onChange={(e)=>handleInputChange(e)}
+                                                      />
 
 
                                 }
