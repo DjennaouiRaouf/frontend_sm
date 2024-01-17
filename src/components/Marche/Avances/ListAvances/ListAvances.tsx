@@ -88,7 +88,7 @@ const ListAvances: React.FC<any> = () => {
     animateRows:true,
     rowSelection:'multiple',
     localeText: {
-      // Default pagination text
+
       page: 'Page',
       to: 'à',
       of: 'sur',

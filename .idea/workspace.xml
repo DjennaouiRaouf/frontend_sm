@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/Avances/ListAvances/ListAvances.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Avances/ListAvances/ListAvances.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +95,7 @@
       <workItem from="1705218176724" duration="6995000" />
       <workItem from="1705304012016" duration="12751000" />
       <workItem from="1705388698410" duration="6559000" />
-      <workItem from="1705475508746" duration="6684000" />
+      <workItem from="1705475508746" duration="6985000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1703058677004</created>
@@ -399,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705501578737</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Initial commit">
+      <created>1705502149470</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1705502149470</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
