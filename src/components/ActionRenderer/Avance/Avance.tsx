@@ -27,10 +27,10 @@ const Avance: React.FC<AddAvanceProps> = (props) => {
     }
   }
 
-  const handleListInvoice = () => {
+  const handleListAvance = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      //navigate('/liste_facture', { state: { marche: rowData[props.pk] } })
+      navigate('/liste_avance', { state: { marche: rowData[props.pk] } })
     }
   }
 
@@ -62,7 +62,7 @@ const Avance: React.FC<AddAvanceProps> = (props) => {
                   type="button"
                   style={{ background: "#df162c", borderWidth: 0 }}
                   title="Liste des Avances"
-
+                  onClick={handleListAvance}
               >
                 <i className="fas fa-list"></i>
               </button>
