@@ -23,8 +23,6 @@ type ListAvancesProps = {
   //
 };
 
-
-
 const ListAvances: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
