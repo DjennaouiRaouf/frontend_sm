@@ -19,6 +19,7 @@ import FilterModal from "../../FilterModal/FilterModal";
 import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 import DQE from "../../ActionRenderer/DQE/DQE";
 import Facturation from "../../ActionRenderer/Facturation/Facturation";
+import Avance from "../../ActionRenderer/Avance/Avance";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -99,7 +100,15 @@ const ListMarche: React.FC<any> = () => {
 
               }
             },
+            {
+              headerName:'Avances',
+              cellRenderer:Avance,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
 
+              }
+            },
 
 
 
