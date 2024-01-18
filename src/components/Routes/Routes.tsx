@@ -25,6 +25,7 @@ import DelDQE from "../Marche/DelDQE/DelDQE";
 import ListDetailFacture from "../Marche/Facture/ListDetailFacture/ListDetailFacture";
 import ListAvances from "../Marche/Avances/ListAvances/ListAvances";
 import ListCautions from "../Marche/Cautions/ListCautions/ListCautions";
+import AddCautions from "../Marche/Cautions/AddCautions/AddCautions";
 
 
 
@@ -243,6 +244,21 @@ const Routes: React.FC<any> = () => {
                        </>
                   ): (
                   <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/ajout_cautions"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <AddCautions />
+
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
                   )
               }
           />

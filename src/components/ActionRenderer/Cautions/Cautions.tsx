@@ -1,10 +1,6 @@
 import * as React from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {showModal3 as displayCautionsModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
-import AddCautions from "../../Marche/Cautions/AddCautions/AddCautions";
-//import AddCautions from "../../Marche/Cautionss/AddCautions/AddCautions";
-
 
 type AddCautionsProps = {
   data:any;
@@ -24,7 +20,7 @@ const Cautions: React.FC<AddCautionsProps> = (props) => {
   const handleAddCautions = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      dispatch(displayCautionsModal(rowData[props.pk]));
+      navigate('/ajout_cautions', { state: { marche: rowData[props.pk] } })
     }
   }
 
@@ -67,7 +63,7 @@ const Cautions: React.FC<AddCautionsProps> = (props) => {
               >
                 <i className="fas fa-list"></i>
               </button>
-              <AddCautions />
+
             </>
           </>
 
