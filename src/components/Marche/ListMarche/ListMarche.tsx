@@ -20,6 +20,7 @@ import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 import DQE from "../../ActionRenderer/DQE/DQE";
 import Facturation from "../../ActionRenderer/Facturation/Facturation";
 import Avance from "../../ActionRenderer/Avance/Avance";
+import Cautions from "../../ActionRenderer/Cautions/Cautions";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -109,7 +110,15 @@ const ListMarche: React.FC<any> = () => {
 
               }
             },
+            {
+              headerName:'Cautions',
+              cellRenderer:Cautions,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
 
+              }
+            },
 
 
           ];

@@ -24,6 +24,7 @@ import Creances from "../Marche/Creances/Creances";
 import DelDQE from "../Marche/DelDQE/DelDQE";
 import ListDetailFacture from "../Marche/Facture/ListDetailFacture/ListDetailFacture";
 import ListAvances from "../Marche/Avances/ListAvances/ListAvances";
+import ListCautions from "../Marche/Cautions/ListCautions/ListCautions";
 
 
 
@@ -171,6 +172,25 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <ModalProvider>
                               <ListAvances/>
+                          </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/liste_cautions"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ModalProvider>
+                              <ListCautions/>
                           </ModalProvider>
 
 
