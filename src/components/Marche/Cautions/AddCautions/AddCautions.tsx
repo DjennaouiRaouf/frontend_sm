@@ -7,6 +7,7 @@ import { showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice"
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router-dom";
 import  risk from '../../../icons/risk.png';
+import AlertMessage from "../../../AlertMessage/AlertMessage";
 
 type AddCautionsProps = {
 
@@ -54,7 +55,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     const form = e.currentTarget;
-
+    formData["marche"]=mid.marche
 
 
     const formDataObject = new FormData();
@@ -63,10 +64,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
         formDataObject.append(key, formData[key]);
       }
     }
-
-    if (form.checkValidity()) {
-      setValidated(false)
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}`,formDataObject,{
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addcautions/`,formDataObject,{
         headers: {
           Authorization: `Token ${Cookies.get("token")}`,
           'Content-Type': 'application/json',
@@ -87,10 +85,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
 
 
 
-    }
-    else {
-      setValidated(true)
-    }
+
 
 
   }
@@ -107,7 +102,6 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
           setFields(response.data.fields);
           setModelName(response.data.model);
           setLoading(false);
-
 
         })
         .catch((error:any) => {
@@ -134,13 +128,17 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
         });
 
   }
+
   useEffect(() => {
-    getDdfaultState();
     getFields();
 
-
+  },[]);
+  useEffect(() => {
+    getDdfaultState();
 
   },[]);
+
+
 
 
   return (
@@ -163,6 +161,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
 
         ) : (
             <>
+              <AlertMessage/>
               <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
                     noValidate validated={validated} onSubmit={handleSubmit} >
 
@@ -206,9 +205,13 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                               <strong>
                                 {field.label  +" "}
                                 {
-                                  field.required &&
+                                  field.required ?
                                     <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
                                               *
+                                          </span>
+                                      :
+                                      <span style={{ color: "rgb(255,255,255)", fontSize: 18, fontWeight: "bold" }}>
+
                                           </span>
                                 }
 
@@ -232,6 +235,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                       ))}
 
                                     </datalist>
+
 
                                   </>
 
