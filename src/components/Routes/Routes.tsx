@@ -327,17 +327,11 @@ const Routes: React.FC<any> = () => {
               element={
                   authenticated && permission.includes("api_sm.view_marche") ? (
                                   <>
-                                      <p>   </p>
                                       <NavigationBar/>
                                       <ModalProvider>
                                           <ListMarche/>
                                       </ModalProvider>
                                   </>
-
-
-
-
-
                   ): (
                       <Navigate to="/"  />
                   )
