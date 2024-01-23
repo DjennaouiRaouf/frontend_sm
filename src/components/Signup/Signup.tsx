@@ -193,17 +193,41 @@ const Signup: React.FC<any> = () => {
 
 
 
-
                                               }
 
 
                                           </Form.Group>
+
+
                                       </div>
                                   </div>
 
 
                               ))}
                           </div>
+                          <ul style={{width:'50%'}}>
+
+                                  <li className="text-start">
+                                        <span style={{ color: "var(--body-quiet-color)" }}>
+                                          Votre mot de passe ne peut pas trop ressembler à vos autres informations
+                                          personnelles.
+                                        </span>
+                                  </li>
+                                  <li className="text-start">
+                                      Votre mot de passe doit contenir au minimum 8 caractères
+                                  </li>
+                                  <li className="text-start">
+                                        <span style={{ color: "var(--body-quiet-color)" }}>
+                                          Votre mot de passe ne peut pas être un mot de passe couramment utilisé.
+                                        </span>
+                                  </li>
+                                  <li className="text-start">
+                                        <span style={{ color: "var(--body-quiet-color)" }}>
+                                          Votre mot de passe ne peut pas être entièrement numérique.
+                                        </span>
+                                  </li>
+
+                          </ul>
                           <div
                               className="col-md-12"
                               style={{ textAlign: "right", marginTop: 5 }}>
