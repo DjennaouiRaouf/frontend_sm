@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Routes as Router, Route, Navigate} from 'react-router-dom'
 import LoginForm from "../LoginForm/LoginForm";
 import AddClientForm from "../Clients/AddClientForm/AddClientForm";
@@ -8,7 +8,6 @@ import AddMarcheForm from "../Marche/AddMarcheForm/AddMarcheForm";
 import AddSiteForm from "../Site/AddSiteForm/AddSiteForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import ListClients from "../Clients/ListClients/ListClients";
-
 import ListMarche from "../Marche/ListMarche/ListMarche";
 import ListSites from "../Site/ListeSites/ListeSites";
 import ListeNT from "../NT/ListeNT/ListeNT";
@@ -16,7 +15,6 @@ import AddNT from "../NT/AddNT/AddNT";
 import Signup from "../Signup/Signup";
 import ListDQE from "../Marche/ListDQE/ListDQE";
 import {ModalProvider} from "../Context/FilterModalContext/FilterModalContext";
-import AddFacture from "../Marche/Facture/AddFacture/AddFacture";
 import ListFacture from "../Marche/Facture/ListFacture/ListFacture";
 import InvoicePDFViewPrinter from "../InvoicePDFViewPrinter/InvoicePDFViewPrinter";
 import InvoiceRGPDFViewPrinter from "../InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter";
@@ -26,13 +24,20 @@ import ListDetailFacture from "../Marche/Facture/ListDetailFacture/ListDetailFac
 import ListAvances from "../Marche/Avances/ListAvances/ListAvances";
 import ListCautions from "../Marche/Cautions/ListCautions/ListCautions";
 import AddCautions from "../Marche/Cautions/AddCautions/AddCautions";
+import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 
 
 
 
 
 const Routes: React.FC<any> = () => {
+
     const { authenticated } = useContext(AuthContext);
+    const { permission,setPermission } = useContext(PermissionContext);
+
   return (
       <Router>
           <Route
@@ -235,7 +240,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/ajout_c"
               element={
-                   authenticated ? (
+                   authenticated && permission.includes("api_sm.add_clients") ? (
                        <>
                            <NavigationBar/>
                            <AddClientForm />
@@ -250,7 +255,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/ajout_cautions"
               element={
-                  authenticated ? (
+                  authenticated  ? (
                       <>
                           <NavigationBar/>
                           <AddCautions />
@@ -267,7 +272,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_c"
               element={
-                  authenticated ? (
+                  authenticated &&  permission.includes("api_sm.view_clients")  ? (
                       <>
                           <NavigationBar/>
                           <ModalProvider>
@@ -284,7 +289,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_s"
               element={
-                  authenticated? (
+                  authenticated && permission.includes("api_sm.view_sites") ? (
                       <>
                           <NavigationBar/>
                           <ModalProvider>
@@ -302,7 +307,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_nt"
               element={
-                  authenticated ? (
+                  authenticated && permission.includes("api_sm.view_nt") ? (
                       <>
                           <NavigationBar/>
                           <ModalProvider>
@@ -320,16 +325,19 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_m"
               element={
-                  authenticated ? (
-                      <>
-                          <NavigationBar/>
-                          <ModalProvider>
-                              <ListMarche/>
-                          </ModalProvider>
+                  authenticated && permission.includes("api_sm.view_marche") ? (
+                                  <>
+                                      <p>   </p>
+                                      <NavigationBar/>
+                                      <ModalProvider>
+                                          <ListMarche/>
+                                      </ModalProvider>
+                                  </>
 
-                          
 
-                      </>
+
+
+
                   ): (
                       <Navigate to="/"  />
                   )
@@ -338,7 +346,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/ajout_nt"
               element={
-                  authenticated ? (
+                  authenticated && permission.includes("api_sm.add_nt") ? (
                       <>
                           <NavigationBar/>
                           <AddNT />
@@ -354,7 +362,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/ajout_s"
               element={
-                  authenticated ? (
+                  authenticated && permission.includes("api_sm.add_sites")  ? (
                       <>
                           <NavigationBar/>
                           <AddSiteForm />
@@ -369,7 +377,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/liste_s"
               element={
-                  authenticated ? (
+                  authenticated  ? (
                       <>
                           <NavigationBar/>
                           <ListSites />
@@ -383,7 +391,7 @@ const Routes: React.FC<any> = () => {
           <Route
               path="/ajout_m"
               element={
-                  authenticated ? (
+                  authenticated && permission.includes("api_sm.add_marche")  ? (
                       <>
                           <NavigationBar/>
                           <AddMarcheForm />

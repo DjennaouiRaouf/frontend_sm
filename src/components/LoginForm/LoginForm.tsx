@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import {useDispatch} from "react-redux";
 import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
+import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
 
 
 const LoginForm: React.FC<any> = () => {
@@ -24,6 +25,7 @@ const LoginForm: React.FC<any> = () => {
 
 
   const { authenticated,setAuthenticated } = useContext(AuthContext);
+  const { permission,setPermission } = useContext(PermissionContext);
   const navigate=useNavigate();
   const getImages = async () => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ic_images/`,{
@@ -43,6 +45,7 @@ const LoginForm: React.FC<any> = () => {
 
 
 
+
   const authentification = async(e: any) => {
 
     e.preventDefault();
@@ -53,8 +56,13 @@ const LoginForm: React.FC<any> = () => {
       withCredentials:true,
     })
         .then((response:any) => {
-          setAuthenticated(Cookies.get('token'))
+          setAuthenticated(Cookies.get('token'));
+          const role:string[]=String(Cookies.get('role')).split('|');
+
+          setPermission(role)
+
           navigate('/home');
+
 
 
 
@@ -62,7 +70,7 @@ const LoginForm: React.FC<any> = () => {
         })
         .catch((error:any) => {
           console.log(error)
-          dispatch(showAlert({variant:Variants.DANGER,heading:"Connexion",text:error.response.data.message}))
+          //dispatch(showAlert({variant:Variants.DANGER,heading:"Connexion",text:error.response.data.message}))
 
         });
 

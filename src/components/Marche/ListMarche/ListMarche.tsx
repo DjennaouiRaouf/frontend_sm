@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -21,6 +21,7 @@ import DQE from "../../ActionRenderer/DQE/DQE";
 import Facturation from "../../ActionRenderer/Facturation/Facturation";
 import Avance from "../../ActionRenderer/Avance/Avance";
 import Cautions from "../../ActionRenderer/Cautions/Cautions";
+import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -167,16 +168,22 @@ const ListMarche: React.FC<any> = () => {
   },[]);
 
 
+  const { permission } = useContext(PermissionContext);
   const export_xlsx = () => {
+    console.log(permission);
+    /*
     const ws = XLSX.utils.json_to_sheet(rows);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, 'nt.xlsx');
+    */
+
   }
 
 
   return (
       <>
+
         <FilterModal img={agreement} title={"Rechercher un marche"} endpoint_fields={"/forms/marchefilterfields/"} filter={getRows}  />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">

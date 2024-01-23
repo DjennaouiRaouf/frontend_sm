@@ -10,6 +10,7 @@ import {useContext, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {AuthContext} from "../Context/AuthContext/AuthContext";
 import {useNavigate} from "react-router-dom";
+import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
 
 
 
@@ -63,7 +64,7 @@ const NavigationBar: React.FC<any> = () => {
 
 
 
-
+    const { permission } = useContext(PermissionContext);
 
     return (
         <Navbar expand="lg" className="navbar navbar-expand bg-white shadow mb-4 topbar static-top navbar-light">
@@ -79,20 +80,55 @@ const NavigationBar: React.FC<any> = () => {
                         <Nav.Link href="#home"></Nav.Link>
 
                         <NavDropdown title="Clients" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/ajout_c">Ajouter un client</NavDropdown.Item>
-                            <NavDropdown.Item href="/liste_c">Lister les clients</NavDropdown.Item>
+                            {
+                                permission.includes("api_sm.add_clients") &&
+                                <NavDropdown.Item href="/ajout_c">Ajouter un client</NavDropdown.Item>
+
+                            }
+                            {
+                                permission.includes("api_sm.view_clients") &&
+                                <NavDropdown.Item href="/liste_c">Lister les clients</NavDropdown.Item>
+
+                            }
                         </NavDropdown>
+
+
                         <NavDropdown title="Sites" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/ajout_s">Ajouter un site</NavDropdown.Item>
-                            <NavDropdown.Item href="/liste_s">Lister les sites</NavDropdown.Item>
+                            {
+                                permission.includes("api_sm.add_sites") &&
+                                <NavDropdown.Item href="/ajout_s">Ajouter un site</NavDropdown.Item>
+                            }
+                            {
+                                permission.includes("api_sm.view_sites") &&
+                                <NavDropdown.Item href="/liste_s">Lister les sites</NavDropdown.Item>
+                            }
                         </NavDropdown>
-                        <NavDropdown title="Marchés" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/ajout_m">Ajouter un Marché</NavDropdown.Item>
-                            <NavDropdown.Item href="/liste_m">Lister les Marchés</NavDropdown.Item>
-                        </NavDropdown>
+
+
+                            <NavDropdown title="Marchés" id="basic-nav-dropdown">
+                                {
+                                    permission.includes("api_sm.add_marche") &&
+                                    <NavDropdown.Item href="/ajout_m">Ajouter un Marché</NavDropdown.Item>
+                                }
+                                {
+                                    permission.includes("api_sm.view_marche") &&
+                                    <NavDropdown.Item href="/liste_m">Lister les Marchés</NavDropdown.Item>
+                                }
+
+                            </NavDropdown>
+
+
+
                         <NavDropdown title="NT" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/ajout_nt">Ajouter un numero de travail</NavDropdown.Item>
-                            <NavDropdown.Item href="/liste_nt">Lister les numeros des traveaux </NavDropdown.Item>
+                            {
+                                permission.includes("api_sm.add_nt") &&
+                                <NavDropdown.Item href="/ajout_nt">Ajouter un numero de travail</NavDropdown.Item>
+                            }
+                            {
+                                permission.includes("api_sm.view_nt") &&
+                                <NavDropdown.Item href="/liste_nt">Lister les numeros des traveaux </NavDropdown.Item>
+                            }
+
                         </NavDropdown>
 
 

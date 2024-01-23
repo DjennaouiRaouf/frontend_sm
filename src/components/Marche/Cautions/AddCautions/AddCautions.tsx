@@ -26,7 +26,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
   const [formData, setFormData] = useState<any>({});
   const [modelName, setModelName] = useState<string>("");
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const mid = location.state;
   const opt:Opt[] = [
 

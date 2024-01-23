@@ -90,6 +90,7 @@ const ListClients: React.FC<any> = () => {
 
 
 
+
     const getRows = async(url:string) => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getclients/?${url}`,{
             headers: {
@@ -118,6 +119,7 @@ const ListClients: React.FC<any> = () => {
 
     useEffect(() => {
         getRows("");
+
     },[]);
 
 

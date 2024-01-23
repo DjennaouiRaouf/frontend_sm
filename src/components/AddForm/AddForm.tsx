@@ -26,6 +26,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     const [fields,setFields]=useState<any[]>([]);
     const [defaultState,setDefaultState]=useState<any>({});
     const [formData, setFormData] = useState<any>({});
+    const [loading, setLoading] = useState<boolean>(true);
     const [modelName, setModelName] = useState<string>("");
 
     const opt:Opt[] = [
@@ -104,7 +105,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
             .then((response:any) => {
                 setFields(response.data.fields);
                 setModelName(response.data.model);
-
+                setLoading(false);
 
 
             })
@@ -142,139 +143,161 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
 
     return (
-      <>
+        <>
+        {loading ? (
 
-          <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
-                noValidate validated={validated} onSubmit={handleSubmit} >
+                <div className="container d-xl-flex justify-content-xl-center align-items-xl-center">
+              <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  style={{
+                      width: 300,
+                      height: 300,
+                      margin: 0,
+                      fontSize: 90,
+                      color: "#dc162e"
+                  }}
+              />
+                </div>
 
-              <div className="row" style={{ marginBottom: 25, textAlign: "left" }}>
-                  <div
-                      className="col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2"
-                      style={{ display: "inline", textAlign: "center", marginBottom: 25 }}
-                  >
-                      <div
-                          style={{
-                              height: "150px",
-                              background: `url(${props.img}) center / auto no-repeat`,
+            ) : (
+            <>
 
-                          }}
-                      />
-                      <br />
-                  </div>
-                  <div className="col-sm-8 col-md-8 col-lg-9 col-xl-10 col-xxl-10 align-self-center">
-                      <div className="row">
-                          <div className="row">
-                              <div className="col-md-12 text-start">
-                                  <div className="mb-5">
-                                      <div className="card" style={{ height:'90px',width: "100%",background:'#ebebeb' }}>
-                                          <div className="card-body text-center">
-                                              <h1 className="text-center card-title">{props.title}</h1>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
+                      noValidate validated={validated} onSubmit={handleSubmit} >
 
-                  {fields.map((field,index) => (
-                      <div className="col-md-6 text-start" key={index}>
-                          <div className="mb-3">
+                    <div className="row" style={{ marginBottom: 25, textAlign: "left" }}>
+                        <div
+                            className="col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2"
+                            style={{ display: "inline", textAlign: "center", marginBottom: 25 }}
+                        >
+                            <div
+                                style={{
+                                    height: "150px",
+                                    background: `url(${props.img}) center / auto no-repeat`,
 
-                              <Form.Group className="w-100"  controlId={"validation"+index}>
-                                  <Form.Label>
-                                      <strong>
-                                          {field.label  +" "}
-                                          <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+                                }}
+                            />
+                            <br />
+                        </div>
+                        <div className="col-sm-8 col-md-8 col-lg-9 col-xl-10 col-xxl-10 align-self-center">
+                            <div className="row">
+                                <div className="row">
+                                    <div className="col-md-12 text-start">
+                                        <div className="mb-5">
+                                            <div className="card" style={{ height:'90px',width: "100%",background:'#ebebeb' }}>
+                                                <div className="card-body text-center">
+                                                    <h1 className="text-center card-title">{props.title}</h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {fields.map((field,index) => (
+                            <div className="col-md-6 text-start" key={index}>
+                                <div className="mb-3">
+
+                                    <Form.Group className="w-100"  controlId={"validation"+index}>
+                                        <Form.Label>
+                                            <strong>
+                                                {field.label  +" "}
+                                                <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
                                               *
                                           </span>
-                                      </strong>
-                                  </Form.Label>
-                                  {
-                                      field.type === "PrimaryKeyRelatedField"?
-                                      <>
-                                          <Form.Control
-                                              name={field.name}
-                                              as="input"
-                                              required
-                                              list={field.name}
-                                              className="w-100"
-                                              value={formData[field.name] || ''}
-                                              onChange={(e)=>handleInputChange(e)}
-                                          />
-                                          <datalist id={field.name}>
-                                              {field.queryset.map((qs:any, key:any) => (
-                                                  <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                              ))}
+                                            </strong>
+                                        </Form.Label>
+                                        {
+                                            field.type === "PrimaryKeyRelatedField"?
+                                                <>
+                                                    <Form.Control
+                                                        name={field.name}
+                                                        as="input"
+                                                        required
+                                                        list={field.name}
+                                                        className="w-100"
+                                                        value={formData[field.name] || ''}
+                                                        onChange={(e)=>handleInputChange(e)}
+                                                    />
+                                                    <datalist id={field.name}>
+                                                        {field.queryset.map((qs:any, key:any) => (
+                                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
+                                                        ))}
 
-                                          </datalist>
+                                                    </datalist>
 
-                                        </>
-
-
-                                          :
-                                      field.type === 'BooleanField' ?
-
-                                          <Form.Control
-                                              as="select"
-                                              name={field.name}
-                                              required
-                                              className="w-100"
-                                              value={formData[field.name] || '' }
-                                              onChange={(e)=>handleSelectChange(e)}>
-
-                                              {opt.map((item,index) => (
-                                                  <option key={index} value={String(item.value)}>{item.label}</option>
-                                              ))}
-
-                                              </Form.Control>
+                                                </>
 
 
-                                              : field.type === 'DateField' ?
-                                              <Form.Control
-                                                  name={field.name}
-                                                  required
-                                                  className="w-100"
-                                                  type="date"
-                                                  value={formData[field.name] || ''}
-                                                  onChange={(e)=>handleInputChange(e)}
-                                              />
+                                                :
+                                                field.type === 'BooleanField' ?
 
-                                              :
-                                                  <Form.Control
-                                                      name={field.name}
-                                                      required
-                                                      className="w-100"
-                                                      type="text"
-                                                      value={formData[field.name] || ''}
-                                                      onChange={(e)=>handleInputChange(e)}
-                                                  />
+                                                    <Form.Control
+                                                        as="select"
+                                                        name={field.name}
+                                                        required
+                                                        className="w-100"
+                                                        value={formData[field.name] || '' }
+                                                        onChange={(e)=>handleSelectChange(e)}>
+
+                                                        {opt.map((item,index) => (
+                                                            <option key={index} value={String(item.value)}>{item.label}</option>
+                                                        ))}
+
+                                                    </Form.Control>
 
 
+                                                    : field.type === 'DateField' ?
+                                                        <Form.Control
+                                                            name={field.name}
+                                                            required
+                                                            className="w-100"
+                                                            type="date"
+                                                            value={formData[field.name] || ''}
+                                                            onChange={(e)=>handleInputChange(e)}
+                                                        />
 
-                                  }
-
-                              </Form.Group>
-                          </div>
-                      </div>
-
-
-                  ))}
-              </div>
-              <div
-                  className="col-md-12"
-                  style={{ textAlign: "right", marginTop: 5 }}>
-
-                  <Button  type="submit" style={{ borderWidth: 0, background: "#d7142a" }}>
-                      <i className="fas fa-plus" style={{marginRight:"10px"}}></i> Ajouter
-                  </Button>
-
-              </div>
-          </Form>
+                                                        :
+                                                        <Form.Control
+                                                            name={field.name}
+                                                            required
+                                                            className="w-100"
+                                                            type="text"
+                                                            value={formData[field.name] || ''}
+                                                            onChange={(e)=>handleInputChange(e)}
+                                                        />
 
 
 
-      </>
+                                        }
+
+                                    </Form.Group>
+                                </div>
+                            </div>
+
+
+                        ))}
+                    </div>
+                    <div
+                        className="col-md-12"
+                        style={{ textAlign: "right", marginTop: 5 }}>
+
+                        <Button  type="submit" style={{ borderWidth: 0, background: "#d7142a" }}>
+                            <i className="fas fa-plus" style={{marginRight:"10px"}}></i> Ajouter
+                        </Button>
+
+                    </div>
+                </Form>
+
+
+
+            </>
+        )
+
+        }
+        </>
   );
 };
 

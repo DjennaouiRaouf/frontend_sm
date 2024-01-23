@@ -23,14 +23,7 @@ const AuthProvider = ({children}: Props) => {
   //Initializing an auth state with false value (unauthenticated)
   const [ authenticated, setAuthenticated ] = useState(initialValue.authenticated)
 
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    const token:any=Cookies.get("token");
-    if(token){
-      setAuthenticated(token)
-    }
-  },[authenticated]);
 
   return (
       <AuthContext.Provider value={{authenticated, setAuthenticated}}>
