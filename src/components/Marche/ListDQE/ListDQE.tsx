@@ -10,7 +10,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
 import ActionRenderer from "../../ActionRenderer/ActionRenderer";
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import settings from "../../icons/settings.png";
 import {ColDef, GridApi, RowNode} from "ag-grid-community";
@@ -20,6 +20,7 @@ import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
 import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 import DQEAction from "../../ActionRenderer/DQEAction/DQEAction";
+import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 
 type ListDQEProps = {
   //
@@ -241,6 +242,8 @@ const ListDQE: React.FC<any> = () => {
     getCols();
   },[]);
 
+  const { permission } = useContext(PermissionContext);
+
   return (
       <>
         <>
@@ -288,15 +291,16 @@ const ListDQE: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                  <Dropdown.Item onClick={delSelected}>
-                                    <i className="fas fa-eraser"></i>
-                                    &nbsp;Suppression</Dropdown.Item>
+                                  {
+                                    permission.includes("api_sm.delete_dqe") &&
+                                      <Dropdown.Item onClick={delSelected}>
+                                        <i className="fas fa-eraser"></i>
+                                        &nbsp;Suppression</Dropdown.Item>
+                                  }
+
                                   <Dropdown.Item onClick={displayDeleted}>
                                     <i className="far fa-trash-alt"></i>
                                     &nbsp;Corbeille</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="fas fa-list-ul"></i>
-                                    &nbsp;Elements supprimés</Dropdown.Item>
                                 </Dropdown.Menu>
                               </Dropdown>
 

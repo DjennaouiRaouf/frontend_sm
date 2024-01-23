@@ -1,10 +1,11 @@
 import * as React from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import * as XLSX from "xlsx";
+import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 
 
 type DQEProps = {
@@ -24,80 +25,87 @@ const DQE: React.FC<DQEProps> = (props) => {
 
 
   const handlelistDQE = () => {
-    const rowData:any =  props.data  ;
-    if (props.pk){
-      navigate('/liste_dqe', { state: { marche: rowData[props.pk] } })
+    if(permission.includes("api_sm.download_dqe")){
+      const rowData:any =  props.data  ;
+      if (props.pk){
+        navigate('liste_dqe', { state: { marche: rowData[props.pk] } })
+      }
+
     }
 
   };
   const handleAddMulitpleDQE = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+    if(permission.includes("api_sm.upload_dqe")) {
+      if (fileInputRef.current) {
+        fileInputRef.current.click();
+      }
     }
   };
 
   const handleFileChange = async(event: React.ChangeEvent<HTMLInputElement>) => {
-    const rowData:any =  props.data  ;
-    const file = event.target.files?.[0];
-    const formData = new FormData();
-    if (props.pk && file) {
+    if(permission.includes("api_sm.upload_dqe")) {
+      const rowData: any = props.data;
+      const file = event.target.files?.[0];
+      const formData = new FormData();
+      if (props.pk && file) {
 
-      formData.append('file', file);
-      formData.append(props.pk,rowData[props.pk]);
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_upload}`,formData,{
-        headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
-          'Content-Type': 'multipart/form-data',
-        },
+        formData.append('file', file);
+        formData.append(props.pk, rowData[props.pk]);
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_upload}`, formData, {
+          headers: {
+            Authorization: `Token ${Cookies.get("token")}`,
+            'Content-Type': 'multipart/form-data',
+          },
 
-      })
-          .then((response:any) => {
+        })
+            .then((response: any) => {
 
-          })
-          .catch((error:any) => {
+            })
+            .catch((error: any) => {
 
-          });
+            });
+      }
     }
   };
 
   const handledownloadDQE = async() => {
-    const rowData:any =  props.data  ;
-    if(props.pk){
-      await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_download}?marche__id=${rowData[props.pk]}`,{
-        headers: {
-          Authorization: `Token ${Cookies.get("token")}`,
-          'Content-Type': 'application/json',
-        },
+    if(permission.includes("api_sm.download_dqe")) {
+      const rowData: any = props.data;
+      if (props.pk) {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_download}?marche__id=${rowData[props.pk]}`, {
+          headers: {
+            Authorization: `Token ${Cookies.get("token")}`,
+            'Content-Type': 'application/json',
+          },
 
-      })
-          .then((response:any) => {
-            if(response.data.length > 0){
-              const data:any[]=response.data;
-              const dataset: any[] = data.map(obj => ({ ...obj, annule: 0 }));
+        })
+            .then((response: any) => {
+              if (response.data.length > 0) {
+                const data: any[] = response.data;
+                const dataset: any[] = data.map(obj => ({...obj, annule: 0}));
 
-              const ws = XLSX.utils.json_to_sheet(dataset);
+                const ws = XLSX.utils.json_to_sheet(dataset);
 
-              const wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-              XLSX.writeFile(wb, 'dqe.xlsx');
-            }
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                XLSX.writeFile(wb, 'dqe.xlsx');
+              }
 
 
+            })
+            .catch((error: any) => {
 
-          })
-          .catch((error:any) => {
+            });
 
-          });
+      }
 
     }
-
-
   }
 
 
 
 
-
+  const { permission } = useContext(PermissionContext);
 
   return (
       <>
@@ -113,7 +121,7 @@ const DQE: React.FC<DQEProps> = (props) => {
         <div className="btn-group btn-group-sm" role="group">
               <>
                 <>
-
+                { permission.includes("api_sm.upload_dqe") &&
                   <button
                       className="btn btn-primary"
                       data-bs-toggle="tooltip"
@@ -125,6 +133,8 @@ const DQE: React.FC<DQEProps> = (props) => {
                   >
                     <i className="fas fa-upload" />
                   </button>
+                }
+                  { permission.includes("api_sm.download_dqe") &&
                   <button
                       className="btn btn-primary"
                       data-bs-toggle="tooltip"
@@ -136,6 +146,8 @@ const DQE: React.FC<DQEProps> = (props) => {
                   >
                     <i className="fas fa-download" />
                   </button>
+                  }
+                  { permission.includes("api_sm.upload_dqe") &&
                   <button
                       className="btn btn-primary"
                       data-bs-toggle="tooltip"
@@ -147,7 +159,7 @@ const DQE: React.FC<DQEProps> = (props) => {
                   >
                     <i className="fas fa-list-ul" />
                   </button>
-
+                  }
                 </>
               </>
         </div>

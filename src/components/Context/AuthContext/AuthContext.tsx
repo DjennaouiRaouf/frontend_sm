@@ -22,6 +22,19 @@ const AuthContext = createContext<IAuthContext>(initialValue)
 const AuthProvider = ({children}: Props) => {
   //Initializing an auth state with false value (unauthenticated)
   const [ authenticated, setAuthenticated ] = useState(initialValue.authenticated)
+  useEffect(() => {
+    const checkCookie = () => {
+      const isCookieSet = Cookies.get('token');
+      if(!isCookieSet){
+        Cookies.remove('role')
+      }
+      setAuthenticated(isCookieSet);
+    };
+    checkCookie();
+    const intervalId = setInterval(checkCookie, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
 
 
 

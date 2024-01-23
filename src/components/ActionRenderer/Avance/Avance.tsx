@@ -3,6 +3,8 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {showModal2 as displayavanceModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
 import AddAvance from "../../Marche/Avances/AddAvance/AddAvance";
+import {useContext} from "react";
+import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 
 
 type AddAvanceProps = {
@@ -21,40 +23,49 @@ const Avance: React.FC<AddAvanceProps> = (props) => {
 
 
   const handleAddAvance = () => {
-    const rowData:any =  props.data  ;
-    if (props.pk){
-      dispatch(displayavanceModal(rowData[props.pk]));
+    if(permission.includes("api_sm.add_avance")) {
+      const rowData: any = props.data;
+      if (props.pk) {
+        dispatch(displayavanceModal(rowData[props.pk]));
+      }
     }
   }
 
   const handleListAvance = () => {
-    const rowData:any =  props.data  ;
-    if (props.pk){
-      navigate('/liste_avance', { state: { marche: rowData[props.pk] } })
+    if(permission.includes("api_sm.view_avance")) {
+      const rowData: any = props.data;
+      if (props.pk) {
+        navigate('liste_avance', {state: {marche: rowData[props.pk]}})
+      }
     }
   }
 
 
-
-
+  const { permission } = useContext(PermissionContext)
 
   return (
       <>
 
         <div className="btn-group btn-group-sm" role="group">
           <>
-            <>
-              <button
-                  className="btn btn-primary"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  type="button"
-                  style={{ background: "#df162c", borderWidth: 0 }}
-                  title="Ajouter une Avance"
-                  onClick={handleAddAvance}
-              >
-                <i className="fas fa-plus"></i>
-              </button>
+
+            {permission.includes("api_sm.add_avance") &&
+                <>
+                  <button
+                      className="btn btn-primary"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      type="button"
+                      style={{ background: "#df162c", borderWidth: 0 }}
+                      title="Ajouter une Avance"
+                      onClick={handleAddAvance}
+                  >
+                    <i className="fas fa-plus"></i>
+                  </button>
+                  <AddAvance />
+                </>
+            }
+              {permission.includes("api_sm.view_avance") &&
               <button
                   className="btn btn-primary"
                   data-bs-toggle="tooltip"
@@ -66,12 +77,8 @@ const Avance: React.FC<AddAvanceProps> = (props) => {
               >
                 <i className="fas fa-list"></i>
               </button>
-              <AddAvance />
+              }
             </>
-          </>
-
-
-
         </div>
 
       </>

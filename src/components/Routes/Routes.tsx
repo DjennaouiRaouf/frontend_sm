@@ -73,9 +73,9 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_dqe"
+              path="marche/liste_m/liste_dqe"
               element={
-                  authenticated ? (
+                  authenticated && permission.includes("api_sm.view_dqe") ? (
                       <>
                           <NavigationBar/>
                           <ModalProvider>
@@ -171,9 +171,9 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/liste_avance"
+              path="marche/liste_m/liste_avance"
               element={
-                  authenticated ? (
+                  authenticated  && permission.includes("api_sm.view_avance")? (
                       <>
                           <NavigationBar/>
                           <ModalProvider>
@@ -238,7 +238,7 @@ const Routes: React.FC<any> = () => {
 
 
           <Route
-              path="/ajout_c"
+              path="/client/ajout_c"
               element={
                    authenticated && permission.includes("api_sm.add_clients") ? (
                        <>
@@ -270,7 +270,7 @@ const Routes: React.FC<any> = () => {
 
 
           <Route
-              path="/liste_c"
+              path="/clients/liste_c"
               element={
                   authenticated &&  permission.includes("api_sm.view_clients")  ? (
                       <>
@@ -287,7 +287,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_s"
+              path="/sites/liste_s"
               element={
                   authenticated && permission.includes("api_sm.view_sites") ? (
                       <>
@@ -305,7 +305,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_nt"
+              path="/nt/liste_nt"
               element={
                   authenticated && permission.includes("api_sm.view_nt") ? (
                       <>
@@ -323,7 +323,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_m"
+              path="/marche/liste_m"
               element={
                   authenticated && permission.includes("api_sm.view_marche") ? (
                                   <>
@@ -338,7 +338,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/ajout_nt"
+              path="/nt/ajout_nt"
               element={
                   authenticated && permission.includes("api_sm.add_nt") ? (
                       <>
@@ -354,7 +354,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/ajout_s"
+              path="/sites/ajout_s"
               element={
                   authenticated && permission.includes("api_sm.add_sites")  ? (
                       <>
@@ -368,22 +368,9 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
-          <Route
-              path="/liste_s"
-              element={
-                  authenticated  ? (
-                      <>
-                          <NavigationBar/>
-                          <ListSites />
 
-                      </>
-                  ): (
-                      <Navigate to="/"  />
-                  )
-              }
-          />
           <Route
-              path="/ajout_m"
+              path="/marche/ajout_m"
               element={
                   authenticated && permission.includes("api_sm.add_marche")  ? (
                       <>

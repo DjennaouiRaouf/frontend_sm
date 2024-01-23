@@ -82,17 +82,6 @@ const ListMarche: React.FC<any> = () => {
               pk:response.data.pk,
             }
           },
-
-            {
-              headerName:'DQE',
-              cellRenderer:DQE,
-              cellRendererParams:{
-                modelName:response.data.models,
-                pk:response.data.pk,
-                endpoint_upload:'/sm/importdqe/',
-                endpoint_download:'/sm/getdqe/',
-              }
-            },
             {
               headerName:'Facturation',
               cellRenderer:Facturation,
@@ -102,15 +91,7 @@ const ListMarche: React.FC<any> = () => {
 
               }
             },
-            {
-              headerName:'Avances',
-              cellRenderer:Avance,
-              cellRendererParams:{
-                modelName:response.data.models,
-                pk:response.data.pk,
 
-              }
-            },
             {
               headerName:'Cautions',
               cellRenderer:Cautions,
@@ -123,6 +104,31 @@ const ListMarche: React.FC<any> = () => {
 
 
           ];
+          if(permission.includes("api_sm.download_dqe") || permission.includes("api_sm.upload_dqe")){
+            updatedCols.push( {
+              headerName:'DQE',
+              cellRenderer:DQE,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                endpoint_upload:'/sm/importdqe/',
+                endpoint_download:'/sm/getdqe/',
+              }
+            },)
+          }
+          if(permission.includes("api_sm.add_avance") || permission.includes("api_sm.view_avance")){
+            updatedCols.push(
+                {
+                  headerName:'Avances',
+                  cellRenderer:Avance,
+                  cellRendererParams:{
+                    modelName:response.data.models,
+                    pk:response.data.pk,
+                  }
+                },)
+          }
+
+
 
           setCols(updatedCols);
 
@@ -170,13 +176,12 @@ const ListMarche: React.FC<any> = () => {
 
   const { permission } = useContext(PermissionContext);
   const export_xlsx = () => {
-    console.log(permission);
-    /*
+
     const ws = XLSX.utils.json_to_sheet(rows);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, 'nt.xlsx');
-    */
+
 
   }
 
