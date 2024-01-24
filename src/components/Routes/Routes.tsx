@@ -27,6 +27,7 @@ import AddCautions from "../Marche/Cautions/AddCautions/AddCautions";
 import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
 import axios from "axios";
 import Cookies from "js-cookie";
+import ListeODS from "../Marche/ListeODS/ListeODS";
 
 
 
@@ -259,6 +260,21 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <AddCautions />
+
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/liste_ods"
+              element={
+                  authenticated  ? (
+                      <>
+                          <NavigationBar/>
+                          <ListeODS />
 
 
                       </>

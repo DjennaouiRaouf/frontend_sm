@@ -22,6 +22,7 @@ import Facturation from "../../ActionRenderer/Facturation/Facturation";
 import Avance from "../../ActionRenderer/Avance/Avance";
 import Cautions from "../../ActionRenderer/Cautions/Cautions";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
+import ODS from "../../ActionRenderer/ODS/ODS";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -116,6 +117,18 @@ const ListMarche: React.FC<any> = () => {
               }
             },)
           }
+          if(permission.includes("api_sm.view_ordre_de_service")||permission.includes("api_sm.add_ordre_de_service") ){
+            updatedCols.push( {
+              headerName:'Ordre de service',
+              cellRenderer:ODS,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+
+              }
+            },)
+          }
+
           if(permission.includes("api_sm.add_avance") || permission.includes("api_sm.view_avance")){
             updatedCols.push(
                 {
