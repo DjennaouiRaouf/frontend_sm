@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/Cautions/Cautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/Cautions/Cautions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/Facturation/Facturation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/Facturation/Facturation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,14 +106,8 @@
       <workItem from="1705475508746" duration="8215000" />
       <workItem from="1705562527678" duration="15974000" />
       <workItem from="1705907423508" duration="20623000" />
-      <workItem from="1705993783950" duration="25894000" />
-    </task>
-    <task id="LOCAL-00006" summary="Initial commit">
-      <created>1703083371815</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1703083371815</updated>
+      <workItem from="1705993783950" duration="25921000" />
+      <workItem from="1706080481530" duration="10106000" />
     </task>
     <task id="LOCAL-00007" summary="Initial commit">
       <created>1703084292616</created>
@@ -443,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706021979041</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Initial commit">
+      <created>1706022236820</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1706022236820</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

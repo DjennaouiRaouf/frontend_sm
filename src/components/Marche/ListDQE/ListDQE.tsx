@@ -21,7 +21,8 @@ import * as XLSX from "xlsx";
 import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 import DQEAction from "../../ActionRenderer/DQEAction/DQEAction";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
-
+import numeral from 'numeral';
+import AlertMessage from "../../AlertMessage/AlertMessage";
 type ListDQEProps = {
   //
 };
@@ -30,8 +31,8 @@ const InfoRenderer: React.FC<any> = (props) => {
   const { value } = props;
   const[libelle,setLibelle]=useState<string>("")
   const getLib = async() => {
-    if(props.column.colId === 'unite'){
-      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibum/?id=${value}`,{
+    if(props.data.unite){
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibum/?id=${props.data.unite}`,{
         headers: {
           Authorization: `Token ${Cookies.get('token')}`,
           'Content-Type': 'application/json',
@@ -50,12 +51,50 @@ const InfoRenderer: React.FC<any> = (props) => {
   useEffect(() => {
       getLib();
   },[libelle]);
-  if(props.column.colId === 'unite')
-    return <span>{libelle}</span>
-  else
-    return <span>{value}</span>
+  switch (props.column.colId) {
+    case 'unite':
+      return <span>{libelle}</span>
+      break;
+    case 'quantite':
+      return <span>{value+" "+libelle}</span>
+      break;
+    case 'prix_u' :
+      return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'prix_q' :
+      return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'est_tache_complementaire':
 
-};
+      return(
+              <>
+                {value === true ?
+                <i className="far fa-check-circle" style={{ color: "rgb(0,157,63)" }} />
+                    :
+                    <i className="far fa-times-circle" style={{ color: "rgb(255,0,0)" }} />
+                }
+              </>
+      )
+    break;
+
+
+    case 'est_tache_composite':
+
+      return(
+          <>
+            {value === true ?
+                <i className="far fa-check-circle" style={{ color: "rgb(0,157,63)" }} />
+                :
+                <i className="far fa-times-circle" style={{ color: "rgb(255,0,0)" }} />
+            }
+          </>
+      )
+      break;
+    default:
+      return <span>{value}</span>
+  }
+
+  };
 const ListDQE: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
@@ -247,6 +286,7 @@ const ListDQE: React.FC<any> = () => {
   return (
       <>
         <>
+
           <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"} filter={getRows}  />
 
           <div id="wrapper" >

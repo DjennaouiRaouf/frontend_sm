@@ -131,7 +131,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_facture"
+              path="marche/liste_m/liste_facture"
               element={
                   authenticated ? (
                       <>
@@ -190,7 +190,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/liste_cautions"
+              path="marche/liste_m/liste_cautions"
               element={
                   authenticated ? (
                       <>
@@ -253,7 +253,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/ajout_cautions"
+              path="marche/liste_m/ajout_cautions"
               element={
                   authenticated  ? (
                       <>

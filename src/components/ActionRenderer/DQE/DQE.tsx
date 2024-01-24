@@ -6,6 +6,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import * as XLSX from "xlsx";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
+import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
+import AlertMessage from "../../AlertMessage/AlertMessage";
 
 
 type DQEProps = {
@@ -59,9 +61,17 @@ const DQE: React.FC<DQEProps> = (props) => {
 
         })
             .then((response: any) => {
+              dispatch(showAlert({variant:Variants.SUCCESS,heading:'DQE',text:response.data.message}))
+              if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+              }
 
             })
             .catch((error: any) => {
+              dispatch(showAlert({variant:Variants.DANGER,heading:'DQE',text:error.response.request.response}))
+              if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+              }
 
             });
       }
