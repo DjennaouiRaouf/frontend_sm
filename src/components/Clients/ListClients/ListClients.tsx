@@ -8,13 +8,13 @@ import customer from '../../icons/customer.png'
 import {ModalProvider, useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
-import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import {ColDef} from "ag-grid-community";
 import * as XLSX from "xlsx";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 
 const ListClients: React.FC<any> = () => {
     const navigate=useNavigate();
@@ -70,11 +70,9 @@ const ListClients: React.FC<any> = () => {
             .then((response:any) => {
 
                 const updatedCols:any[] = [...response.data.fields, {
-                    headerName:'Action',
-                    cellRenderer:ActionRenderer,
-                    cellRendererParams:{
-                        modelName:response.data.models,
-                    }
+                    headerName:'Visualiser',
+                    cellRenderer:DisplayRow,
+
                 }];
 
                 setCols(updatedCols);

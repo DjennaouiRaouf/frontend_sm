@@ -8,7 +8,7 @@ import customer from "../../icons/customer.png";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../ActionRenderer/ActionRenderer";
+
 import {useEffect, useMemo, useRef, useState} from "react";
 import {ColDef} from "ag-grid-community";
 import * as XLSX from 'xlsx';
@@ -16,6 +16,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 type ListeSitesProps = {
   //
 };
@@ -58,12 +59,9 @@ const ListeSites: React.FC<any> = () => {
         .then((response:any) => {
 
           const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Action',
-            cellRenderer:ActionRenderer,
-            cellRendererParams:{
-              img:customer,
-              title:"Clients",
-            }
+            headerName:'Visualiser',
+            cellRenderer:DisplayRow,
+
           }];
 
           setCols(updatedCols);

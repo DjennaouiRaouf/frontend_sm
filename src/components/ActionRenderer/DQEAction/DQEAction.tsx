@@ -78,7 +78,7 @@ const DQEAction: React.FC<DQEActionProps> = (props) => {
             >
               <i className="fas fa-edit" />
             </button>
-            <EditDataGridModal title={"Editer un DQE"}
+            <EditDataGridModal title={"Editer le DQE"}
                                img={settings}
                                getRows={props.updateRows}
                                endpoint_submit={'/sm/updatedqe/'}/>

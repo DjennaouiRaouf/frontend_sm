@@ -259,8 +259,19 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                             value={formData[field.name] || ''}
                                                             onChange={(e)=>handleInputChange(e)}
                                                         />
+                                                        : field.type === 'IntegerField' || field.type ==='DecimalField'  ?
+                                                            <Form.Control
+                                                                name={field.name}
+                                                                required
+                                                                className="w-100"
+                                                                type="number"
+                                                                value={formData[field.name] || 0}
+                                                                step={0.01}
+                                                                onChange={(e)=>handleInputChange(e)}
+                                                            />
 
-                                                        :
+
+                                                                :
                                                         <Form.Control
                                                             name={field.name}
                                                             required

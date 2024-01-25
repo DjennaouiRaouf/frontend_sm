@@ -9,7 +9,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../ActionRenderer/ActionRenderer";
+
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import settings from "../../icons/settings.png";
@@ -261,7 +261,7 @@ const ListDQE: React.FC<any> = () => {
   return (
       <>
         <>
-
+          <AlertMessage/>
           <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"} filter={getRows}  />
 
           <div id="wrapper" >

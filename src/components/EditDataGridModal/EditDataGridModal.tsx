@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect,  useState} from "react";
 import AlertMessage from "../AlertMessage/AlertMessage";
+import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 
 type EditDataGridModalProps = {
   title?:string;
@@ -66,6 +67,7 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
         formDataObject.append(key, formData[key]);
       }
     }
+
     await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${pkValue}/`,formDataObject,{
       headers: {
 
@@ -77,6 +79,7 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
         .then((response:any) => {
 
           props.getRows(``);
+          dispatch(showAlert({variant:Variants.SUCCESS,heading:"Modification ",text:'Les données ont été mises à jour avec succès'}))
 
         })
         .catch((error:any) => {
@@ -100,6 +103,7 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
 
   return (
       <>
+
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -219,7 +223,18 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
                                                           disabled={field.readOnly || false}
                                                           onChange={(e)=>handleInputChange(e)}
                                                       />
-                                                      :
+                                                      : field.type === 'IntegerField' || field.type ==='DecimalField'  ?
+                                                          <Form.Control
+                                                              name={field.name}
+                                                              required
+                                                              className="w-100"
+                                                              type="number"
+                                                              value={formData[field.name] || 0}
+                                                              step={0.01}
+                                                              disabled={field.readOnly || false}
+                                                              onChange={(e)=>handleInputChange(e)}
+                                                          />
+                                                              :
                                                       <Form.Control
                                                           name={field.name}
                                                           required

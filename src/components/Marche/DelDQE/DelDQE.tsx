@@ -9,7 +9,6 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../ActionRenderer/ActionRenderer";
 import {useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import settings from "../../icons/settings.png";
@@ -18,6 +17,7 @@ import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import FilterModal from "../../FilterModal/FilterModal";
 import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 type DelDQEProps = {
   //
 };
@@ -82,12 +82,9 @@ const DelDQE: React.FC<any> = () => {
           setPk(response.data.pk)
 
           const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Action',
-            cellRenderer:ActionRenderer,
-            cellRendererParams:{
-              modelName:"del_"+response.data.models,
-              pk:response.data.pk
-            }
+            headerName:'Visualiser',
+            cellRenderer:DisplayRow,
+
           }];
 
           setCols(updatedCols);

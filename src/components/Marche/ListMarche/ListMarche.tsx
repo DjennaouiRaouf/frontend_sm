@@ -9,8 +9,7 @@ import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
 import {ColDef} from "ag-grid-community";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../ActionRenderer/ActionRenderer";
-import customer from "../../icons/customer.png";
+
 import * as XLSX from "xlsx";
 import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
 import {AgGridReact} from "ag-grid-react";
@@ -23,6 +22,8 @@ import Avance from "../../ActionRenderer/Avance/Avance";
 import Cautions from "../../ActionRenderer/Cautions/Cautions";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 import ODS from "../../ActionRenderer/ODS/ODS";
+import Editer from "../../ActionRenderer/Editer/Editer";
+import AlertMessage from "../../AlertMessage/AlertMessage";
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -65,6 +66,28 @@ const ListMarche: React.FC<any> = () => {
     },
   };
 
+
+  const getRows = async(url:string) => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getmarche/?${url}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          setRows(response.data);
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+
+  }
+
   const getCols = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/marchefields/?flag=l`,{
       headers: {
@@ -92,6 +115,7 @@ const ListMarche: React.FC<any> = () => {
 
               }
             },
+
 
             {
               headerName:'Cautions',
@@ -141,7 +165,18 @@ const ListMarche: React.FC<any> = () => {
                 },)
           }
 
+          updatedCols.push(
+              {
+                headerName:'Editer',
+                cellRenderer:Editer,
+                cellRendererParams:{
+                  modelName:response.data.models,
+                  pk:response.data.pk,
+                  updateRows:getRows,
 
+                }
+              }
+          )
 
           setCols(updatedCols);
 
@@ -156,34 +191,14 @@ const ListMarche: React.FC<any> = () => {
 
 
 
-  const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getmarche/?${url}`,{
-      headers: {
-        Authorization: `Token ${Cookies.get('token')}`,
-        'Content-Type': 'application/json',
-
-      },
-    })
-        .then((response:any) => {
-
-          setRows(response.data);
 
 
-
-        })
-        .catch((error:any) => {
-
-        });
-
-  }
-
-
-  useEffect(() => {
-    getCols();
-  },[]);
 
   useEffect(() => {
     getRows("");
+  },[]);
+  useEffect(() => {
+    getCols();
   },[]);
 
 
@@ -201,7 +216,7 @@ const ListMarche: React.FC<any> = () => {
 
   return (
       <>
-
+        <AlertMessage/>
         <FilterModal img={agreement} title={"Rechercher un marche"} endpoint_fields={"/forms/marchefilterfields/"} filter={getRows}  />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">

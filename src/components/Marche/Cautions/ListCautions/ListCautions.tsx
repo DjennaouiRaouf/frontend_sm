@@ -8,7 +8,6 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
-import ActionRenderer from "../../../ActionRenderer/ActionRenderer";
 import {useEffect, useMemo, useRef, useState} from "react";
 import DisplayDataGridModal from "../../../DisplayDataGridModal/DisplayDataGridModal";
 import {ColDef, GridApi, RowNode} from "ag-grid-community";

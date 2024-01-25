@@ -208,10 +208,21 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                                       type="date"
                                                       onChange={(e)=>handleInputChange(e)}
                                                   />
-                                                  :
+                                                  : field.type === 'NumberFilter' || field.type === 'IntegerField' ?
                                                       <Form.Control
                                                           name={field.name}
+                                                          className="w-100"
+                                                          type="number"
+                                                          value={formData[field.name] || 0}
+                                                          step={0.01}
+                                                          disabled={field.readOnly || false}
+                                                          onChange={(e)=>handleInputChange(e)}
+                                                      />
 
+
+                                                          :
+                                                      <Form.Control
+                                                          name={field.name}
                                                           className="w-100"
                                                           type="text"
                                                           onChange={(e)=>handleInputChange(e)}
