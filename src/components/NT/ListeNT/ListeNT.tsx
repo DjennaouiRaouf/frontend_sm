@@ -166,7 +166,7 @@ const ListeNT: React.FC<any> = () => {
                           <ButtonGroup style={{ height: 35}}>
 
                             <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                    onClick={() => navigate('/ajout_nt')}>
+                                    onClick={() => navigate('/nt/ajout_nt')}>
                               <i className="fas fa-plus" />
                               &nbsp;Ajouter
                             </Button>
@@ -184,9 +184,6 @@ const ListeNT: React.FC<any> = () => {
                               </Dropdown.Toggle>
 
                               <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">
-                                  <i className="bi bi-file-earmark-pdf-fill"></i>
-                                  &nbsp;pdf</Dropdown.Item>
                                 <Dropdown.Item onClick={export_xlsx}>
                                   <i className="bi bi-filetype-xlsx"></i>
                                   &nbsp;xlsx</Dropdown.Item>

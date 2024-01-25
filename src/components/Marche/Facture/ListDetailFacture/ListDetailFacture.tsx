@@ -243,9 +243,6 @@ const ListDetailFacture: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <i className="bi bi-file-earmark-pdf-fill"></i>
-                                    &nbsp;Exporter les details (PDF)</Dropdown.Item>
                                   <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;Exporter les details (XLSX)</Dropdown.Item>

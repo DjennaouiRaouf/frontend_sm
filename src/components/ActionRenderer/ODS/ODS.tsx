@@ -6,9 +6,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import * as XLSX from "xlsx";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
-import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
-import AlertMessage from "../../AlertMessage/AlertMessage";
-
+import {showModal3 as showODSModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import AddAvance from "../../Marche/Avances/AddAvance/AddAvance";
+import AddODS from "../../Marche/ODS/AddODS/AddODS";
 
 type ODSProps = {
   data:any;
@@ -22,7 +22,7 @@ type ODSProps = {
 
 const ODS: React.FC<ODSProps> = (props) => {
   const navigate=useNavigate();
- 
+  const dispatch = useDispatch();
 
   const handlelistODS = () => {
     if(permission.includes("api_sm.view_ordre_de_service")){
@@ -34,6 +34,15 @@ const ODS: React.FC<ODSProps> = (props) => {
     }
 
   };
+
+  const handleAddODS = () => {
+    if(permission.includes("api_sm.add_ordre_de_service")){
+      const rowData:any =  props.data  ;
+      if (props.pk){
+        dispatch(showODSModal(rowData[props.pk]));
+      }
+    }
+  }
  
 
 
@@ -46,17 +55,22 @@ const ODS: React.FC<ODSProps> = (props) => {
             <>
               
               { permission.includes("api_sm.add_ordre_de_service") &&
-                  <button
-                      className="btn btn-primary"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      type="button"
-                      style={{ background: "#df162c", borderWidth: 0 }}
-                      title="Ajout un ODS"
 
-                  >
-                    <i className="fas fa-download" />
-                  </button>
+                  <>
+                    <button
+                        className="btn btn-primary"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        type="button"
+                        style={{ background: "#df162c", borderWidth: 0 }}
+                        title="Ajout un ODS"
+                        onClick={handleAddODS}
+                    >
+                      <i className="fas fa-plus" />
+                    </button>
+                    <AddODS />
+                  </>
+
               }
               { permission.includes("api_sm.view_ordre_de_service") &&
                   <button

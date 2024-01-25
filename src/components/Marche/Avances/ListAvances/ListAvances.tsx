@@ -168,13 +168,7 @@ const ListAvances: React.FC<any> = () => {
   },[]);
   // get rows and cold dqe
   /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
-  const getRowStyle = (params: any):any => {
-    if (params.data.montant_creance === "0,00") {
-      return { background: 'yellow' };
-    }
-    return null;
 
-  }
 
 //  <FilterModal img={bill} title={"Rechercher un paiement"} endpoint_fields={"/forms/encaissementfilterfields/"} filter={getRows}  />
   return (
@@ -246,9 +240,7 @@ const ListAvances: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <i className="bi bi-file-earmark-pdf-fill"></i>
-                                    &nbsp;Facture Retenue de garantie</Dropdown.Item>
+
                                   <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;Exporter les Avances</Dropdown.Item>
@@ -284,7 +276,7 @@ const ListAvances: React.FC<any> = () => {
                                              onGridReady={onGridReady}
                                              gridOptions={gridOptions}
                                              onSelectionChanged={onSelectionChanged}
-                                             getRowStyle={getRowStyle}
+
 
 
 

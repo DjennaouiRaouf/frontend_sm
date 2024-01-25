@@ -165,7 +165,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                    
                                 </Form.Label>
                                 {
-                                  field.type === "ModelChoiceFilter"?
+                                  field.type === "ModelChoiceFilter" || field.type === "PrimaryKeyRelatedField"?
                                       <>
                                         <Form.Control
                                             name={field.name}
@@ -186,7 +186,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
 
                                           :
-                                          field.type === 'BooleanFilter' ?
+                                          field.type === 'BooleanFilter' || field.type === 'BooleanField' ?
 
                                               <Form.Control
                                                   as="select"
@@ -200,7 +200,7 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
 
 
                                               </Form.Control>
-                                              : field.type === 'DateFilter' ?
+                                              : field.type === 'DateFilter' || field.type === 'DateField'  ?
                                                   <Form.Control
                                                       name={field.name}
 

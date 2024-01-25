@@ -27,7 +27,8 @@ import AddCautions from "../Marche/Cautions/AddCautions/AddCautions";
 import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ListeODS from "../Marche/ListeODS/ListeODS";
+import ListeODS from "../Marche/ODS/ListeODS/ListeODS";
+import AddODS from "../Marche/ODS/AddODS/AddODS";
 
 
 
@@ -239,7 +240,7 @@ const Routes: React.FC<any> = () => {
 
 
           <Route
-              path="/client/ajout_c"
+              path="/clients/ajout_c"
               element={
                    authenticated && permission.includes("api_sm.add_clients") ? (
                        <>
@@ -271,10 +272,13 @@ const Routes: React.FC<any> = () => {
           <Route
               path="marche/liste_m/liste_ods"
               element={
-                  authenticated  ? (
+                  authenticated   ? (
                       <>
                           <NavigationBar/>
-                          <ListeODS />
+                          <ModalProvider>
+                              <ListeODS />
+                          </ModalProvider>
+
 
 
                       </>
@@ -362,6 +366,22 @@ const Routes: React.FC<any> = () => {
                           <AddNT />
 
                         
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
+          <Route
+              path="marche/liste_m/liste_caution"
+              element={
+                  authenticated  ? (
+                      <>
+                          <NavigationBar/>
+                          <ListCautions />
+
+
                       </>
                   ): (
                       <Navigate to="/"  />

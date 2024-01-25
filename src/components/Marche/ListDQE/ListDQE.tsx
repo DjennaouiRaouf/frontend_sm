@@ -64,32 +64,7 @@ const InfoRenderer: React.FC<any> = (props) => {
     case 'prix_q' :
       return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
       break;
-    case 'est_tache_complementaire':
 
-      return(
-              <>
-                {value === true ?
-                <i className="far fa-check-circle" style={{ color: "rgb(0,157,63)" }} />
-                    :
-                    <i className="far fa-times-circle" style={{ color: "rgb(255,0,0)" }} />
-                }
-              </>
-      )
-    break;
-
-
-    case 'est_tache_composite':
-
-      return(
-          <>
-            {value === true ?
-                <i className="far fa-check-circle" style={{ color: "rgb(0,157,63)" }} />
-                :
-                <i className="far fa-times-circle" style={{ color: "rgb(255,0,0)" }} />
-            }
-          </>
-      )
-      break;
     default:
       return <span>{value}</span>
   }
@@ -355,9 +330,6 @@ const ListDQE: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                  <Dropdown.Item href="#/action-1">
-                                    <i className="bi bi-file-earmark-pdf-fill"></i>
-                                    &nbsp;pdf</Dropdown.Item>
                                   <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;xlsx</Dropdown.Item>

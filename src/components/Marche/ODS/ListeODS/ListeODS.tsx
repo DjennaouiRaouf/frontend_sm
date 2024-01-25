@@ -9,13 +9,13 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useMemo, useRef, useState} from "react";
-import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
+import DisplayDataGridModal from "../../../DisplayDataGridModal/DisplayDataGridModal";
 import {ColDef, GridApi, RowNode} from "ag-grid-community";
-import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
-import FilterModal from "../../FilterModal/FilterModal";
+import {useModal} from "../../../Context/FilterModalContext/FilterModalContext";
+import FilterModal from "../../../FilterModal/FilterModal";
 
 import * as XLSX from "xlsx";
-import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
+import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 
 
 
@@ -120,7 +120,7 @@ const ListODS: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-          console.log(response.data)
+
           setRows(response.data);
 
 
@@ -170,16 +170,13 @@ const ListODS: React.FC<any> = () => {
   useEffect(() => {
     getRows("");
   },[]);
-  // get rows and cold dqe
-  /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
 
-
-  //<FilterModal img={"bill"} title={"Rechercher une ODS"} endpoint_fields={"/forms/odsfilterfields/"} filter={getRows}  />
+  //
   return (
       <>
         <>
 
-
+          <FilterModal img={""} title={"Rechercher un ODS"} endpoint_fields={"/forms/odsfilterfields/"} filter={getRows}  />
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >
@@ -212,46 +209,6 @@ const ListODS: React.FC<any> = () => {
                                 &nbsp;Recherche
                               </Button>
 
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderRadius:0}} id="dropdown-basic"
-                                >
-                                  <i className="far fa-trash-alt"></i>
-                                  &nbsp;Supprimer
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <i className="fas fa-eraser"></i>
-                                    &nbsp;Suppression</Dropdown.Item>
-                                  <Dropdown.Item >
-                                    <i className="far fa-trash-alt"></i>
-                                    &nbsp;Corbeille</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="fas fa-list-ul"></i>
-                                    &nbsp;Elements supprimés</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
-
-
-
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
-                                >
-                                  <i className="fas fa-print" />
-                                  &nbsp;Imprimer
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <i className="bi bi-file-earmark-pdf-fill"></i>
-                                    &nbsp;Facture Retenue de garantie</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="bi bi-filetype-xlsx"></i>
-                                    &nbsp;Exporter les factures</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
 
                             </ButtonGroup>
 

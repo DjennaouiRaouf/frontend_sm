@@ -6,8 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/AddDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/AddDataGridModalSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ODS/ODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ODS/ODS.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Avances/ListAvances/ListAvances.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Avances/ListAvances/ListAvances.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListeODS/ListeODS.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ODS/ListeODS/ListeODS.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListeODS/ListeODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ODS/ListeODS/ListeODS.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +70,7 @@
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Context\PrinterOptionModalContext" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Marche\ODS" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Marche" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Facture" />
     </key>
@@ -101,14 +115,8 @@
       <workItem from="1705562527678" duration="15974000" />
       <workItem from="1705907423508" duration="20623000" />
       <workItem from="1705993783950" duration="25921000" />
-      <workItem from="1706080481530" duration="11960000" />
-    </task>
-    <task id="LOCAL-00008" summary="Initial commit">
-      <created>1703084315398</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1703084315398</updated>
+      <workItem from="1706080481530" duration="12231000" />
+      <workItem from="1706166676961" duration="8551000" />
     </task>
     <task id="LOCAL-00009" summary="Initial commit">
       <created>1703084326982</created>
@@ -446,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706106918212</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Initial commit">
+      <created>1706108983579</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1706108983579</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

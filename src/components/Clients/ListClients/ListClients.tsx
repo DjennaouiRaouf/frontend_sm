@@ -165,7 +165,7 @@ const ListClients: React.FC<any> = () => {
                                                 <ButtonGroup style={{ height: 35}}>
 
                                                     <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                                    onClick={() => navigate('/ajout_c')}>
+                                                    onClick={() => navigate('/clients/ajout_c')}>
                                                         <i className="fas fa-plus" />
                                                         &nbsp;Ajouter
                                                     </Button>
@@ -183,9 +183,7 @@ const ListClients: React.FC<any> = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu>
-                                                            <Dropdown.Item >
-                                                                <i className="bi bi-file-earmark-pdf-fill"></i>
-                                                                &nbsp;pdf</Dropdown.Item>
+
                                                             <Dropdown.Item onClick={export_xlsx} >
                                                                 <i className="bi bi-filetype-xlsx"></i>
                                                                 &nbsp;xlsx</Dropdown.Item>
