@@ -68,7 +68,8 @@ const DQE: React.FC<DQEProps> = (props) => {
 
             })
             .catch((error: any) => {
-              dispatch(showAlert({variant:Variants.DANGER,heading:'DQE',text:error.response.request.response}))
+
+              dispatch(showAlert({variant:Variants.DANGER,heading:'DQE',text:error.response.data.message}))
               if (fileInputRef.current) {
                 fileInputRef.current.value = '';
               }

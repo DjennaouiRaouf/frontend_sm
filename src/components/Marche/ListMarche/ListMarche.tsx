@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 
-import {Button, ButtonGroup, Dropdown, Modal} from "react-bootstrap";
+import {Button, ButtonGroup, Dropdown, Form, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {useNavigate} from "react-router-dom";
 
@@ -24,6 +24,14 @@ import {PermissionContext} from "../../Context/PermissionContext/PermissionConte
 import ODS from "../../ActionRenderer/ODS/ODS";
 import Editer from "../../ActionRenderer/Editer/Editer";
 import AlertMessage from "../../AlertMessage/AlertMessage";
+import Flash from "../../ActionRenderer/Flash/Flash";
+
+
+
+
+
+
+
 const ListMarche: React.FC<any> = () => {
   const navigate=useNavigate();
   const { openModal } = useModal();
@@ -33,6 +41,12 @@ const ListMarche: React.FC<any> = () => {
   const[rows,setRows]=useState <any[]>([]);
   const[cols,setCols]=useState <any[]>([]);
   const[filter,setFilter]=useState('');
+  const[pk,setPK]=useState('');
+  const[rowData,setRowData]=useState<any>({});
+  const [shown, setShown] = useState(false);
+
+  const handleClose = () => setShown(false);
+  const handleShow = () => setShown(true);
 
   const defaultColDefs: ColDef = {
     sortable: true,
@@ -97,7 +111,7 @@ const ListMarche: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-
+          setPK(response.data.pk)
           const updatedCols:any[] = [...response.data.fields, {
             headerName:'Afficher',
             cellRenderer:DisplayRow,
@@ -164,6 +178,18 @@ const ListMarche: React.FC<any> = () => {
                   }
                 },)
           }
+          updatedCols.push(
+              {
+                headerName:'Flash',
+                cellRenderer:Flash,
+                cellRendererParams:{
+                  modelName:response.data.models,
+                  pk:response.data.pk,
+                  onOpenModal:handleShow,
+                }
+
+              }
+          )
 
           updatedCols.push(
               {
@@ -212,7 +238,10 @@ const ListMarche: React.FC<any> = () => {
 
 
   }
+  const handleRowClick = (event: any) => {
+    setRowData(event.data);
 
+  };
 
   return (
       <>
@@ -297,10 +326,31 @@ const ListMarche: React.FC<any> = () => {
                               <AgGridReact ref={gridRef}
                                            rowData={rows} columnDefs={cols}
                                            gridOptions={gridOptions}
-
+                                           onRowClicked={handleRowClick}
 
 
                               />
+                              <Modal show={shown} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Selectionner le mois</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <Form.Control
+                                      required
+                                      className="w-100 mb-3 mt-3"
+                                      type="month"
+
+
+                                  />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }} >
+                                    <i className="fa fa-send" style={{marginRight:5 }} ></i>
+                                    Envoyer
+                                  </Button>
+
+                                </Modal.Footer>
+                              </Modal>
                             </div>
                           </div>
                         </div>
