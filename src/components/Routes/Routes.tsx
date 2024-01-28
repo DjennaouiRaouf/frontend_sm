@@ -29,6 +29,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import ListeODS from "../Marche/ODS/ListeODS/ListeODS";
 import AddODS from "../Marche/ODS/AddODS/AddODS";
+import ListFlash from "../Marche/Flash/ListFlash/ListFlash";
 
 
 
@@ -380,6 +381,21 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListCautions />
+
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/liste_flash"
+              element={
+                  authenticated  ? (
+                      <>
+                          <NavigationBar/>
+                          <ListFlash />
 
 
                       </>

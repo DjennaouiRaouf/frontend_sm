@@ -59,10 +59,10 @@ const InfoRenderer: React.FC<any> = (props) => {
       return <span>{value+" "+libelle}</span>
       break;
     case 'prix_u' :
-      return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
       break;
     case 'prix_q' :
-      return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
       break;
 
     default:

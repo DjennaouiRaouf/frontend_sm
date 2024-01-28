@@ -25,6 +25,8 @@ import ODS from "../../ActionRenderer/ODS/ODS";
 import Editer from "../../ActionRenderer/Editer/Editer";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import Flash from "../../ActionRenderer/Flash/Flash";
+import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
+import {useDispatch} from "react-redux";
 
 
 
@@ -44,7 +46,7 @@ const ListMarche: React.FC<any> = () => {
   const[pk,setPK]=useState('');
   const[rowData,setRowData]=useState<any>({});
   const [shown, setShown] = useState(false);
-
+  const dispatch = useDispatch();
   const handleClose = () => setShown(false);
   const handleShow = () => setShown(true);
 
@@ -218,7 +220,7 @@ const ListMarche: React.FC<any> = () => {
 
 
 
-
+  const[selectedMonth,setSelectedMonth]=useState<string>("")
 
   useEffect(() => {
     getRows("");
@@ -242,6 +244,29 @@ const ListMarche: React.FC<any> = () => {
     setRowData(event.data);
 
   };
+
+  const handleChangeMonth = (e:any) => {
+      setSelectedMonth(e.target.value)
+  }
+  const handleFlash = () => {
+
+    if(selectedMonth){
+      const date:any[]=selectedMonth.split('-')
+      navigate('liste_flash', {state: {
+        marche:rowData.id,
+        code_site: rowData.code_site,
+        nt:rowData.nt,
+          month:date[1],
+          year:date[0]}})
+
+    }
+    else{
+      handleClose();
+      dispatch(showAlert({variant:Variants.DANGER,heading:"Flash",text:'Veuillez inserer le mois'}))
+      setSelectedMonth('')
+    }
+
+  }
 
   return (
       <>
@@ -339,12 +364,14 @@ const ListMarche: React.FC<any> = () => {
                                       required
                                       className="w-100 mb-3 mt-3"
                                       type="month"
+                                      onChange={(e)=>handleChangeMonth(e)}
 
 
                                   />
                                 </Modal.Body>
                                 <Modal.Footer>
-                                  <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }} >
+                                  <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
+                                  onClick={handleFlash}>
                                     <i className="fa fa-send" style={{marginRight:5 }} ></i>
                                     Envoyer
                                   </Button>

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit" />
+    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -99,14 +104,8 @@
       <workItem from="1705907423508" duration="20623000" />
       <workItem from="1705993783950" duration="25921000" />
       <workItem from="1706080481530" duration="12231000" />
-      <workItem from="1706166676961" duration="24225000" />
-    </task>
-    <task id="LOCAL-00012" summary="Initial commit">
-      <created>1703168921268</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1703168921268</updated>
+      <workItem from="1706166676961" duration="24270000" />
+      <workItem from="1706425765647" duration="13992000" />
     </task>
     <task id="LOCAL-00013" summary="Initial commit">
       <created>1703169506232</created>
@@ -444,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706195409708</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Initial commit">
+      <created>1706195499872</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1706195499872</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
