@@ -16,10 +16,15 @@ type DisplayDataGridModalProps = {
 const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
   const dispatch = useDispatch();
   const { show,data, } = useSelector((state: RootState) => state.displayDataGridModal);
-  const handleClose = () => {
+
+
+
+    const handleClose = () => {
+        console.log(props.cols)
       dispatch(hideModal())
 
   }
+
 
 
   return (
@@ -81,10 +86,28 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
 
                                                                   <Form.Label >
                                                                       {props.cols.map((c,index) => (
-                                                                          c.field=== key &&
+                                                                          c.field=== key ?
                                                                           <strong  key={index}>
                                                                               {c.headerName+' :'}
-                                                                          </strong>
+                                                                          </strong>:
+
+                                                                          c.children &&
+
+                                                                                    c.children.map((i:any,j:any) => (
+
+                                                                                        i.field=== key &&
+                                                                                        <strong  key={index}>
+                                                                                            {i.headerName+" "+c.headerName+' :'}
+                                                                                        </strong>
+
+                                                                                    ))
+
+
+
+
+
+
+
                                                                       ))}
 
 

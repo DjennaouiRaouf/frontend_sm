@@ -182,7 +182,7 @@ const ListMarche: React.FC<any> = () => {
           }
           updatedCols.push(
               {
-                headerName:'Flash',
+                headerName:'Flash/Attachements',
                 cellRenderer:Flash,
                 cellRendererParams:{
                   modelName:response.data.models,
@@ -192,6 +192,7 @@ const ListMarche: React.FC<any> = () => {
 
               }
           )
+
 
           updatedCols.push(
               {
@@ -266,6 +267,25 @@ const ListMarche: React.FC<any> = () => {
       setSelectedMonth('')
     }
 
+  }
+  
+  const handleListAtt = () => {
+    if(selectedMonth){
+      const date:any[]=selectedMonth.split('-')
+      navigate('liste_att', {state: {
+          marche:rowData.id,
+          code_site: rowData.code_site,
+          nt:rowData.nt,
+          month:date[1],
+          year:date[0]}})
+
+    }
+    else{
+      handleClose();
+      dispatch(showAlert({variant:Variants.DANGER,heading:"Flash",text:'Veuillez inserer le mois'}))
+      setSelectedMonth('')
+    }
+    
   }
 
   return (
@@ -374,6 +394,11 @@ const ListMarche: React.FC<any> = () => {
                                   onClick={handleFlash}>
                                     <i className="fa fa-send" style={{marginRight:5 }} ></i>
                                     Envoyer
+                                  </Button>
+                                  <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
+                                          onClick={handleListAtt}>
+                                    <i className="fas fa-list" style={{marginRight:5 }} ></i>
+                                    Liste des Attachements
                                   </Button>
 
                                 </Modal.Footer>

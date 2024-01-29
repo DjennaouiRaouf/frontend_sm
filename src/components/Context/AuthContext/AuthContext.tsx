@@ -36,8 +36,6 @@ const AuthProvider = ({children}: Props) => {
   }, []);
 
 
-
-
   return (
       <AuthContext.Provider value={{authenticated, setAuthenticated}}>
         {children}

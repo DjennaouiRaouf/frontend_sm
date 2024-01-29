@@ -223,7 +223,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                     <Form.Control
                                         name={field.name}
                                         as="input"
-                                        required
+                                        required={field.required}
                                         list={field.name}
                                         className="w-100"
                                         value={formData[field.name] || ''}
@@ -246,7 +246,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                       <Form.Control
                                           as="select"
                                           name={field.name}
-                                          required
+                                          required={field.required}
                                           className="w-100"
                                           value={formData[field.name] || '' }
                                           onChange={(e)=>handleSelectChange(e)}>
@@ -261,7 +261,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                       : field.type === 'DateField' ?
                                           <Form.Control
                                               name={field.name}
-                                              required
+                                              required={field.required}
                                               className="w-100"
                                               type="date"
                                               value={formData[field.name] || ''}
@@ -270,7 +270,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                           : field.type === 'IntegerField' || field.type ==='DecimalField'  ?
                                               <Form.Control
                                                   name={field.name}
-                                                  required
+                                                  required={field.required}
                                                   className="w-100"
                                                   type="number"
                                                   value={formData[field.name] || 0}
@@ -281,7 +281,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                           :
                                           <Form.Control
                                               name={field.name}
-                                              required
+                                              required={field.required}
                                               className="w-100"
                                               type="text"
                                               value={formData[field.name] || ''}

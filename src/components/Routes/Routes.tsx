@@ -30,6 +30,7 @@ import Cookies from "js-cookie";
 import ListeODS from "../Marche/ODS/ListeODS/ListeODS";
 import AddODS from "../Marche/ODS/AddODS/AddODS";
 import ListFlash from "../Marche/Flash/ListFlash/ListFlash";
+import ListAttachements from "../Marche/ListAttachements/ListAttachements";
 
 
 
@@ -381,6 +382,21 @@ const Routes: React.FC<any> = () => {
                       <>
                           <NavigationBar/>
                           <ListCautions />
+
+
+                      </>
+                  ): (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/liste_att"
+              element={
+                  authenticated  ? (
+                      <>
+                          <NavigationBar/>
+                          <ListAttachements />
 
 
                       </>

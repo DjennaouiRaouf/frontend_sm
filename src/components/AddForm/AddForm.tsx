@@ -205,9 +205,17 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                         <Form.Label>
                                             <strong>
                                                 {field.label  +" "}
-                                                <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
-                                              *
-                                          </span>
+                                                {
+                                                    field.required ?
+                                                        <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+                                                              *
+                                                        </span>
+                                                        :
+                                                        <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+
+                                                        </span>
+                                                }
+
                                             </strong>
                                         </Form.Label>
                                         {
@@ -216,7 +224,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                     <Form.Control
                                                         name={field.name}
                                                         as="input"
-                                                        required
+                                                        required={field.required}
                                                         list={field.name}
                                                         className="w-100"
                                                         value={formData[field.name] || ''}
@@ -238,7 +246,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                     <Form.Control
                                                         as="select"
                                                         name={field.name}
-                                                        required
+                                                        required={field.required}
                                                         className="w-100"
                                                         value={formData[field.name] || '' }
                                                         onChange={(e)=>handleSelectChange(e)}>
@@ -253,7 +261,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                     : field.type === 'DateField' ?
                                                         <Form.Control
                                                             name={field.name}
-                                                            required
+                                                            required={field.required}
                                                             className="w-100"
                                                             type="date"
                                                             value={formData[field.name] || ''}
@@ -262,7 +270,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                         : field.type === 'IntegerField' || field.type ==='DecimalField'  ?
                                                             <Form.Control
                                                                 name={field.name}
-                                                                required
+                                                                required={field.required}
                                                                 className="w-100"
                                                                 type="number"
                                                                 value={formData[field.name] || 0}
@@ -274,7 +282,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                                 :
                                                         <Form.Control
                                                             name={field.name}
-                                                            required
+                                                            required={field.required}
                                                             className="w-100"
                                                             type="text"
                                                             value={formData[field.name] || ''}

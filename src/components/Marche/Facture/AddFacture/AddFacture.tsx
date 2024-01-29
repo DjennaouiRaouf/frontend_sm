@@ -78,11 +78,13 @@ const AddFacture: React.FC<any> = () => {
 
                     dispatch(showAlert({variant:Variants.SUCCESS,heading: "Facture",text:response.data.message}))
                     setFormData(defaultState);
+
                 })
                 .catch((error:any) => {
-                    dispatch(showAlert({variant:Variants.DANGER,heading:"Facture",text:error.response.request.response}))
-                });
 
+                    dispatch(showAlert({variant:Variants.DANGER,heading:"Facture",text:error.response.data.message}))
+                });
+                handleClose();
 
 
 
@@ -159,7 +161,7 @@ const AddFacture: React.FC<any> = () => {
 
 
                 >
-                    <AlertMessage/>
+
                     <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
                         noValidate validated={validated} onSubmit={handleSubmit} >
 
@@ -202,9 +204,14 @@ const AddFacture: React.FC<any> = () => {
                                                     <Form.Label>
                                                         <strong>
                                                             {field.label  +" "}
+                                                            {field.required ?
                                                             <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
-                                              *
-                                          </span>
+                                                                  *
+                                                            </span>:
+                                                                <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+
+                                                                </span>
+                                                            }
                                                         </strong>
                                                     </Form.Label>
                                                     {
@@ -213,7 +220,7 @@ const AddFacture: React.FC<any> = () => {
                                                                 <Form.Control
                                                                     name={field.name}
                                                                     as="input"
-                                                                    required
+                                                                    required={field.required}
                                                                     list={field.name}
                                                                     className="w-100"
                                                                     value={formData[field.name]}
@@ -235,7 +242,7 @@ const AddFacture: React.FC<any> = () => {
                                                                 <Form.Control
                                                                     as="select"
                                                                     name={field.name}
-                                                                    required
+                                                                    required={field.required}
                                                                     className="w-100"
                                                                     value={formData[field.name]}
                                                                     onChange={(e)=>handleSelectChange(e)}>
@@ -250,7 +257,7 @@ const AddFacture: React.FC<any> = () => {
                                                                 : field.type === 'DateField' ?
                                                                     <Form.Control
                                                                         name={field.name}
-                                                                        required
+                                                                        required={field.required}
                                                                         className="w-100"
                                                                         type="date"
                                                                         value={formData[field.name]}
@@ -260,7 +267,7 @@ const AddFacture: React.FC<any> = () => {
                                                                     :
                                                                     <Form.Control
                                                                         name={field.name}
-                                                                        required
+                                                                        required={field.required}
                                                                         className="w-100"
                                                                         type="text"
                                                                         value={formData[field.name]}

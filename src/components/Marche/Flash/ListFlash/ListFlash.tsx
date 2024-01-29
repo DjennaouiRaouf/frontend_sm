@@ -87,7 +87,8 @@ const ListFlash: React.FC<any> = () => {
   const[attachementFields,setAttachementFields]=useState<any[]>([])
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sch/getprod/?mm=${mid.month}&aa=${mid.year}&code_site=${mid.code_site}&nt=${mid.nt}`,{
+    console.log()
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sch/getprod/?code_site=${mid.code_site}&nt=${mid.nt}&prevu_realiser=R&code_type_production=01&mm=${mid.month}&aa=${mid.year}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -287,6 +288,7 @@ const ListFlash: React.FC<any> = () => {
         })
         .catch((error:any) => {
           //dispatch(showAlert({variant:Variants.DANGER,heading:props.title,text:error.response.request.response}))
+          console.log(error.response.data)
         });
 
 

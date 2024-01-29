@@ -208,9 +208,14 @@ const Encaissement: React.FC<any> = () => {
                                 <Form.Label>
                                   <strong>
                                     {field.label  +" "}
-                                    <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
-                                              *
-                                          </span>
+                                    {field.required ?
+                                        <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+                                                                  *
+                                                            </span>:
+                                        <span style={{ color: "rgb(255,0,0)", fontSize: 18, fontWeight: "bold" }}>
+
+                                                                </span>
+                                    }
                                   </strong>
                                 </Form.Label>
                                 {
@@ -219,7 +224,7 @@ const Encaissement: React.FC<any> = () => {
                                         <Form.Control
                                             name={field.name}
                                             as="input"
-                                            required
+                                            required={field.required}
                                             list={field.name}
                                             className="w-100"
                                             value={formData[field.name]}
@@ -241,7 +246,7 @@ const Encaissement: React.FC<any> = () => {
                                           <Form.Control
                                               as="select"
                                               name={field.name}
-                                              required
+                                              required={field.required}
                                               className="w-100"
                                               value={formData[field.name]}
                                               onChange={(e)=>handleSelectChange(e)}>
@@ -256,7 +261,7 @@ const Encaissement: React.FC<any> = () => {
                                           : field.type === 'DateField' ?
                                               <Form.Control
                                                   name={field.name}
-                                                  required
+                                                  required={field.required}
                                                   className="w-100"
                                                   type="date"
                                                   value={formData[field.name]}
@@ -266,7 +271,7 @@ const Encaissement: React.FC<any> = () => {
                                               :
                                               <Form.Control
                                                   name={field.name}
-                                                  required
+                                                  required={field.required}
                                                   className="w-100"
                                                   type="text"
                                                   value={formData[field.name]}
