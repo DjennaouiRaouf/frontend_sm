@@ -87,7 +87,7 @@ const ListFlash: React.FC<any> = () => {
   const[attachementFields,setAttachementFields]=useState<any[]>([])
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sch/getprod/?mm=${mid.month}&aa=${mid.year}&code_site=${"H31"}&nt=${"150"}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sch/getprod/?mm=${mid.month}&aa=${mid.year}&code_site=${mid.code_site}&nt=${mid.nt}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const ListFlash: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-
+          console.log(response.data)
           setRows(response.data);
 
 
