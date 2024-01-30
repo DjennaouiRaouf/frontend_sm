@@ -55,7 +55,7 @@ const ListAttachements: React.FC<any> = () => {
     })
         .then((response:any) => {
 
-          setRows(response.data);
+          setRows(response.data.attachement);
 
 
         })
@@ -177,6 +177,9 @@ const ListAttachements: React.FC<any> = () => {
     getCols();
   },[]);
 
+  const print_att = () => {
+    navigate('/print_att', { state: { params:location.state} })
+  }
   const { permission } = useContext(PermissionContext);
 
   return (
@@ -230,6 +233,9 @@ const ListAttachements: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
+                                  <Dropdown.Item onClick={print_att}>
+                                    <i className="bi bi-file-earmark-pdf-fill"></i>
+                                    &nbsp;pdf</Dropdown.Item>
                                   <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;xlsx</Dropdown.Item>

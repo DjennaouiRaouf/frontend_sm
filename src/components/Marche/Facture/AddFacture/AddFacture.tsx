@@ -57,6 +57,7 @@ const AddFacture: React.FC<any> = () => {
         e.preventDefault();
         const form = e.currentTarget;
         formData["marche"]=pk
+        console.log(formData)
 
         const formDataObject = new FormData();
         for (const key in formData) {

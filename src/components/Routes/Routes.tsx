@@ -31,6 +31,8 @@ import ListeODS from "../Marche/ODS/ListeODS/ListeODS";
 import AddODS from "../Marche/ODS/AddODS/AddODS";
 import ListFlash from "../Marche/Flash/ListFlash/ListFlash";
 import ListAttachements from "../Marche/ListAttachements/ListAttachements";
+import ErrorRoute from "../ErrorRoute/ErrorRoute";
+import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementPDFViewPrinter";
 
 
 
@@ -226,6 +228,7 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+
           <Route
               path="/print_rg_facture"
               element={
@@ -450,6 +453,35 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+
+          <Route
+              path="/print_att"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <AttachementPDFViewPrinter/>
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
+          <Route
+              path="*"
+              element={
+
+                      <>
+                          <ErrorRoute />
+                      </>
+
+              }
+          />
+
+
+
+
       </Router>
 
   )

@@ -240,7 +240,7 @@ const ListFacture: React.FC<any> = () => {
             },
         })
             .then((response:any) => {
-                if(response.data.extra.total_rg!='0,00'){
+                if(response.data.extra.total_rg !== '0,00'){
                     navigate('/print_rg_facture', { state: { factures: response.data.factures, extra:response.data.extra} })
                 }
 

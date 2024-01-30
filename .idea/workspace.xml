@@ -5,20 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/Flash/Flash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/Flash/Flash.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Context/AuthContext/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Context/AuthContext/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Avances/AddAvance/AddAvance.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Avances/AddAvance/AddAvance.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/AddCautions/AddCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/AddCautions/AddCautions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Encaissement/Encaissement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Encaissement/Encaissement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ODS/AddODS/AddODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ODS/AddODS/AddODS.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,14 +117,8 @@
       <workItem from="1706080481530" duration="12231000" />
       <workItem from="1706166676961" duration="24270000" />
       <workItem from="1706425765647" duration="16603000" />
-      <workItem from="1706511974286" duration="17157000" />
-    </task>
-    <task id="LOCAL-00016" summary="Initial commit">
-      <created>1703428562166</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1703428562166</updated>
+      <workItem from="1706511974286" duration="17188000" />
+      <workItem from="1706598353213" duration="20824000" />
     </task>
     <task id="LOCAL-00017" summary="Initial commit">
       <created>1703430108359</created>
@@ -462,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706540681556</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Initial commit">
+      <created>1706540709125</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1706540709125</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

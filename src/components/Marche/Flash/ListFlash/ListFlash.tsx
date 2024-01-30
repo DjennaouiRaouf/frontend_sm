@@ -266,7 +266,6 @@ const ListFlash: React.FC<any> = () => {
   const envoyer = async() => {
       const dqe:string=mid.marche+"-"+rowData.code_tache
     formData["dqe"]=dqe
-    console.log(formData)
     const formDataObject = new FormData();
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {
@@ -283,7 +282,7 @@ const ListFlash: React.FC<any> = () => {
 
     })
         .then((response:any) => {
-          //dispatch(showAlert({variant:Variants.SUCCESS,heading:props.title,text:response.data.message}))
+          dispatch(showAlert({variant:Variants.SUCCESS,heading:"Attachement",text:response.data.message}))
 
         })
         .catch((error:any) => {
@@ -291,6 +290,7 @@ const ListFlash: React.FC<any> = () => {
           console.log(error.response.data)
         });
 
+        handleClose()
 
   }
   const [formData, setFormData] = useState<any>({});

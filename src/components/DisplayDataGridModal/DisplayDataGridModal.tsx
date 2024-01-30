@@ -20,7 +20,7 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
 
 
     const handleClose = () => {
-        console.log(props.cols)
+
       dispatch(hideModal())
 
   }
