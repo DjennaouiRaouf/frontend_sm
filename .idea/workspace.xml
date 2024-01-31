@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Utils/Utils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Context/PermissionContext/PermissionContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Context/PermissionContext/PermissionContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ErrorRoute/ErrorRoute.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,22 +37,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/administrator/Desktop/frontend_sm/src/components/Context&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\administrator\\Desktop\\frontend_sm\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\administrator\\Desktop\\frontend_sm\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/administrator/Desktop/frontend_sm/src/components/Context",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\administrator\\Desktop\\frontend_sm\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
+    "ts.external.directory.path": "C:\\Users\\administrator\\Desktop\\frontend_sm\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Context" />
@@ -118,14 +111,8 @@
       <workItem from="1706166676961" duration="24270000" />
       <workItem from="1706425765647" duration="16603000" />
       <workItem from="1706511974286" duration="17188000" />
-      <workItem from="1706598353213" duration="20824000" />
-    </task>
-    <task id="LOCAL-00017" summary="Initial commit">
-      <created>1703430108359</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1703430108359</updated>
+      <workItem from="1706598353213" duration="20907000" />
+      <workItem from="1706685004304" duration="21041000" />
     </task>
     <task id="LOCAL-00018" summary="Initial commit">
       <created>1703430194648</created>
@@ -463,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706540709125</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Initial commit">
+      <created>1706627674605</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1706627674606</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

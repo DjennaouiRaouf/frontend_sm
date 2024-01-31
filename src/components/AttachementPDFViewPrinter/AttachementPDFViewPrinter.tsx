@@ -8,12 +8,14 @@ import ReactPDF, {
     StyleSheet,
     PDFDownloadLink, PDFViewer,
 } from "@react-pdf/renderer";
+
 import Image = ReactPDF.Image;
 import {ChangeEvent, useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
 import {DataTableCell, Table, TableBody, TableCell, TableHeader} from "@alex9923/react-pdf-table";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Humanize from "../Utils/Utils";
 type PDFViewPrinterProps = {
     //
 };
@@ -21,25 +23,33 @@ type PDFViewPrinterProps = {
 
 const AttachementPDFViewPrinter: React.FC<any> = () => {
     const location = useLocation();
-    const[dataSet,setDataSet]=useState<any[]>([])
+    const[dataSet,setDataSet]=useState<any[]>([]);
+    const[logo,setLogo]=useState<string>("");
+    const[loading,setLoading]=useState(true);
+    const[extra,setExtra]=useState<any>({});
     const data  = location.state.params;
     const styles = StyleSheet.create({
         page: {
             flexDirection: 'row',
             backgroundColor: '#FFFFFF',
-            fontSize:16
+            fontSize:12,
+            paddingTop:'2cm',
+            paddingBottom:'2cm',
+            paddingLeft:'2cm',
+            paddingRight:'2cm',
 
         },
         mainView:{
 
             width:'100vw',
-            margin:20,
+
         },
         header:{
-            fontSize:13,
+            fontSize:12,
             flexDirection: 'row',
             width:'100%',
-            marginBottom:20
+            paddingBottom:20,
+
         },
         headerLeftPart:{
             width:'80%',
@@ -56,7 +66,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
           paddingBottom:60,
         },
         date:{
-            fontSize:13,
+            fontSize:12,
 
             width:'100%',
             textAlign:"right",
@@ -68,13 +78,57 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
         },
         title:{
             borderWidth:2,
-            fontSize:16,
+            fontSize:12,
             padding:10,
             height:45,
             width:'70%',
             textAlign:"center",
         },
+        sum:{
 
+            width:"100%",
+            fontSize:12,
+            paddingTop:10,
+
+        },
+        table1:{
+            paddingTop:5
+        },
+        table2:{
+            paddingTop:5
+        },
+        footer1:{
+            paddingTop:2,
+            width:'100%',
+            height:"20vh",
+            flexDirection: 'row',
+
+        },
+        footer2:{
+            paddingTop:25,
+            width:'100%',
+            height:"30vh",
+            flexDirection: 'row',
+
+        },
+        footerLeftPart:{
+            width:'100%',
+            height:"30vh",
+
+        },
+        footerRightPart:{
+            width:'50%',
+            height:"30vh",
+        },
+        pageNumber: {
+            position: 'absolute',
+            fontSize: 12,
+            bottom: 30,
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            color: 'grey',
+        },
 
     });
     const getMonthName = (monthNumber: number) => {
@@ -97,6 +151,9 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
             .then((response:any) => {
 
                 setDataSet(response.data.attachement)
+                setExtra(response.data.extra)
+                setLoading(false);
+
 
 
             })
@@ -105,85 +162,205 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
             });
     }
 
+    const getLogo = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/optionimpression/?type=L`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+
+                if(response.data){
+
+                    setLogo(response.data[0].src)
+                }
+                else{
+                    setLogo("")
+                }
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
+    }
 
     useEffect(() => {
         getDataSet();
     },[]);
+    useEffect(() => {
+        getLogo();
+    },[]);
 
     return (
         <>
-           
+            {
+                loading === false  ?
+                <div>
+                    <PDFViewer style={{width:"100%",height:"850px"}}>
+                        <Document pageLayout={"twoPageLeft"}  >
 
-            <div>
-                <PDFViewer style={{width:"100%",height:"860px"}}>
-                    <Document pageLayout="singlePage">
-
-                        <Page size={"A3"} orientation={'landscape'} style={styles.page} wrap={false} >
-                            <View style={styles.mainView} >
+                            <Page size={"A4"} orientation={'landscape'} style={styles.page}   >
+                                <View style={styles.mainView}   >
 
 
-                                <View style={styles.header} >
-                                    <View style={styles.headerLeftPart} >
-                                        <View style={{width:"50%"}} >
-                                            <Text >{`Client : `}</Text>
-                                            <Text >{`Projet : `}</Text>
-                                            <Text >{`Objet : `}</Text>
-                                            <Text >{`Contrat : `}</Text>
-                                            <Text >{`NT : `}</Text>
+                                    <View style={styles.header}  >
+                                        <View style={styles.headerLeftPart} >
+                                            <View style={{width:"50%"}} >
+                                                <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client : </Text>{extra.client}</Text>
+                                                <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Projet : </Text>{extra.projet}</Text>
+                                                <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Objet : </Text>{extra.objet}</Text>
+                                                <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}} >Contrat : </Text>{extra.contrat+" du "+extra.du}</Text>
+                                                <Text style={{fontSize:10}} ><Text  >NT : </Text>{extra.nt}</Text>
+                                            </View>
+                                        </View>
+
+
+                                            <View style={styles.headerRightPart} >
+                                            {
+                                                logo &&
+                                                <Image source={logo} style={{width:"130px",height:"80px"}} />
+                                            }
+
+
                                         </View>
                                     </View>
-                                    <View style={styles.headerRightPart} >
-                                        <Text >{`logo`}</Text>
+
+
+                                    <View style={styles.center} >
+                                        <View style={styles.title} >
+                                            <Text >{`Décompte provisoir des traveaux du ${getMonthName(data.month).toUpperCase()} / ${data.year}`}</Text>
+                                        </View >
+                                    </View >
+
+                                    <View style={styles.date} >
+                                        <Text >{`Arrêté au 31/03/2023 `}</Text>
+                                    </View >
+
+                                    <View   >
+                                        <View style={styles.table1} >
+                                            <Table
+                                                data={dataSet}
+                                            >
+                                                <TableHeader textAlign={"center"} >
+                                                    <TableCell>
+                                                        Code Tache
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Designation
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Unité
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Quantité Précédente
+                                                    </TableCell>
+                                                    <TableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}}>
+                                                        Quantité Mois
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Quantité Cumulée
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Prix Unitaire
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Montant Précédent
+                                                    </TableCell>
+                                                    <TableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}}>
+                                                        Montant Mois
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Montant Cumulé
+                                                    </TableCell>
+                                                </TableHeader>
+                                                <TableBody textAlign={"center"}>
+                                                    <DataTableCell getContent={(r) => r.code_tache}/>
+                                                    <DataTableCell getContent={(r) => r.libelle_tache}/>
+                                                    <DataTableCell getContent={(r) => r.unite}/>
+                                                    <DataTableCell getContent={(r) => r.qte_precedente}/>
+                                                    <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => r.qte_mois}/>
+                                                    <DataTableCell getContent={(r) => r.qte_cumule}/>
+                                                    <DataTableCell getContent={(r) => Humanize(r.prix_u)}/>
+                                                    <DataTableCell getContent={(r) => Humanize(r.montant_precedent)}/>
+                                                    <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.montant_mois)}/>
+                                                    <DataTableCell getContent={(r) => Humanize(r.montant_cumule)}/>
+                                                </TableBody>.
+                                            </Table>
+                                        </View >
+                                        <View   style={styles.table2}>
+                                            <Table
+                                                data={[extra]}
+
+                                            >
+
+                                                <TableBody textAlign={"center"} >
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                    <DataTableCell getContent={() => "Montant Total En (H.T)"}/>
+                                                    <DataTableCell getContent={(r) => Humanize(r.smontant_precedent) }/>
+                                                    <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.smontant_mois)}/>
+                                                    <DataTableCell getContent={(r) => Humanize(r.smontant_cumule)}/>
+                                                </TableBody>.
+                                            </Table>
+                                        </View >
+                                    </View >
+                                    <View style={styles.sum} >
+                                        <Text >{`Le présent décompte est arrêté en HT à la somme de ${extra.mm}`}</Text>
+                                    </View >
+
+                                    <View style={styles.footer1}>
+
 
                                     </View>
+                                    <View style={styles.footer2}>
+                                        <View style={styles.footerLeftPart}>
+                                            <Text >{`P/ ${extra.filiale}`}</Text>
+                                        </View>
+                                        <View style={styles.footerRightPart}>
+                                            <View style={styles.footerLeftPart}>
+                                                <Text >{`P/ ${extra.client}`}</Text>
+                                            </View>
+                                        </View>
+
+                                    </View>
+
                                 </View>
+                                <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+                                    `${pageNumber} / ${totalPages}`
+                                )} fixed />
+
+                            </Page>
+
+                        </Document>
+                    </PDFViewer>
+                </div>
+                :
+                    <div className="container d-xl-flex justify-content-xl-center align-items-xl-center">
+                      <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          style={{
+                              width: 300,
+                              height: 300,
+                              margin: 0,
+                              fontSize: 90,
+                              color: "#dc162e"
+                          }}
+                      />
+                    </div>
 
 
-                                <View style={styles.center} >
-                                <View style={styles.title} >
-                                    <Text >{`Décompte provisoir des traveaux du ${getMonthName(data.month).toUpperCase()} / ${data.year}`}</Text>
-                                </View >
-                                </View >
-
-                                <View style={styles.date} >
-                                    <Text >{`Arrêté au 31/03/2023 `}</Text>
-                                </View >
-
-                                <Table
-                                    data={dataSet}
-                                >
-                                    <TableHeader>
-                                        <TableCell>
-                                            Code Tache
-                                        </TableCell>
-                                        <TableCell>
-                                            Designation
-                                        </TableCell>
-                                        <TableCell>
-                                            Unité
-                                        </TableCell>
-
-                                    </TableHeader>
-                                    <TableBody>
-                                        <DataTableCell getContent={(r) => r.code_tache}/>
-                                        <DataTableCell getContent={(r) => r.libelle_tache}/>
-                                        <DataTableCell getContent={(r) => r.unite}/>
+            }
 
 
-                                    </TableBody>
-                                </Table>
-
-
-
-                            </View>
-
-
-
-                        </Page>
-
-                    </Document>
-                </PDFViewer>
-            </div>
         </>
     );
 };

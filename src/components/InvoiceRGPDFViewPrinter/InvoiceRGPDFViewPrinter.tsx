@@ -6,7 +6,7 @@ import ReactPDF, {
   Text,
   View,
   StyleSheet,
-  PDFDownloadLink, PDFViewer,
+  PDFViewer,
 } from "@react-pdf/renderer";
 import Image = ReactPDF.Image;
 import {ChangeEvent, useEffect, useState} from "react";

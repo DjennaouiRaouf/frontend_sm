@@ -393,7 +393,7 @@ const ListMarche: React.FC<any> = () => {
                                   <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
                                   onClick={handleFlash}>
                                     <i className="fa fa-send" style={{marginRight:5 }} ></i>
-                                    Envoyer
+                                    Liste des Flash
                                   </Button>
                                   <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
                                           onClick={handleListAtt}>

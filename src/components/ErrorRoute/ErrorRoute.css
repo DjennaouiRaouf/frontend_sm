@@ -1,5 +1,5 @@
 .error{
-    background-color: #39bbdb;
+    background-color: #dc162e;
     color: #fff;
     padding-bottom: 0;
     min-height: 100%;
@@ -19,7 +19,7 @@
 }
 
 .error-container h1 {
-    color: #39bbdb;
+    color:#dc162e;
 }
 
 .error-container h1 {
