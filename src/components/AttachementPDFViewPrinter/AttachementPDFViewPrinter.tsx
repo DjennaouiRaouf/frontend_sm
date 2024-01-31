@@ -105,10 +105,13 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
 
         },
         footer2:{
-            paddingTop:25,
             width:'100%',
+
             height:"30vh",
             flexDirection: 'row',
+            position:"relative",
+            bottom: -10,
+
 
         },
         footerLeftPart:{
