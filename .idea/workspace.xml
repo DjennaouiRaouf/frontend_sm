@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/AddMarcheForm/AddMarcheForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/AddMarcheForm/AddMarcheForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,21 +104,7 @@
       <workItem from="1706511974286" duration="17188000" />
       <workItem from="1706598353213" duration="20907000" />
       <workItem from="1706685004304" duration="22045000" />
-      <workItem from="1706771761379" duration="22662000" />
-    </task>
-    <task id="LOCAL-00020" summary="Initial commit">
-      <created>1704381103566</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1704381103566</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Initial commit">
-      <created>1704639918035</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1704639918035</updated>
+      <workItem from="1706771761379" duration="22990000" />
     </task>
     <task id="LOCAL-00022" summary="Initial commit">
       <created>1704722986359</created>
@@ -462,7 +435,21 @@
       <option name="project" value="LOCAL" />
       <updated>1706713990710</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Initial commit">
+      <created>1706799305046</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1706799305046</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Initial commit">
+      <created>1706799322846</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1706799322846</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
