@@ -19,6 +19,9 @@ import ImprimerFacture from "../../../ActionRenderer/ImprimerFacture/ImprimerFac
 import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 import PaiementFacture from "../../../ActionRenderer/PaiementFacture/PaiementFacture";
 import DetailFacture from "../../../ActionRenderer/DetailFacture/DetailFacture";
+import AlertMessage from "../../../AlertMessage/AlertMessage";
+import {useDispatch} from "react-redux";
+import {showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice";
 
 
 type ListFactureProps = {
@@ -37,7 +40,7 @@ const ListFacture: React.FC<any> = () => {
     const [selectedRows, setSelectedRows] = useState<any[]>([]);
     const[models,setModels]=useState<string>('')
     const[pk,setPk]=useState<string>('')
-
+    const dispatch=useDispatch();
     const navigate=useNavigate();
     const location = useLocation();
     const mid = location.state;
@@ -240,19 +243,48 @@ const ListFacture: React.FC<any> = () => {
             },
         })
             .then((response:any) => {
-                if(response.data.extra.total_rg !== '0,00'){
-                    navigate('/print_rg_facture', { state: { factures: response.data.factures, extra:response.data.extra} })
+                console.log(response.data)
+                if(response.data.extra.total_rg ){
+                    navigate('/print_rg_facture', { state: { marche: mid.marche} })
+                    //navigate('/print_rg_facture', { state: { marche: , extra:response.data.extra} })
+                }
+                else{
+                    dispatch(showAlert({variant:Variants.DANGER,heading:"Facture RG",text:"Ce Marché ne posséde pas de retenue de garantie"}))
                 }
 
             })
             .catch((error:any) => {
             });
     }
+    
+    const etat_ctrl_facture = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ecf/?marche=${mid.marche}`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+                console.log(response.data)
+                if(response.data.extra.total_rg ){
+                    navigate('//print_ecf', { state: { marche: mid.marche} })
+                    //navigate('/print_rg_facture', { state: { marche: , extra:response.data.extra} })
+                }
+                else{
+                    dispatch(showAlert({variant:Variants.DANGER,heading:"Facture RG",text:"Ce Marché ne posséde pas de retenue de garantie"}))
+                }
+
+            })
+            .catch((error:any) => {
+            });
+
+    }
     return (
         <>
             <>
                 <FilterModal img={bill} title={"Rechercher une Facture"} endpoint_fields={"/forms/facturefilterfields/"} filter={getRows}  />
-
+                <AlertMessage/>
                 <div id="wrapper" >
                     <div id="content-wrapper" className="d-flex flex-column">
                         <div id="content" >
@@ -290,19 +322,16 @@ const ListFacture: React.FC<any> = () => {
                                                                 ,borderRadius:0}} id="dropdown-basic"
                                                             >
                                                                 <i className="far fa-trash-alt"></i>
-                                                                &nbsp;Supprimer
+                                                                &nbsp;Annulation
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu>
                                                                 <Dropdown.Item onClick={delSelected}>
                                                                     <i className="fas fa-eraser"></i>
-                                                                    &nbsp;Suppression</Dropdown.Item>
+                                                                    &nbsp;Annuler</Dropdown.Item>
                                                                 <Dropdown.Item >
                                                                     <i className="far fa-trash-alt"></i>
-                                                                    &nbsp;Corbeille</Dropdown.Item>
-                                                                <Dropdown.Item onClick={export_xlsx}>
-                                                                    <i className="fas fa-list-ul"></i>
-                                                                    &nbsp;Elements supprimés</Dropdown.Item>
+                                                                    &nbsp;Factures Annulées</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
 
@@ -317,6 +346,9 @@ const ListFacture: React.FC<any> = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu>
+                                                                <Dropdown.Item onClick={etat_ctrl_facture}>
+                                                                    <i className="bi bi-file-earmark-pdf-fill"></i>
+                                                                    &nbsp;Etat de controle des factures</Dropdown.Item>
                                                                 <Dropdown.Item onClick={rgFacture}>
                                                                     <i className="bi bi-file-earmark-pdf-fill"></i>
                                                                     &nbsp;Facture Retenue de garantie</Dropdown.Item>

@@ -203,7 +203,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
             {
                 loading === false  ?
                 <div>
-                    <PDFViewer style={{width:"100%",height:"850px"}}>
+                    <PDFViewer style={{width:"100%",height:"800px"}}>
                         <Document pageLayout={"twoPageLeft"}  >
 
                             <Page size={"A4"} orientation={'landscape'} style={styles.page}   >
@@ -213,7 +213,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                                     <View style={styles.header}  >
                                         <View style={styles.headerLeftPart} >
                                             <View style={{width:"50%"}} >
-                                                <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client : </Text>{extra.client}</Text>
+                                                <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client : </Text></Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Projet : </Text>{extra.projet}</Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Objet : </Text>{extra.objet}</Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}} >Contrat : </Text>{extra.contrat+" du "+extra.du}</Text>

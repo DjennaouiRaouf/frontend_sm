@@ -79,12 +79,12 @@ const ListAttachements: React.FC<any> = () => {
           setCols2(response.data.fields2)
           const updatedCols:any[] = [...response.data.fields,
             {
-              headerName:'Action',
-              cellRenderer:DQEAction,
+              headerName:'Visualiser',
+              cellRenderer:DisplayRow,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk,
-                updateRows:getRows,
+
               }
             },
 

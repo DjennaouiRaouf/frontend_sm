@@ -171,6 +171,27 @@ const ListDetailFacture: React.FC<any> = () => {
     getRows("");
   },[]);
 
+  const print_detail = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/det/?facture=${fid.facture}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          if(response.data){
+            navigate('/print_detail', { state: { facture: fid.facture} })
+          }
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+  }
 
   //
   return (
@@ -242,6 +263,10 @@ const ListDetailFacture: React.FC<any> = () => {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
+
+                                  <Dropdown.Item onClick={print_detail}>
+                                    <i className="bi bi-file-earmark-pdf-fill"></i>
+                                    &nbsp;Imprimer les détails</Dropdown.Item>
                                   <Dropdown.Item onClick={export_xlsx}>
                                     <i className="bi bi-filetype-xlsx"></i>
                                     &nbsp;Exporter les details (XLSX)</Dropdown.Item>

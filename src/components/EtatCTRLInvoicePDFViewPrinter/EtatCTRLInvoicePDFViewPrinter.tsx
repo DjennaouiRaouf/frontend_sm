@@ -20,7 +20,7 @@ type PDFViewPrinterProps = {
   //
 };
 
-const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
+const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState<string>('1');
@@ -53,10 +53,10 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
       flexDirection: 'row',
       width:'100%',
       paddingBottom:20,
-      
+
       position:"relative",
       top:-5
-      
+
 
 
     },
@@ -64,16 +64,16 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
       flexDirection: 'row',
       width:'100%',
       paddingBottom:20,
-    
+
       position:"relative",
       top:-10,
       justifyContent:'flex-end',
 
     },
     dataHeader:{
-        width:"100%",
-        paddingLeft:10,
-        paddingRight:10
+      width:"100%",
+      paddingLeft:10,
+      paddingRight:10
 
 
     },
@@ -228,7 +228,7 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
 
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    console.log(selectedValue)
+
     setSelectedOption(selectedValue);
   };
 
@@ -261,39 +261,34 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
       <>
         {
           loading === false  ?
-          <>
-              <div className="container text-center mb-3" >
-                <Form.Select aria-label="Default select example" style={{width:"100%"}} onChange={handleOptionChange} >
-                  {options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                  ))}
-                </Form.Select>
-              </div>
-              <div>
-                <PDFViewer style={{width:"100%",height:"800px"}}>
-                  <Document   >
+              <>
+                <div className="container text-center mb-3" >
+                  <Form.Select aria-label="Default select example" style={{width:"100%"}} onChange={handleOptionChange} >
+                    {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                    ))}
+                  </Form.Select>
+                </div>
+                <div>
+                  <PDFViewer style={{width:"100%",height:"850px"}}>
+                    <Document   >
 
-                    <Page size={"A4"} orientation={'portrait'} style={styles.page}   >
-                      <View style={styles.mainView}   >
+                      <Page size={"A4"} orientation={'portrait'} style={styles.page}   >
+                        <View style={styles.mainView}   >
 
 
-                        <View style={styles.header}  fixed>
-
-                          {
-                            selectedOption === "1"?
+                          <View style={styles.header}  fixed>
                             h &&
                             <Image source={h} style={{width:"150%",height:102}} />
-                                :
-                                <View style={{width:"150%",height:102}} />
-                          }
-                        </View>
-                        <View style={styles.headerDate}  >
-                          <Text style={{fontSize:10,textAlign:"right",paddingTop:10,paddingLeft:10,paddingRight:10}} ><Text  >Le : </Text>{rgDate}</Text>
 
-                        </View>
-                        <View style={styles.header}    >
+                          </View>
+                          <View style={styles.headerDate}  >
+                            <Text style={{fontSize:10,textAlign:"right",paddingTop:10,paddingLeft:10,paddingRight:10}} ><Text  >Le : </Text>{rgDate}</Text>
+
+                          </View>
+                          <View style={styles.header}    >
 
                             <View style={styles.dataHeader} >
                               <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client</Text>  {extra.client}</Text>
@@ -306,86 +301,82 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
                             </View>
 
 
+                          </View>
+                          <View style={{paddingLeft:10,paddingRight:10}}  >
+                            <View style={styles.table1} >
+                              <Table
+                                  data={dataSet.concat(dataSet)}
+
+                              >
+                                <TableHeader textAlign={"center"} >
+                                  <TableCell>
+                                    Facture N°
+                                  </TableCell>
+                                  <TableCell>
+                                    Situation N°
+                                  </TableCell>
+                                  <TableCell>
+                                    du
+                                  </TableCell>
+                                  <TableCell>
+                                    au
+                                  </TableCell>
+
+
+                                  <TableCell>
+                                    Montant RG
+                                  </TableCell>
+
+                                </TableHeader>
+                                <TableBody textAlign={"center"}>
+                                  <DataTableCell getContent={(r) => r.numero_facture}/>
+                                  <DataTableCell getContent={(r) => r.num_situation}/>
+                                  <DataTableCell getContent={(r) => r.du}/>
+                                  <DataTableCell getContent={(r) => r.au}/>
+                                  <DataTableCell getContent={(r) => Humanize(r.montant_rg)}/>
+                                </TableBody>.
+                              </Table>
+                            </View >
+                            <View   style={styles.table2}>
+                              <Table
+                                  data={[extra]}
+
+                              >
+
+                                <TableBody textAlign={"center"} >
+                                  <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                  <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                  <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+
+                                  <DataTableCell getContent={() => "Montant Total R.G"}/>
+                                  <DataTableCell style={{backgroundColor:"#e6e6e6"}} getContent={(r) => Humanize(r.total_rg) }/>
+                                </TableBody>.
+                              </Table>
+                            </View >
+                          </View >
+                          <View style={styles.sum} >
+                            <Text >Le présent décompte est arrêté en HT à la somme de <Text style={{backgroundColor:"#e6e6e6"}}>{extra.total_rgl}</Text></Text>
+                          </View >
+
                         </View>
-                        <View style={{paddingLeft:10,paddingRight:10}}  >
-                          <View style={styles.table1} >
-                            <Table
-                                data={dataSet}
-                            >
-                              <TableHeader textAlign={"center"} >
-                                <TableCell>
-                                  Facture N°
-                                </TableCell>
-                                <TableCell>
-                                  Situation N°
-                                </TableCell>
-                                <TableCell>
-                                  du
-                                </TableCell>
-                                <TableCell>
-                                  au
-                                </TableCell>
 
+                        <View style={styles.footer} fixed>
+                          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
 
-                                <TableCell>
-                                  Montant RG
-                                </TableCell>
-
-                              </TableHeader>
-                              <TableBody textAlign={"center"}>
-                                <DataTableCell getContent={(r) => r.numero_facture}/>
-                                <DataTableCell getContent={(r) => r.num_situation}/>
-                                <DataTableCell getContent={(r) => r.du}/>
-                                <DataTableCell getContent={(r) => r.au}/>
-                                <DataTableCell getContent={(r) => Humanize(r.montant_rg)}/>
-                              </TableBody>.
-                            </Table>
-                          </View >
-                          <View   style={styles.table2}>
-                            <Table
-                                data={[extra]}
-
-                            >
-
-                              <TableBody textAlign={"center"} >
-                                <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-
-                                <DataTableCell getContent={() => "Montant Total R.G"}/>
-                                <DataTableCell style={{backgroundColor:"#e6e6e6"}} getContent={(r) => Humanize(r.total_rg) }/>
-                              </TableBody>.
-                            </Table>
-                          </View >
-                        </View >
-                        <View style={styles.sum} >
-                          <Text >Le présent décompte est arrêté en HT à la somme de <Text style={{backgroundColor:"#e6e6e6"}}>{extra.total_rgl}</Text></Text>
-                        </View >
-
-                      </View>
-
-                      <View style={styles.footer} fixed>
-                        <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
-
-                            `${pageNumber} / ${totalPages}`
-                        )} fixed />
-                        {
-                          selectedOption === "1" ?
+                              `${pageNumber} / ${totalPages}`
+                          )} fixed />
                           f &&
                           <Image source={f} style={{width:"100%",height:85}} />
-                          :
-                              <View style={{width:"100%",height:85}} />
-                        }
-                      </View>
+                        </View>
 
 
 
-                    </Page>
+                      </Page>
 
-                  </Document>
-                </PDFViewer>
-              </div>
-          </>
+                    </Document>
+                  </PDFViewer>
+                </div>
+              </>
               :
               <div className="container d-xl-flex justify-content-xl-center align-items-xl-center">
                       <span
@@ -411,4 +402,5 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
   );
 };
 
-export default InvoiceRGPDFViewPrinter;
+
+export default EtatCTRLInvoicePDFViewPrinter;

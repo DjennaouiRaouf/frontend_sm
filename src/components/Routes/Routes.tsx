@@ -33,6 +33,8 @@ import ListFlash from "../Marche/Flash/ListFlash/ListFlash";
 import ListAttachements from "../Marche/ListAttachements/ListAttachements";
 import ErrorRoute from "../ErrorRoute/ErrorRoute";
 import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementPDFViewPrinter";
+import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter";
+import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
 
 
 
@@ -467,6 +469,33 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+          <Route
+              path="/print_ecf"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <EtatCTRLInvoicePDFViewPrinter/>
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="//print_detail"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <DetailInvoicePDFViewPrinter/>
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
 
           <Route
               path="*"

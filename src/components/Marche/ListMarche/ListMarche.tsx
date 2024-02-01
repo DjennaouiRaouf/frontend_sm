@@ -54,7 +54,8 @@ const ListMarche: React.FC<any> = () => {
     sortable: true,
     resizable: true,
     minWidth: 300,
-    cellStyle: { textAlign: 'start', border: "none"  },
+    autoHeight: true, wrapText: true,
+    cellStyle: {textAlign: 'start', border: "none"},
 
   };
 
@@ -65,6 +66,7 @@ const ListMarche: React.FC<any> = () => {
     defaultColDef:defaultColDefs,
     multiSortKey:'ctrl',
     animateRows:true,
+
     localeText: {
       // Default pagination text
       page: 'Page',
