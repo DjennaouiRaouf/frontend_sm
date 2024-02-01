@@ -312,7 +312,6 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
                             <Table
                                 data={dataSet}
                             >
-
                               <TableHeader textAlign={"center"} >
                                 <TableCell>
                                   Facture N°
