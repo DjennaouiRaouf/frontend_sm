@@ -24,14 +24,59 @@ import {PermissionContext} from "../../Context/PermissionContext/PermissionConte
 import ODS from "../../ActionRenderer/ODS/ODS";
 import Editer from "../../ActionRenderer/Editer/Editer";
 import AlertMessage from "../../AlertMessage/AlertMessage";
-import Flash from "../../ActionRenderer/Flash/Flash";
+
 import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
+import numeral from "numeral";
+import Flash from "../../ActionRenderer/Flash/Flash";
 
 
 
 
+const InfoRenderer: React.FC<any> = (props) => {
+  const { value } = props;
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+    if(props.data.unite){
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibum/?id=${props.data.unite}`,{
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+          'Content-Type': 'application/json',
 
+        },
+      })
+          .then((response:any) => {
+            setLibelle(response.data[0].libelle)
+          })
+          .catch((error:any) => {
+          });
+
+
+    }
+  }
+  useEffect(() => {
+    getLib();
+  },[libelle]);
+  switch (props.column.colId) {
+
+    case 'ht' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'ttc' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'rg':
+      return <span>{value+" %"}</span>
+      break;
+    case 'rabais':
+      return <span>{value+" %"}</span>
+      break;
+
+    default:
+      return <span>{value}</span>
+  }
+
+};
 
 
 const ListMarche: React.FC<any> = () => {
@@ -66,6 +111,9 @@ const ListMarche: React.FC<any> = () => {
     defaultColDef:defaultColDefs,
     multiSortKey:'ctrl',
     animateRows:true,
+    components: {
+      InfoRenderer: InfoRenderer,
+    },
 
     localeText: {
       // Default pagination text
@@ -265,7 +313,7 @@ const ListMarche: React.FC<any> = () => {
     }
     else{
       handleClose();
-      dispatch(showAlert({variant:Variants.DANGER,heading:"Flash",text:'Veuillez inserer le mois'}))
+      dispatch(showAlert({variant:Variants.DANGER,heading:"Attachement",text:'Veuillez inserer le mois'}))
       setSelectedMonth('')
     }
 
@@ -284,7 +332,7 @@ const ListMarche: React.FC<any> = () => {
     }
     else{
       handleClose();
-      dispatch(showAlert({variant:Variants.DANGER,heading:"Flash",text:'Veuillez inserer le mois'}))
+      dispatch(showAlert({variant:Variants.DANGER,heading:"Attachement",text:'Veuillez inserer le mois'}))
       setSelectedMonth('')
     }
     

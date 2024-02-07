@@ -22,12 +22,58 @@ import DetailFacture from "../../../ActionRenderer/DetailFacture/DetailFacture";
 import AlertMessage from "../../../AlertMessage/AlertMessage";
 import {useDispatch} from "react-redux";
 import {showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice";
+import numeral from "numeral";
 
 
 type ListFactureProps = {
     //
 };
+const InfoRenderer: React.FC<any> = (props) => {
+    const { value } = props;
+    const[libelle,setLibelle]=useState<string>("")
+    const getLib = async() => {
 
+    }
+    useEffect(() => {
+        getLib();
+    },[libelle]);
+    switch (props.column.colId) {
+        case 'montant_cumule' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+        case 'montant_precedent' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+        case 'montant_mois' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+        case 'montant_rg' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+
+        case 'montant_taxe' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+
+            case 'montant_rb' :
+                return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+                break;
+
+        case "montant_factureHT":
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+            break;
+
+            case'montant_factureTTC':
+                return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+                break;
+
+
+
+        default:
+            return <span>{value}</span>
+    }
+
+};
 
 const ListFacture: React.FC<any> = () => {
     const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
@@ -120,6 +166,9 @@ const ListFacture: React.FC<any> = () => {
         multiSortKey:'ctrl',
         animateRows:true,
         rowSelection:'multiple',
+        components: {
+            InfoRenderer: InfoRenderer,
+        },
         localeText: {
             // Default pagination text
             page: 'Page',

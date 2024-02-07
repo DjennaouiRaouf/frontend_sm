@@ -27,6 +27,37 @@ type ListAttachementsProps = {
   //
 };
 
+const InfoRenderer: React.FC<any> = (props) => {
+  const { value } = props;
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+
+  }
+  useEffect(() => {
+    getLib();
+  },[libelle]);
+  switch (props.column.colId) {
+
+
+    case 'montant_precedent' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'montant_cumule' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+
+    case 'montant_mois' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+    case 'prix_u' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+      break;
+
+    default:
+      return <span>{value}</span>
+  }
+
+};
 
 const ListAttachements: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
@@ -107,7 +138,7 @@ const ListAttachements: React.FC<any> = () => {
     resizable: true,
     minWidth: 300,
     cellStyle: { textAlign: 'start', border: "none"  },
-
+    autoHeight: true, wrapText: true,
 
   };
 
@@ -119,6 +150,9 @@ const ListAttachements: React.FC<any> = () => {
     multiSortKey:'ctrl',
     animateRows:true,
     rowSelection:'multiple',
+    components: {
+      InfoRenderer: InfoRenderer,
+    },
 
     localeText: {
       // Default pagination text

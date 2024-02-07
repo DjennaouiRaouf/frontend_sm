@@ -35,6 +35,7 @@ import ErrorRoute from "../ErrorRoute/ErrorRoute";
 import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementPDFViewPrinter";
 import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter";
 import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
+import AddDQE from "../Marche/AddDQE/AddDQE";
 
 
 
@@ -88,6 +89,25 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <ModalProvider>
                               <ListDQE/>
+                          </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/add_dqe"
+              element={
+                  authenticated && permission.includes("api_sm.add_dqe") ? (
+                      <>
+                          <NavigationBar/>
+                          <ModalProvider>
+                              <AddDQE/>
                           </ModalProvider>
 
 

@@ -113,6 +113,15 @@ const DQE: React.FC<DQEProps> = (props) => {
     }
   }
 
+  const handleAddDQE = () => {
+    if(permission.includes("api_sm.add_dqe")){
+      const rowData:any =  props.data  ;
+      if (props.pk){
+        navigate('add_dqe', { state: { marche: rowData[props.pk] } })
+      }
+
+    }
+  }
 
 
 
@@ -132,6 +141,19 @@ const DQE: React.FC<DQEProps> = (props) => {
         <div className="btn-group btn-group-sm" role="group">
               <>
                 <>
+                  { permission.includes("api_sm.add_dqe") &&
+                      <button
+                          className="btn btn-primary"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="bottom"
+                          type="button"
+                          style={{ background: "#df162c", borderWidth: 0 }}
+                          title="Ajouter un DQE"
+                          onClick={handleAddDQE}
+                      >
+                        <i className="fas fa-plus" />
+                      </button>
+                  }
                 { permission.includes("api_sm.upload_dqe") &&
                   <button
                       className="btn btn-primary"

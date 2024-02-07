@@ -87,7 +87,6 @@ const ListFlash: React.FC<any> = () => {
   const[attachementFields,setAttachementFields]=useState<any[]>([])
 
   const getRows = async(url:string) => {
-    console.log()
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sch/getprod/?code_site=${mid.code_site}&nt=${mid.nt}&prevu_realiser=R&code_type_production=01&mm=${mid.month}&aa=${mid.year}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
@@ -416,7 +415,7 @@ const ListFlash: React.FC<any> = () => {
 
                       >
                         <>
-                          <DisplayDataGridModal img={""} title={"Flash"} cols={cols}   />
+                          <DisplayDataGridModal img={""} title={"Attachement"} cols={cols}   />
 
                           <div style={containerStyle}>
 

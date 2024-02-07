@@ -148,7 +148,7 @@ const ListDQE: React.FC<any> = () => {
     resizable: true,
     minWidth: 300,
     cellStyle: { textAlign: 'start', border: "none"  },
-
+    autoHeight: true, wrapText: true,
 
   };
 

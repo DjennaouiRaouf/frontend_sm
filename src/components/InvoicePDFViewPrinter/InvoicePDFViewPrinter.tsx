@@ -11,6 +11,7 @@ import ReactPDF, {
 import Image = ReactPDF.Image;
 import {ChangeEvent, useEffect, useState} from "react";
 import Form from 'react-bootstrap/Form';
+import Humanize from "../Utils/Utils";
 type PDFViewPrinterProps = {
   //
 };
@@ -46,6 +47,17 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
   useEffect(() => {
   },[selectedOption]);
 
+  const getPreviousDate = (dateString: string): Date => {
+    const currentDate = new Date(dateString);
+    if (isNaN(currentDate.getTime())) {
+      throw new Error('Invalid date string');
+    }
+
+    // Calculate the previous date
+    const previousDate = new Date(currentDate);
+    previousDate.setDate(previousDate.getDate() - 1);
+    return previousDate;
+  };
 
 
   return (
@@ -82,12 +94,12 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                 </View>
 
                 <View style={{margin:20,width:'500px',height:'auto'}} wrap={true}>
-                  <Text style={{ position: "relative",marginBottom:15,width:500}}>{`Situation des traveaux N°: ${facture.num_situation}`}</Text>
-                  <Text style={{ position: "relative",marginBottom:5,width:500}} wrap={true}><Text style={{textDecoration: 'underline',  fontWeight:100}}>Projet</Text>{' : '+ facture.projet}</Text>
-                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>Objet</Text>{`  :  ${facture.lib_nt}`}</Text>
+                  <Text style={{ position: "relative",marginBottom:15,width:500}}>Situation des traveaux N°: {facture.num_situation}</Text>
+                  <Text style={{ position: "relative",marginBottom:5,width:500}} wrap={true}><Text style={{textDecoration: 'underline',  fontWeight:100}}>Projet</Text> : {facture.projet}</Text>
+                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>Objet</Text> : {facture.lib_nt}</Text>
                   <View style={{ borderBottomColor: 'black', borderBottomWidth: 1,width: '100%',marginTop: 5,marginBottom:5,}} />
-                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>Marché</Text>{`  :  ${facture.code_contrat} du ${facture.signature} d'un montant de ${facture.montant_marche}DA en HT`}</Text>
-                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>REF</Text>{`  : Pole  : ${facture.pole}    NT : ${facture.num_travail}  ${facture.lib_nt}       Code Client : ${facture.client}`}
+                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>Marché</Text> : {facture.code_contrat} du {facture.signature} d'un montant de {Humanize(facture.montant_marche)} DA en HT</Text>
+                  <Text style={{ position: "relative",marginBottom:5,width:500}}><Text style={{textDecoration: 'underline', }}>REF</Text> : Pole : {facture.pole}    NT : {facture.num_travail}   {facture.lib_nt}       Code Client : {facture.client}
                   </Text>
                   <View style={{ borderBottomColor: 'black', borderBottomWidth: 1,width: '100%',marginTop: 5,marginBottom:5,}} />
 
@@ -96,29 +108,35 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
                 <View style={{margin:20,width:'500px',height:'auto'}} wrap={true}>
                   <Text style={{ position: "relative",width:500 ,marginBottom:10}} wrap={true}><Text>Selon la situation N°</Text>{`  du  ${facture.du }  au  ${facture.au }`}</Text>
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés au ${facture.au }      ${facture.montant_cumule} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés au ${facture.au } en (HT)      ${Humanize(facture.montant_cumule)} DA `   }  </Text>
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés au ${facture.au }      ${facture.montant_precedent} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé précédemment des traveaux réalisés au ${getPreviousDate(facture.du).toISOString().split('T')[0] } en (HT)      ${Humanize(facture.montant_precedent)} DA `   }  </Text>
 
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés du  ${facture.du}  au  ${facture.au }      ${facture.montant_mois} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés du  ${facture.du}  au  ${facture.au }  en (HT)     ${Humanize(facture.montant_mois)} DA `   }  </Text>
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`RG : ${facture.retenue_garantie}%     Montant de retenue de garantie   ${facture.montant_rg} DA `   }  </Text>
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Taux de rabais : ${facture.rabais}%    Montant du rabais :   ${facture.montant_rb} DA `   }  </Text>
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`TVA : ${facture.tva}%    Montant de la taxe  ${facture.montant_taxe} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`RG : ${facture.retenue_garantie}%     Montant de retenue de garantie en (HT)  ${Humanize(facture.montant_rg)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Taux de rabais : ${facture.rabais}%    Montant du rabais en (HT) :   ${Humanize(facture.montant_rb)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`TVA : ${facture.tva}%    Montant de la taxe  ${Humanize((facture.tva/100)*facture.montant_mois)} DA `   }  </Text>
 
                   {
                       facture.tva === "0.00" &&
                       <Text style={{ position: "relative",width:500,marginBottom:8 ,textAlign:"center"
                         ,fontWeight:'bold'}} wrap={true}>{`( EXONEREE DES TAXES )`}  </Text>
                   }
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`MONTANT NET A PAYER      ${facture.a_payer} DA `   }  </Text>
+
+                  <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT DE LA FACTURE EN (HT)      ${facture.montant_factureHT} DA `   }  </Text>
+
+
+                  <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT NET À PAYER À L'ENTREPRISE EN (TTC)      ${facture.montant_factureTTC} DA `   }  </Text>
 
 
                 </View>
 
+
+
                 <View style={{margin:20,width:'500px',height:'auto'}} wrap={true}>
-                  <Text style={{ position: "relative",width:500}} wrap={true}><Text>Arretée la présente facture à la somme de</Text>{' : \n\n'+ facture.somme}</Text>
+                  <Text style={{ position: "relative",width:500 ,backgroundColor:"#e6e6e6"}} wrap={true}><Text>Arretée la présente facture à la somme de</Text>{' : \n\n'+ facture.somme}</Text>
 
                 </View>
                 <View style={{margin:10}}>

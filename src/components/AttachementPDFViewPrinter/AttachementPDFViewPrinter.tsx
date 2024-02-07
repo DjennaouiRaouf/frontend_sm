@@ -193,6 +193,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
 
     useEffect(() => {
         getDataSet();
+
     },[]);
     useEffect(() => {
         getLogo();
@@ -206,14 +207,14 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                     <PDFViewer style={{width:"100%",height:"800px"}}>
                         <Document pageLayout={"twoPageLeft"}  >
 
-                            <Page size={"A4"} orientation={'landscape'} style={styles.page}   >
+                            <Page size={"A3"} orientation={'landscape'} style={styles.page}   >
                                 <View style={styles.mainView}   >
 
 
                                     <View style={styles.header}  >
                                         <View style={styles.headerLeftPart} >
                                             <View style={{width:"50%"}} >
-                                                <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client : </Text></Text>
+                                                <Text style={{fontSize:10,paddingBottom:5}}  ><Text style={{textDecoration:"underline"}} >Client : </Text>{extra.client}</Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Projet : </Text>{extra.projet}</Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}}  >Objet : </Text>{extra.objet}</Text>
                                                 <Text style={{fontSize:10,paddingBottom:5}} ><Text style={{textDecoration:"underline"}} >Contrat : </Text>{extra.contrat+" du "+extra.du}</Text>
@@ -235,7 +236,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
 
                                     <View style={styles.center} >
                                         <View style={styles.title} >
-                                            <Text >{`Décompte provisoir des traveaux du ${getMonthName(data.month).toUpperCase()} / ${data.year}`}</Text>
+                                            <Text >{`Décompte provisoir de la situation N° ${extra.num_situation}`}</Text>
                                         </View >
                                     </View >
 
@@ -249,13 +250,13 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                                                 data={dataSet}
                                             >
                                                 <TableHeader textAlign={"center"} >
-                                                    <TableCell>
+                                                    <TableCell >
                                                         Code Tache
                                                     </TableCell>
-                                                    <TableCell>
+                                                    <TableCell >
                                                         Designation
                                                     </TableCell>
-                                                    <TableCell>
+                                                    <TableCell >
                                                         Unité
                                                     </TableCell>
                                                     <TableCell>
@@ -281,9 +282,9 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                                                     </TableCell>
                                                 </TableHeader>
                                                 <TableBody textAlign={"center"}>
-                                                    <DataTableCell getContent={(r) => r.code_tache}/>
-                                                    <DataTableCell getContent={(r) => r.libelle_tache}/>
-                                                    <DataTableCell getContent={(r) => r.unite}/>
+                                                    <DataTableCell  getContent={(r) => r.code_tache}/>
+                                                    <DataTableCell  getContent={(r) => r.libelle_tache}/>
+                                                    <DataTableCell  getContent={(r) => r.unite}/>
                                                     <DataTableCell getContent={(r) => r.qte_precedente}/>
                                                     <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => r.qte_mois}/>
                                                     <DataTableCell getContent={(r) => r.qte_cumule}/>

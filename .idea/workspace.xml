@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/EditDataGridModalSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Encaissement/Encaissement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Encaissement/Encaissement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Flash/ListFlash/ListFlash.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +45,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/administrator/Desktop/frontend_sm/src/components/Context&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/administrator/Desktop/frontend_sm/src/components/ActionRenderer&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -48,11 +59,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\ActionRenderer" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Context" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\icons" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Marche\Avances" />
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\Redux-Toolkit\Slices" />
-      <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Context\PrinterOptionModalContext" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\administrator\Desktop\frontend_sm\src\components\Marche\ODS" />
@@ -106,14 +117,10 @@
       <workItem from="1706511974286" duration="17188000" />
       <workItem from="1706598353213" duration="20907000" />
       <workItem from="1706685004304" duration="22045000" />
-      <workItem from="1706771761379" duration="23354000" />
-    </task>
-    <task id="LOCAL-00023" summary="Initial commit">
-      <created>1704793817848</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1704793817848</updated>
+      <workItem from="1706771761379" duration="23395000" />
+      <workItem from="1707116911235" duration="11866000" />
+      <workItem from="1707203106676" duration="10769000" />
+      <workItem from="1707289514205" duration="3721000" />
     </task>
     <task id="LOCAL-00024" summary="Initial commit">
       <created>1704794894136</created>
@@ -451,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706799621542</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Initial commit">
+      <created>1706799723061</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1706799723061</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

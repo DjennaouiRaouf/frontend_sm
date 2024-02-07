@@ -77,11 +77,13 @@ const Encaissement: React.FC<any> = () => {
 
             dispatch(showAlert({variant:Variants.SUCCESS,heading: "Encaissement",text:response.data.message}))
             setFormData(defaultState);
+
           })
           .catch((error:any) => {
             dispatch(showAlert({variant:Variants.DANGER,heading:"Encaissement",text:error.response.request.response}))
           });
 
+          handleClose();
 
 
 
@@ -159,7 +161,7 @@ const Encaissement: React.FC<any> = () => {
 
 
         >
-          <AlertMessage/>
+
           <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
                 noValidate validated={validated} onSubmit={handleSubmit} >
 
