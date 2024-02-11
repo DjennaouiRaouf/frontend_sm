@@ -256,7 +256,7 @@ const Creances: React.FC<any> = () => {
 
                       <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
-                          <h5 className="text-center card-title">Encaissements de la Facture</h5>
+                          <h5 className="text-center card-title">Encaissements de la Situation</h5>
                           <h5 className="text-center card-title">{`N° : ${fid.facture}` }</h5>
                         </div>
                       </div>

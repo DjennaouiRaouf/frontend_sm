@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/components/ActionRenderer/RecupCaution/RecupCaution.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ActionRenderer/RecupCaution/RecupCaution.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/AddFacture/AddFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListAttachements/ListAttachements.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,14 +112,7 @@
       <workItem from="1707289514205" duration="3760000" />
       <workItem from="1707375437712" duration="1618000" />
       <workItem from="1707394831780" duration="6762000" />
-      <workItem from="1707635530016" duration="6433000" />
-    </task>
-    <task id="LOCAL-00025" summary="Initial commit">
-      <created>1704802607621</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1704802607621</updated>
+      <workItem from="1707635530016" duration="6623000" />
     </task>
     <task id="LOCAL-00026" summary="Initial commit">
       <created>1704803970820</created>
@@ -465,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707318245446</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Initial commit">
+      <created>1707663495004</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1707663495004</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
