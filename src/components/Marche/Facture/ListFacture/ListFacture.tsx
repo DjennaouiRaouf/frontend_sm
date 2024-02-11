@@ -240,15 +240,12 @@ const ListFacture: React.FC<any> = () => {
         const pks:any[]=[]
         const myDictionary: { [key: string]: any } = {};
         selectedRows.forEach(obj => {
-
             pks.push(obj[pk])
-
-
         });
         const pkList:any={}
         pkList[pk]=pks
         console.log(pkList)
-        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/deldqe/`,{
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/annulefacture/`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -329,6 +326,10 @@ const ListFacture: React.FC<any> = () => {
             });
 
     }
+    const displayDeleted = async() => {
+
+        navigate('/del_fact', { state: { marche: mid.marche } })
+    }
     return (
         <>
             <>
@@ -378,8 +379,8 @@ const ListFacture: React.FC<any> = () => {
                                                                 <Dropdown.Item onClick={delSelected}>
                                                                     <i className="fas fa-eraser"></i>
                                                                     &nbsp;Annuler</Dropdown.Item>
-                                                                <Dropdown.Item >
-                                                                    <i className="far fa-trash-alt"></i>
+                                                                <Dropdown.Item onClick={displayDeleted}>
+                                                                    <i className="far fa-trash-alt" ></i>
                                                                     &nbsp;Factures Annulées</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>

@@ -359,7 +359,9 @@ const ListDQE: React.FC<any> = () => {
                           <div style={containerStyle}>
 
                             <div style={{ width:"100%", height: '650px', boxSizing: 'border-box' }}>
+
                               <div style={gridStyle} className="ag-theme-alpine  " >
+
                                 <AgGridReact ref={gridRef}
                                              rowData={rows} columnDefs={cols}
                                              onGridReady={onGridReady}

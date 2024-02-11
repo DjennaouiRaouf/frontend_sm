@@ -36,6 +36,7 @@ import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementP
 import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter";
 import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
 import AddDQE from "../Marche/AddDQE/AddDQE";
+import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
 
 
 
@@ -147,6 +148,25 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <ModalProvider>
                               <DelDQE/>
+                          </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/del_fact"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <ModalProvider>
+                              <DelFacture/>
                           </ModalProvider>
 
 

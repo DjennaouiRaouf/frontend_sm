@@ -17,6 +17,8 @@ import bill from "../../../icons/bill.png"
 import * as XLSX from "xlsx";
 import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 import numeral from "numeral";
+import RecupCaution from "../../../ActionRenderer/RecupCaution/RecupCaution";
+import AlertMessage from "../../../AlertMessage/AlertMessage";
 
 
 type ListCautionsProps = {
@@ -135,7 +137,18 @@ const ListCautions: React.FC<any> = () => {
               modelName:response.data.models,
               pk:response.data.pk
             }
-          }];
+          },
+            {
+              headerName:'Recuperer',
+              cellRenderer:RecupCaution,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                updateRows:getRows,
+              }
+            },
+
+          ];
 
           setCols(updatedCols);
 
@@ -254,7 +267,7 @@ const ListCautions: React.FC<any> = () => {
   return (
       <>
         <>
-
+          <AlertMessage/>
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >
