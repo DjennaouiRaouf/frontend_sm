@@ -23,7 +23,7 @@ const DetailFacture: React.FC<DetailFactureProps> = (props) => {
   const handlelistDetailFacture = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      navigate('/liste_dfacture', { state: { facture: rowData[props.pk] } })
+      navigate('liste_dfacture', { state: { facture: rowData[props.pk] } })
     }
 
   };

@@ -121,7 +121,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/creances"
+              path="/marche/liste_m/liste_facture/creances"
               element={
                   authenticated ? (
                       <>
@@ -141,7 +141,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/del_dqe"
+              path="/marche/liste_m/liste_dqe/del_dqe"
               element={
                   authenticated ? (
                       <>
@@ -160,7 +160,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/del_fact"
+              path="/marche/liste_m/liste_facture/del_fact"
               element={
                   authenticated ? (
                       <>
@@ -199,7 +199,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/liste_dfacture"
+              path="marche/liste_m/liste_facture/liste_dfacture"
               element={
                   authenticated ? (
                       <>
@@ -258,7 +258,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/print_facture"
+              path="/marche/liste_m/liste_facture/print_facture"
               element={
                   authenticated ? (
                       <>
@@ -272,7 +272,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/print_rg_facture"
+              path="/marche/liste_m/liste_facture/print_rg_facture"
               element={
                   authenticated ? (
                       <>
@@ -510,7 +510,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/print_ecf"
+              path="/marche/liste_m/liste_facture/print_ecf"
               element={
                   authenticated ? (
                       <>
@@ -523,7 +523,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="//print_detail"
+              path="/marche/liste_m/liste_facture/liste_dfacture/print_detail"
               element={
                   authenticated ? (
                       <>

@@ -182,7 +182,7 @@ const ListDetailFacture: React.FC<any> = () => {
         .then((response:any) => {
 
           if(response.data){
-            navigate('/print_detail', { state: { facture: fid.facture} })
+            navigate('print_detail', { state: { facture: fid.facture} })
           }
 
 

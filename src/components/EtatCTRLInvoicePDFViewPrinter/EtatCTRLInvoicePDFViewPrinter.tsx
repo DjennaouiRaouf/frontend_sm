@@ -153,7 +153,7 @@ const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
 
   const getDataSet = async() => {
 
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacturerg/?marche=${mid.marche}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ecf/?marche=${mid.marche}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -161,14 +161,11 @@ const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-          if(response.data.extra.total_rg ){
+
             setDataSet(response.data.factures)
             setExtra(response.data.extra)
             setLoading(false)
-          }
-          else{
 
-          }
 
         })
         .catch((error:any) => {
@@ -275,14 +272,14 @@ const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
                   <PDFViewer style={{width:"100%",height:"850px"}}>
                     <Document   >
 
-                      <Page size={"A4"} orientation={'portrait'} style={styles.page}   >
+                      <Page size={"A3"} orientation={'portrait'} style={styles.page}   >
                         <View style={styles.mainView}   >
 
 
                           <View style={styles.header}  fixed>
-                            h &&
+                            {h &&
                             <Image source={h} style={{width:"150%",height:102}} />
-
+                            }
                           </View>
                           <View style={styles.headerDate}  >
                             <Text style={{fontSize:10,textAlign:"right",paddingTop:10,paddingLeft:10,paddingRight:10}} ><Text  >Le : </Text>{rgDate}</Text>
@@ -349,14 +346,12 @@ const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
                                   <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
 
                                   <DataTableCell getContent={() => "Montant Total R.G"}/>
-                                  <DataTableCell style={{backgroundColor:"#e6e6e6"}} getContent={(r) => Humanize(r.total_rg) }/>
+                                  <DataTableCell style={{backgroundColor:"#e6e6e6"}} getContent={(r) => "" }/>
                                 </TableBody>.
                               </Table>
                             </View >
                           </View >
-                          <View style={styles.sum} >
-                            <Text >Le présent décompte est arrêté en HT à la somme de <Text style={{backgroundColor:"#e6e6e6"}}>{extra.total_rgl}</Text></Text>
-                          </View >
+
 
                         </View>
 
@@ -365,8 +360,9 @@ const EtatCTRLInvoicePDFViewPrinter: React.FC<any> = () => {
 
                               `${pageNumber} / ${totalPages}`
                           )} fixed />
-                          f &&
+                          {f &&
                           <Image source={f} style={{width:"100%",height:85}} />
+                          }
                         </View>
 
 

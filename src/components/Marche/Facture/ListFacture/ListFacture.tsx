@@ -291,8 +291,8 @@ const ListFacture: React.FC<any> = () => {
             .then((response:any) => {
                 console.log(response.data)
                 if(response.data.extra.total_rg ){
-                    navigate('/print_rg_facture', { state: { marche: mid.marche} })
-                    //navigate('/print_rg_facture', { state: { marche: , extra:response.data.extra} })
+                    navigate('print_rg_facture', { state: { marche: mid.marche} })
+
                 }
                 else{
                     dispatch(showAlert({variant:Variants.DANGER,heading:"Facture RG",text:"Ce Marché ne posséde pas de retenue de garantie"}))
@@ -313,13 +313,11 @@ const ListFacture: React.FC<any> = () => {
         })
             .then((response:any) => {
                 console.log(response.data)
-                if(response.data.extra.total_rg ){
-                    navigate('//print_ecf', { state: { marche: mid.marche} })
-                    //navigate('/print_rg_facture', { state: { marche: , extra:response.data.extra} })
-                }
-                else{
-                    dispatch(showAlert({variant:Variants.DANGER,heading:"Facture RG",text:"Ce Marché ne posséde pas de retenue de garantie"}))
-                }
+
+                    navigate('print_ecf', { state: { marche: mid.marche} })
+
+
+
 
             })
             .catch((error:any) => {
@@ -328,7 +326,7 @@ const ListFacture: React.FC<any> = () => {
     }
     const displayDeleted = async() => {
 
-        navigate('/del_fact', { state: { marche: mid.marche } })
+        navigate('del_fact', { state: { marche: mid.marche } })
     }
     return (
         <>

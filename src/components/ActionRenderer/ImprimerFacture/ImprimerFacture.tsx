@@ -37,7 +37,7 @@ const ImprimerFacture: React.FC<ImprimerFactureProps> = (props) => {
         },
       })
           .then((response:any) => {
-            navigate('/print_facture', { state: { facture: response.data[0] } })
+            navigate('print_facture', { state: { facture: response.data[0] } })
           })
           .catch((error:any) => {
           });

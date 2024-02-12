@@ -247,7 +247,7 @@ const ListDQE: React.FC<any> = () => {
   
   const displayDeleted = async() => {
 
-    navigate('/del_dqe', { state: { marche: mid.marche } })
+    navigate('del_dqe', { state: { marche: mid.marche } })
   }
   useEffect(() => {
     getRows("");

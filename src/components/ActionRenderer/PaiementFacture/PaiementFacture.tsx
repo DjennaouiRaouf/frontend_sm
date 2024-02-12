@@ -31,7 +31,7 @@ const PaiementFacture: React.FC<PaiementFactureProps> = (props) => {
   const handlePaidInvoice = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      navigate('/creances', { state: { facture: rowData[props.pk] } })
+      navigate('creances', { state: { facture: rowData[props.pk] } })
     }
   }
 
