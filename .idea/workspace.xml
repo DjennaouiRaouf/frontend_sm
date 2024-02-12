@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DetailFacture/DetailFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DetailFacture/DetailFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ImprimerFacture/ImprimerFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ImprimerFacture/ImprimerFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/PaiementFacture/PaiementFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/PaiementFacture/PaiementFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,14 +115,7 @@
       <workItem from="1707375437712" duration="1618000" />
       <workItem from="1707394831780" duration="6762000" />
       <workItem from="1707635530016" duration="7282000" />
-      <workItem from="1707721864218" duration="3571000" />
-    </task>
-    <task id="LOCAL-00028" summary="Initial commit">
-      <created>1704807572384</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1704807572384</updated>
+      <workItem from="1707721864218" duration="7704000" />
     </task>
     <task id="LOCAL-00029" summary="Initial commit">
       <created>1704809059797</created>
@@ -466,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707664355652</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Initial commit">
+      <created>1707726552672</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1707726552672</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
