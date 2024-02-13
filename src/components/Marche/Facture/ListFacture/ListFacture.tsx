@@ -238,7 +238,7 @@ const ListFacture: React.FC<any> = () => {
     };
     const delSelected = async() => {
         const pks:any[]=[]
-        const myDictionary: { [key: string]: any } = {};
+
         selectedRows.forEach(obj => {
             pks.push(obj[pk])
         });
@@ -328,6 +328,38 @@ const ListFacture: React.FC<any> = () => {
 
         navigate('del_fact', { state: { marche: mid.marche } })
     }
+    const Remb = async() => {
+        const pks:any[]=[]
+        selectedRows.forEach(obj => {
+            if(obj['is_remb']===false){
+                pks.push(obj[pk])
+            }
+
+        });
+        const pkList:any={}
+        pkList[pk]=pks
+
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/remb/`,pkList,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+
+        })
+            .then((response:any) => {
+
+                getRows("");
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
+
+        setSelectedRows([])
+    }
     return (
         <>
             <>
@@ -364,6 +396,12 @@ const ListFacture: React.FC<any> = () => {
                                                             <i className="fas fa-filter" />
                                                             &nbsp;Recherche
                                                         </Button>
+                                                        <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                                                onClick={Remb}>
+                                                            <i className="fas fa-reply"></i>
+                                                            &nbsp;Remboursement
+                                                        </Button>
+
 
                                                         <Dropdown>
                                                             <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0

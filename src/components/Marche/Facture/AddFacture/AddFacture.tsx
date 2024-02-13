@@ -27,7 +27,7 @@ const AddFacture: React.FC<any> = () => {
     const [fields,setFields]=useState<any[]>([]);
     const [defaultState,setDefaultState]=useState<any>({});
     const [formData, setFormData] = useState<any>({});
-    const[fremb,setFremb]=useState<boolean>(false)
+
     const opt:Opt[] = [
 
         {
@@ -46,8 +46,8 @@ const AddFacture: React.FC<any> = () => {
             ...formData,
             [e.target.name]: e.target.value,
         });
-        if(e.target.name=="fremb")
-            setFremb(e.target.value)
+
+
     };
     const handleInputChange = (e:any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -59,8 +59,9 @@ const AddFacture: React.FC<any> = () => {
         e.preventDefault();
         const form = e.currentTarget;
         formData["marche"]=pk
-        formData["fremb"]=fremb
 
+        console.log(formData)
+        
         const formDataObject = new FormData();
         for (const key in formData) {
             if (formData.hasOwnProperty(key)) {
@@ -81,7 +82,7 @@ const AddFacture: React.FC<any> = () => {
 
                     dispatch(showAlert({variant:Variants.SUCCESS,heading: "Facture",text:response.data.message}))
                     setFormData(defaultState);
-                    setFremb(false);
+
 
                 })
                 .catch((error:any) => {
@@ -290,32 +291,7 @@ const AddFacture: React.FC<any> = () => {
 
 
                                     ))}
-                                    <div className="col-md-6 text-start" >
-                                        <div className="mb-3">
-                                            <Form.Group className="w-100"  >
-                                                <Form.Label>
-                                                    <strong>
-                                                        {"Facturation Avec Remboursement ?"}
-                                                    </strong>
-                                                </Form.Label>
-                                            <Form.Control
-                                                as="select"
-                                                name={"fremb"}
-                                                required={true}
-                                                className="w-100"
-                                                value={String(fremb)}
-                                                onChange={(e)=>handleSelectChange(e)}>
 
-                                                {opt.map((item,index) => (
-                                                    <option key={index} value={String(item.value)}>{item.label}</option>
-                                                ))}
-
-                                            </Form.Control>
-                                                </Form.Group>
-
-
-                                        </div>
-                                    </div>
                                 </div>
 
                         </div>

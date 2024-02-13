@@ -58,6 +58,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
     formData["marche"]=mid.marche
 
 
+
     const formDataObject = new FormData();
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {

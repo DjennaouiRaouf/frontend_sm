@@ -51,21 +51,29 @@ const Home: React.FC<any> = () => {
 
     },[]);
     return <>
-        <Carousel className="w-100 d-block mb-5" controls={false} interval={1000} fade={true} indicators={true} style={{borderWidth: "1px",borderRadius: "8px"}}>
-            {pics.map((item,index) => (
-                <Carousel.Item key={index}  style={{borderWidth: "1px",borderRadius: "8px"}}>
-                    <img
-                        src={item.src}
-                        alt={""}
-                        height={500}
-                        className="d-block w-100"
-                        style={{borderWidth: "1px",borderRadius: "8px"}}
+        <div className="container">
+            <Carousel className="w-100 d-block mb-5" controls={false} interval={1000} fade={true} indicators={true} style={{
+                borderWidth: "1px",borderRadius: "8px"}}>
+                {pics.map((item,index) => (
+                    <Carousel.Item key={index}  style={{borderWidth: "1px",borderRadius: "8px"}}>
+                        <img
+                            src={item.src}
+                            alt={""}
+                            height={500}
+                            className="d-block w-100"
+                            style={{borderWidth: "1px",borderRadius: "8px"}}
 
-                    />
+                        />
 
-                </Carousel.Item>
-            ))}
-        </Carousel>
+                    </Carousel.Item>
+                ))}
+            </Carousel>
+
+
+        </div>
+
+        <div className="container">
+
         {
             timeline.length > 0 &&
             <div className="container">
@@ -74,7 +82,7 @@ const Home: React.FC<any> = () => {
                     <div className="col-md-12">
                         <div className="main-timeline2">
                             {timeline.map((item,index) => (
-                            <div className="timeline">
+                            <div className="timeline" key={index}>
                                 <a href="#" className="timeline-content">
                                     <span className="year">{item.year}</span>
                                     <div className="inner-content">
@@ -85,7 +93,9 @@ const Home: React.FC<any> = () => {
                                     </div>
                                 </a>
                             </div>
+
                             ))}
+
                         </div>
                     </div>
                 </div>
@@ -93,7 +103,7 @@ const Home: React.FC<any> = () => {
 
 
         }
-
+        </div>
 
     </>;
 };
