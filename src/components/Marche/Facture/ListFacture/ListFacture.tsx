@@ -40,33 +40,32 @@ const InfoRenderer: React.FC<any> = (props) => {
     switch (props.column.colId) {
         case 'montant_cumule' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
         case 'montant_precedent' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
         case 'montant_mois' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
         case 'montant_rg' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
-
+           
         case 'montant_taxe' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
-
-            case 'montant_rb' :
+           
+        case 'montant_rb' :
                 return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-                break;
-
+               
+                
         case "montant_factureHT":
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-            break;
-
-            case'montant_factureTTC':
+            
+        case "montant_factureTTC":
                 return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
-                break;
+               
 
+        case 'montant_ava_remb' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+
+        case 'montant_avf_remb' :
+            return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
 
 
         default:
@@ -331,7 +330,8 @@ const ListFacture: React.FC<any> = () => {
     const Remb = async() => {
         const pks:any[]=[]
         selectedRows.forEach(obj => {
-            if(obj['is_remb']===false){
+            if(obj['montant_ava_remb'] || obj['montant_avf_remb'] ){
+                console.log(obj)
                 pks.push(obj[pk])
             }
 
@@ -348,16 +348,16 @@ const ListFacture: React.FC<any> = () => {
 
         })
             .then((response:any) => {
-
                 getRows("");
-
+                dispatch(showAlert({variant:Variants.SUCCESS,heading:"Remboursement",text:response.data.message}))
 
 
             })
             .catch((error:any) => {
+                dispatch(showAlert({variant:Variants.DANGER,heading:"Remboursement",text:error.response.data.message}))
+
 
             });
-
         setSelectedRows([])
     }
     return (

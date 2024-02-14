@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../Redux-Toolkit/Store/Sotre";
 import {Button, Form, Modal} from "react-bootstrap";
 import {hideModal} from "../../Redux-Toolkit/Slices/DisplayDataGridModalSlice";
+import Humanize from "../Utils/Utils";
 
 
 
@@ -23,6 +24,21 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
        dispatch(hideModal())
 
   }
+
+  const renderer = (item:any) => {
+        const items1:any[]=['taux_realise','montant_factureHT','montant_avf_remb','montant_ava_remb','montant_rb','montant_rg','montant_factureTTC',
+        "montant_precedent","montant_cumule",'montant_mois','ht','ttc',"montant","prix_u","prix_q","prix_contr",'prix_attache']
+        if(items1.includes(item)){
+            return Humanize(data[item])+" DA"
+        }
+        const items2:any[]=["tva",'retenue_garantie','rabais','rg',"taux",'debut','fin',"taux_avance","remb"]
+        if(items2.includes(item)){
+              return Humanize(data[item])+" %"
+        }
+        return data[item]
+
+  }
+
 
 
 
@@ -138,7 +154,7 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
                                                                                   <Form.Label
                                                                                       className="w-100"
                                                                                   >
-                                                                                      {data[key]}
+                                                                                      {renderer(key)}
                                                                                   </Form.Label>
 
 
