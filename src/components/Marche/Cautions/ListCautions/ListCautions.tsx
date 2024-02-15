@@ -87,13 +87,15 @@ const InfoRenderer: React.FC<any> = (props) => {
   switch (props.column.colId) {
     case 'avance' :
       return <span>{typeA }</span>
-      break;
+      
     case 'type' :
       return <span>{typeC}</span>
-      break;
+      
     case 'montant' :
       return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
-      break;
+    case 'taux' :
+      return <span>{value+' %'}</span>
+
 
 
     default:
@@ -250,6 +252,17 @@ const ListCautions: React.FC<any> = () => {
   };
 
 
+  const getRowStyle = (params: any):any => {
+    if (params.data.est_recupere ) {
+      return {background:"#dff0d8"};
+    }
+    else {
+      return { background: '#f2dede' };
+
+    }
+
+
+  }
 
 
   useEffect(() => {
@@ -350,7 +363,7 @@ const ListCautions: React.FC<any> = () => {
                                              onGridReady={onGridReady}
                                              gridOptions={gridOptions}
                                              onSelectionChanged={onSelectionChanged}
-
+                                             getRowStyle={getRowStyle}
 
 
 

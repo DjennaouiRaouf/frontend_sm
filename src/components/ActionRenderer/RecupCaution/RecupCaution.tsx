@@ -25,7 +25,7 @@ const RecupCaution: React.FC<RecupCautionProps> = (props) => {
     const rowData:any =  props.data  ;
     if(props.pk){
       rowData["est_recupere"]=true
-
+        console.log(rowData)
 
       await axios.put(`${process.env.REACT_APP_API_BASE_URL}/sm/recupcaution/${rowData[props.pk]}/`,rowData,{
         headers: {
@@ -43,6 +43,7 @@ const RecupCaution: React.FC<RecupCautionProps> = (props) => {
           })
           .catch((error:any) => {
             console.log(error)
+
           });
 
 
