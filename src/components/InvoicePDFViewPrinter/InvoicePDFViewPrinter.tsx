@@ -141,7 +141,6 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                         ,fontWeight:'bold'}} wrap={true}>{`( EXONEREE DES TAXES )`}  </Text>
                   }
 
-
                   <Text style={{ position: "relative",width:500,marginTop:8,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT DE LA FACTURE EN (HT)      ${Humanize(facture.montant_factureHT)} DA `   }  </Text>
                   <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT NET À PAYER À L'ENTREPRISE EN (TTC)      ${Humanize(facture.montant_factureTTC)} DA `   }  </Text>
 
