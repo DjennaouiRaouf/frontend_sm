@@ -267,6 +267,13 @@ const ListFacture: React.FC<any> = () => {
         setSelectedRows([])
     }
 
+    const getRowStyle = (params: any):any => {
+        if (params.data.montant_avf_remb === "0.00" && params.data.montant_ava_remb === "0.00") {
+            return { background: '#f2dede' };
+        }
+        return {background:"#dff0d8"};
+
+    }
 
     useEffect(() => {
         getCols();
@@ -432,9 +439,9 @@ const ListFacture: React.FC<any> = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu>
-                                                                <Dropdown.Item onClick={etat_ctrl_facture}>
+                                                                {/*<Dropdown.Item onClick={etat_ctrl_facture}>
                                                                     <i className="bi bi-file-earmark-pdf-fill"></i>
-                                                                    &nbsp;Etat de controle des factures</Dropdown.Item>
+                                                                    &nbsp;Etat de controle des factures</Dropdown.Item>*/}
                                                                 <Dropdown.Item onClick={rgFacture}>
                                                                     <i className="bi bi-file-earmark-pdf-fill"></i>
                                                                     &nbsp;Facture Retenue de garantie</Dropdown.Item>
@@ -473,7 +480,7 @@ const ListFacture: React.FC<any> = () => {
                                                                          onGridReady={onGridReady}
                                                                          gridOptions={gridOptions}
                                                                          onSelectionChanged={onSelectionChanged}
-
+                                                                         getRowStyle={getRowStyle}
 
 
                                                             />

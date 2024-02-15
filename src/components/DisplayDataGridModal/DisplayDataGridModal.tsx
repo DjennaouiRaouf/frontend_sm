@@ -27,7 +27,7 @@ const DisplayDataGridModal: React.FC<DisplayDataGridModalProps> = (props) => {
 
   const renderer = (item:any) => {
         const items1:any[]=['taux_realise','montant_factureHT','montant_avf_remb','montant_ava_remb','montant_rb','montant_rg','montant_factureTTC',
-        "montant_precedent","montant_cumule",'montant_mois','ht','ttc',"montant","prix_u","prix_q","prix_contr",'prix_attache']
+        "montant_precedent","montant_cumule",'montant_mois','ht','ttc',"montant","prix_u","prix_q","prix_contr",'prix_attache','valeur_1',"valeur_2",'valeur_3']
         if(items1.includes(item)){
             return Humanize(data[item])+" DA"
         }

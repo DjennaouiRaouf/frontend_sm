@@ -161,7 +161,9 @@ const InvoiceRGPDFViewPrinter: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
+          console.log(response.data.factures)
           if(response.data.extra.total_rg ){
+
             setDataSet(response.data.factures)
             setExtra(response.data.extra)
             setLoading(false)

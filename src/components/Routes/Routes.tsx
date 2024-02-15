@@ -497,7 +497,20 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/print_att"
+              path="/marche/liste_m/liste_att/print_att"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <AttachementPDFViewPrinter/>
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/marche/liste_m/liste_att/print_dec"
               element={
                   authenticated ? (
                       <>

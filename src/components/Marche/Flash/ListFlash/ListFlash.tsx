@@ -263,14 +263,19 @@ const ListFlash: React.FC<any> = () => {
 
 
   const envoyer = async() => {
-      const dqe:string=mid.marche+"-"+rowData.code_tache
+    const dqe:string=rowData.code_tache
+
     formData["dqe"]=dqe
+    delete formData["montant_mois"]
+    console.log(formData)
+
     const formDataObject = new FormData();
     for (const key in formData) {
       if (formData.hasOwnProperty(key)) {
         formDataObject.append(key, formData[key]);
       }
     }
+
 
     await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addatt/`,formDataObject,{
       headers: {
@@ -290,6 +295,8 @@ const ListFlash: React.FC<any> = () => {
         });
 
         handleClose()
+
+
 
   }
   const [formData, setFormData] = useState<any>({});

@@ -211,8 +211,11 @@ const ListAttachements: React.FC<any> = () => {
     getCols();
   },[]);
 
+  const print_dec = () => {
+    navigate('print_dec', { state: { params:location.state,is_att:false} }) // decompte prov
+  }
   const print_att = () => {
-    navigate('/print_att', { state: { params:location.state} })
+    navigate('print_att', { state: { params:location.state,is_att:true} }) // attachement
   }
   const { permission } = useContext(PermissionContext);
 
@@ -268,6 +271,9 @@ const ListAttachements: React.FC<any> = () => {
 
                                 <Dropdown.Menu>
                                   <Dropdown.Item onClick={print_att}>
+                                    <i className="bi bi-file-earmark-pdf-fill"></i>
+                                    &nbsp;Imprimer l'attachement</Dropdown.Item>
+                                  <Dropdown.Item onClick={print_dec}>
                                     <i className="bi bi-file-earmark-pdf-fill"></i>
                                     &nbsp;Imprimer le Décompte provisoire</Dropdown.Item>
                                   <Dropdown.Item onClick={export_xlsx}>

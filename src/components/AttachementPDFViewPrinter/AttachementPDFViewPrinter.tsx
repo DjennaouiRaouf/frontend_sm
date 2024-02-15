@@ -28,6 +28,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
     const[loading,setLoading]=useState(true);
     const[extra,setExtra]=useState<any>({});
     const data  = location.state.params;
+    const is_att = location.state.is_att;
     const styles = StyleSheet.create({
         page: {
             flexDirection: 'row',
@@ -193,6 +194,7 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
 
     useEffect(() => {
         getDataSet();
+        console.log(is_att)
 
     },[]);
     useEffect(() => {
@@ -236,7 +238,16 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
 
                                     <View style={styles.center} >
                                         <View style={styles.title} >
-                                            <Text >{`Décompte provisoir de la situation N° ${extra.num_situation}`}</Text>
+
+                                            {is_att === false &&
+
+                                                <Text >{`Décompte provisoir de la situation N° ${extra.num_situation}`}</Text>
+                                            }
+                                            {is_att === true &&
+
+                                                <Text >{`Attachement des traveaux de la situation N° ${extra.num_situation}`}</Text>
+                                            }
+
                                         </View >
                                     </View >
 
@@ -268,18 +279,31 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                                                     <TableCell>
                                                         Quantité Cumulée
                                                     </TableCell>
-                                                    <TableCell>
-                                                        Prix Unitaire
-                                                    </TableCell>
-                                                    <TableCell>
+                                                    {is_att === false &&
+
+                                                        <TableCell>
+                                                            Prix Unitaire
+                                                        </TableCell>
+                                                    }
+                                                    {is_att === false &&
+
+                                                        <TableCell>
                                                         Montant Précédent
-                                                    </TableCell>
-                                                    <TableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}}>
+                                                        </TableCell>
+                                                    }
+
+                                                    {is_att === false &&
+
+                                                        <TableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}}>
                                                         Montant Mois
-                                                    </TableCell>
-                                                    <TableCell>
+                                                        </TableCell>
+                                                    }
+                                                    {is_att === false &&
+
+                                                        <TableCell>
                                                         Montant Cumulé
-                                                    </TableCell>
+                                                        </TableCell>
+                                                    }
                                                 </TableHeader>
                                                 <TableBody textAlign={"center"}>
                                                     <DataTableCell  getContent={(r) => r.code_tache}/>
@@ -288,42 +312,61 @@ const AttachementPDFViewPrinter: React.FC<any> = () => {
                                                     <DataTableCell getContent={(r) => r.qte_precedente}/>
                                                     <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => r.qte_mois}/>
                                                     <DataTableCell getContent={(r) => r.qte_cumule}/>
-                                                    <DataTableCell getContent={(r) => Humanize(r.prix_u)}/>
-                                                    <DataTableCell getContent={(r) => Humanize(r.montant_precedent)}/>
-                                                    <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.montant_mois)}/>
-                                                    <DataTableCell getContent={(r) => Humanize(r.montant_cumule)}/>
+
+                                                    {is_att === false &&
+
+                                                        <DataTableCell getContent={(r) => Humanize(r.prix_u)}/>
+                                                    }
+
+                                                    {is_att === false &&
+
+                                                        <DataTableCell getContent={(r) => Humanize(r.montant_precedent)}/>
+                                                    }
+
+                                                    {is_att === false &&
+
+                                                        <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.montant_mois)}/>
+                                                    }
+
+                                                    {is_att === false &&
+
+                                                        <DataTableCell getContent={(r) => Humanize(r.montant_cumule)}/>
+                                                    }
                                                 </TableBody>.
                                             </Table>
                                         </View >
-                                        <View   style={styles.table2}>
-                                            <Table
-                                                data={[extra]}
+                                        {is_att === false &&
+                                            <View   style={styles.table2}>
+                                                <Table
+                                                    data={[extra]}
 
-                                            >
+                                                >
 
-                                                <TableBody textAlign={"center"} >
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
-                                                    <DataTableCell getContent={() => "Montant Total En (H.T)"}/>
-                                                    <DataTableCell getContent={(r) => Humanize(r.smontant_precedent) }/>
-                                                    <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.smontant_mois)}/>
-                                                    <DataTableCell getContent={(r) => Humanize(r.smontant_cumule)}/>
-                                                </TableBody>.
-                                            </Table>
+                                                    <TableBody textAlign={"center"} >
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell style={{borderRightColor:"white"}}  getContent={() => ""}/>
+                                                        <DataTableCell getContent={() => "Montant Total En (H.T)"}/>
+                                                        <DataTableCell getContent={(r) => Humanize(r.smontant_precedent) }/>
+                                                        <DataTableCell style={{backgroundColor:"#e6e6e6",borderColor:"#000000"}} getContent={(r) => Humanize(r.smontant_mois)}/>
+                                                        <DataTableCell getContent={(r) => Humanize(r.smontant_cumule)}/>
+                                                    </TableBody>.
+                                                </Table>
+                                            </View >
+                                        }
+                                    </View >
+
+                                    {is_att === false &&
+
+                                        <View style={styles.sum} >
+                                            <Text >{`Le présent décompte est arrêté en HT à la somme de ${extra.mm}`}</Text>
                                         </View >
-                                    </View >
-                                    <View style={styles.sum} >
-                                        <Text >{`Le présent décompte est arrêté en HT à la somme de ${extra.mm}`}</Text>
-                                    </View >
-
-                                    <View style={styles.footer1}>
+                                    }
 
 
-                                    </View>
                                     <View style={styles.footer2}>
                                         <View style={styles.footerLeftPart}>
                                             <Text >{`P/ ${extra.filiale}`}</Text>
