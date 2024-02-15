@@ -8,7 +8,8 @@ import * as XLSX from "xlsx";
 import {PermissionContext} from "../../Context/PermissionContext/PermissionContext";
 import {showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
 import AlertMessage from "../../AlertMessage/AlertMessage";
-
+import {showModal4 as displaydqeModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import AddDQE from "../../Marche/AddDQE/AddDQE";
 
 type DQEProps = {
   data:any;
@@ -117,7 +118,7 @@ const DQE: React.FC<DQEProps> = (props) => {
     if(permission.includes("api_sm.add_dqe")){
       const rowData:any =  props.data  ;
       if (props.pk){
-        navigate('add_dqe', { state: { marche: rowData[props.pk] } })
+        dispatch(displaydqeModal(rowData[props.pk]))
       }
 
     }
@@ -142,6 +143,7 @@ const DQE: React.FC<DQEProps> = (props) => {
               <>
                 <>
                   { permission.includes("api_sm.add_dqe") &&
+                    <>
                       <button
                           className="btn btn-primary"
                           data-bs-toggle="tooltip"
@@ -153,6 +155,8 @@ const DQE: React.FC<DQEProps> = (props) => {
                       >
                         <i className="fas fa-plus" />
                       </button>
+                      <AddDQE/>
+                    </>
                   }
                 { permission.includes("api_sm.upload_dqe") &&
                   <button

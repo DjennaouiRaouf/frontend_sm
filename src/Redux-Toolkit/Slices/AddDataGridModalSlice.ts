@@ -10,6 +10,8 @@ export interface AddDataGridModalState {
     pk2:any;
     showAddForm3:boolean;
     pk3:any;
+    showAddForm4:boolean;
+    pk4:any;
 }
 
 const initialState: AddDataGridModalState = {
@@ -19,6 +21,8 @@ const initialState: AddDataGridModalState = {
     pk2:'',
     showAddForm3:false,
     pk3:'',
+    showAddForm4:false,
+    pk4:'',
 
 };
 
@@ -53,12 +57,23 @@ export const AddDataGridModal = createSlice({
             state.showAddForm3=false;
             state.pk3=''
         },
+        showModal4: (state,action) => {
+
+            state.showAddForm4=true;
+            state.pk4=action.payload;
+
+        },
+        hideModal4: (state) => {
+            state.showAddForm4=false;
+            state.pk4=''
+        },
 
 
     }
 });
 
 export const { showModal,hideModal,showModal2,hideModal2,
-showModal3,hideModal3} = AddDataGridModal.actions;
+showModal3,hideModal3,
+showModal4,hideModal4} = AddDataGridModal.actions;
 
 export default AddDataGridModal.reducer;

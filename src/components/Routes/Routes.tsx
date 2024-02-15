@@ -25,17 +25,13 @@ import ListAvances from "../Marche/Avances/ListAvances/ListAvances";
 import ListCautions from "../Marche/Cautions/ListCautions/ListCautions";
 import AddCautions from "../Marche/Cautions/AddCautions/AddCautions";
 import {PermissionContext} from "../Context/PermissionContext/PermissionContext";
-import axios from "axios";
-import Cookies from "js-cookie";
 import ListeODS from "../Marche/ODS/ListeODS/ListeODS";
-import AddODS from "../Marche/ODS/AddODS/AddODS";
 import ListFlash from "../Marche/Flash/ListFlash/ListFlash";
 import ListAttachements from "../Marche/ListAttachements/ListAttachements";
 import ErrorRoute from "../ErrorRoute/ErrorRoute";
 import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementPDFViewPrinter";
 import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter";
 import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
-import AddDQE from "../Marche/AddDQE/AddDQE";
 import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
 
 
@@ -101,25 +97,7 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
-          <Route
-              path="marche/liste_m/add_dqe"
-              element={
-                  authenticated && permission.includes("api_sm.add_dqe") ? (
-                      <>
-                          <NavigationBar/>
-                          <ModalProvider>
-                              <AddDQE/>
-                          </ModalProvider>
 
-
-
-
-                      </>
-                  ) : (
-                      <Navigate to="/"  />
-                  )
-              }
-          />
           <Route
               path="/marche/liste_m/liste_facture/creances"
               element={
