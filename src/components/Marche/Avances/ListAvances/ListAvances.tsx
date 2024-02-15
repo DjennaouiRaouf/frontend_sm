@@ -17,10 +17,43 @@ import FilterModal from "../../../FilterModal/FilterModal";
 import bill from "../../../icons/bill.png"
 import * as XLSX from "xlsx";
 import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
+import numeral from "numeral";
 
 
 type ListAvancesProps = {
   //
+};
+
+const InfoRenderer: React.FC<any> = (props) => {
+  const { value } = props;
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+
+  }
+  useEffect(() => {
+    getLib();
+  },[libelle]);
+  switch (props.column.colId) {
+    case 'montant' :
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+    case 'debut' :
+      return <span>{value+' %'}</span>
+    case 'fin' :
+      return <span>{value+' %'}</span>
+    case 'remb' :
+      return <span>{value+' %'}</span>
+    case 'taux_avance' :
+      return <span>{value+' %'}</span>
+
+
+
+
+
+
+    default:
+      return <span>{value}</span>
+  }
+
 };
 
 const ListAvances: React.FC<any> = () => {
@@ -87,6 +120,9 @@ const ListAvances: React.FC<any> = () => {
     multiSortKey:'ctrl',
     animateRows:true,
     rowSelection:'multiple',
+    components: {
+      InfoRenderer: InfoRenderer,
+    },
     localeText: {
 
       page: 'Page',
@@ -157,7 +193,17 @@ const ListAvances: React.FC<any> = () => {
   };
 
 
+  const getRowStyle = (params: any):any => {
+    if (params.data.remboursee ) {
+      return {background:"#dff0d8"};
+    }
+    else {
+      return { background: '#f2dede' };
 
+    }
+
+
+  }
 
   useEffect(() => {
     getCols();
@@ -202,38 +248,9 @@ const ListAvances: React.FC<any> = () => {
                           <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                             <ButtonGroup style={{ height: 35}}>
-                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                      onClick={openModal}>
-                                <i className="fas fa-filter" />
-                                &nbsp;Recherche
-                              </Button>
 
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderRadius:0}} id="dropdown-basic"
-                                >
-                                  <i className="far fa-trash-alt"></i>
-                                  &nbsp;Supprimer
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                  <Dropdown.Item >
-                                    <i className="fas fa-eraser"></i>
-                                    &nbsp;Suppression</Dropdown.Item>
-                                  <Dropdown.Item >
-                                    <i className="far fa-trash-alt"></i>
-                                    &nbsp;Corbeille</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="fas fa-list-ul"></i>
-                                    &nbsp;Elements supprimés</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
-
-
-
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
+                              <Dropdown >
+                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0}} id="dropdown-basic"
                                 >
                                   <i className="fas fa-print" />
                                   &nbsp;Imprimer
@@ -276,6 +293,7 @@ const ListAvances: React.FC<any> = () => {
                                              onGridReady={onGridReady}
                                              gridOptions={gridOptions}
                                              onSelectionChanged={onSelectionChanged}
+                                             getRowStyle={getRowStyle}
 
 
 

@@ -19,7 +19,7 @@ import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 import numeral from "numeral";
 import RecupCaution from "../../../ActionRenderer/RecupCaution/RecupCaution";
 import AlertMessage from "../../../AlertMessage/AlertMessage";
-
+import caution from "../../../icons/risk.png";
 
 type ListCautionsProps = {
   //
@@ -352,7 +352,7 @@ const ListCautions: React.FC<any> = () => {
 
                       >
                         <>
-                          <DisplayDataGridModal img={""} title={"Caution"} cols={cols}   />
+                          <DisplayDataGridModal img={caution} title={"Caution"} cols={cols}   />
 
                           <div style={containerStyle}>
 
