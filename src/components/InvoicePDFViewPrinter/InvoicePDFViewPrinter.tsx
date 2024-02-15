@@ -41,7 +41,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
   // Event handler for option change
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-
+    console.log(facture)
     setSelectedOption(selectedValue);
   };
   useEffect(() => {
@@ -119,16 +119,31 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Taux de rabais : ${facture.rabais}%    Montant du rabais en (HT) :   ${Humanize(facture.montant_rb)} DA `   }  </Text>
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`TVA : ${facture.tva}%    Montant de la taxe  ${Humanize((facture.tva/100)*facture.montant_mois)} DA `   }  </Text>
 
+
+                  {
+                    (facture.montant_ava_remb  || facture.montant_avf_remb ) &&
+                      <Text style={{ position: "relative",width:500,marginBottom:8 ,textAlign:"center",fontWeight:'bold'}} wrap={true}>{`( Déduire )`}  </Text>
+                  }
+                  {
+                      facture.montant_avf_remb &&
+                      <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Avance Forfaitaire : ${Humanize(facture.montant_avf_remb)} DA `   }  </Text>
+
+                  }
+                  {
+                      facture.montant_ava_remb &&
+                      <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Avance sur Appros : ${Humanize(facture.montant_ava_remb)} DA `   }  </Text>
+
+
+                  }
                   {
                       facture.tva === "0.00" &&
                       <Text style={{ position: "relative",width:500,marginBottom:8 ,textAlign:"center"
                         ,fontWeight:'bold'}} wrap={true}>{`( EXONEREE DES TAXES )`}  </Text>
                   }
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT DE LA FACTURE EN (HT)      ${facture.montant_factureHT} DA `   }  </Text>
 
-
-                  <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT NET À PAYER À L'ENTREPRISE EN (TTC)      ${facture.montant_factureTTC} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginTop:8,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT DE LA FACTURE EN (HT)      ${Humanize(facture.montant_factureHT)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8 ,backgroundColor:"#e6e6e6"}} wrap={true}>{`MONTANT NET À PAYER À L'ENTREPRISE EN (TTC)      ${Humanize(facture.montant_factureTTC)} DA `   }  </Text>
 
 
                 </View>

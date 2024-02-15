@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/AddDataGridModalSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux-Toolkit/Slices/AddDataGridModalSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/AddDQE/AddDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/AddDQE/AddDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,14 +118,7 @@
       <workItem from="1707807541253" duration="9529000" />
       <workItem from="1707895160001" duration="14832000" />
       <workItem from="1707981479530" duration="4332000" />
-      <workItem from="1707993933941" duration="7252000" />
-    </task>
-    <task id="LOCAL-00039" summary="Initial commit">
-      <created>1705415755292</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1705415755292</updated>
+      <workItem from="1707993933941" duration="8692000" />
     </task>
     <task id="LOCAL-00040" summary="Initial commit">
       <created>1705417451919</created>
@@ -466,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708004400193</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Initial commit">
+      <created>1708006362017</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1708006362017</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
