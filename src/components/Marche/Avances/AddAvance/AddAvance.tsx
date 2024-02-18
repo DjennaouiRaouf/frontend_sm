@@ -50,6 +50,7 @@ const AddAvance: React.FC<any> = () => {
     const handleInputChange = (e:any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
+
     };
 
 
@@ -159,7 +160,7 @@ const AddAvance: React.FC<any> = () => {
 
 
                 >
-                    <AlertMessage/>
+
                     <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
                         noValidate validated={validated} onSubmit={handleSubmit} >
 
@@ -261,7 +262,7 @@ const AddAvance: React.FC<any> = () => {
                                                                         value={formData[field.name]}
                                                                         onChange={(e)=>handleInputChange(e)}
                                                                     />
-                                                                    : field.type === 'IntegerField' || field.type ==='DecimalField'  ?
+                                                                    : (field.type === 'IntegerField' || field.type ==='DecimalField') && field.name!=='num_situation'  ?
                                                                         <Form.Control
                                                                             name={field.name}
                                                                             required={field.required}
@@ -272,6 +273,17 @@ const AddAvance: React.FC<any> = () => {
 
                                                                             onChange={(e)=>handleInputChange(e)}
                                                                         />
+                                                                        : (field.type === 'IntegerField' || field.type ==='DecimalField') && field.name=='num_situation'  ?
+                                                                            <Form.Control
+                                                                                name={field.name}
+                                                                                required={field.required}
+                                                                                className="w-100"
+                                                                                type="number"
+                                                                                value={formData[field.name] || 0}
+                                                                                step={1}
+
+                                                                                onChange={(e)=>handleInputChange(e)}
+                                                                            />
 
                                                                     :
                                                                     <Form.Control

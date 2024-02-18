@@ -33,6 +33,7 @@ import AttachementPDFViewPrinter from "../AttachementPDFViewPrinter/AttachementP
 import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter";
 import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
 import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
+import Profile from "../Profile/Profile";
 
 
 
@@ -56,6 +57,7 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+
           <Route
               path="/signup"
               element={
@@ -70,6 +72,22 @@ const Routes: React.FC<any> = () => {
                           <NavigationBar/>
                           <Home/>
                           
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="/profile"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <Profile/>
+
 
 
                       </>

@@ -163,7 +163,7 @@ const NavigationBar: React.FC<any> = () => {
                                 </a>
                                 <div  className="dropdown-menu shadow dropdown-menu-end animated--grow-in"
                                       data-bs-popper="none">
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/profile">
                                         <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" />
                                         &nbsp;Profile
                                     </a>
