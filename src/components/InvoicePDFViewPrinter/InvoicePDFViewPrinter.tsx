@@ -12,6 +12,8 @@ import Image = ReactPDF.Image;
 import {ChangeEvent, useEffect, useState} from "react";
 import Form from 'react-bootstrap/Form';
 import Humanize from "../Utils/Utils";
+import axios from "axios";
+import Cookies from "js-cookie";
 type PDFViewPrinterProps = {
   //
 };
@@ -59,6 +61,74 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
     return previousDate;
   };
 
+  const[h,setH]=useState<string>("");
+  const[f,setF]=useState<string>("");
+  const getH = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/optionimpression/?type=H`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          if(response.data){
+
+            setH(response.data[0].src)
+          }
+          else{
+            setH("")
+          }
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+  }
+  const getF = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/optionimpression/?type=F`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+
+          if(response.data){
+
+            setF(response.data[0].src)
+          }
+          else{
+            setF("")
+          }
+
+
+
+        })
+        .catch((error:any) => {
+
+        });
+  }
+
+  useEffect(() => {
+    getH();
+  },[]);
+
+  useEffect(() => {
+    getF();
+  },[]);
+
+  const date_facture = () => {
+    const currentDate = new Date();
+    const yearString = currentDate.getFullYear().toString();
+    const monthString = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const dayString = currentDate.getDate().toString().padStart(2, '0');
+    return`${yearString}-${monthString}-${dayString}`;
+  }
 
   return (
       <>
@@ -77,8 +147,9 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
             <Document>
               <Page size="A4" style={{padding:1,margin:1,fontSize:8}} >
                 {
+
                   selectedOption === "1" ?
-                      <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_header.png"}
+                      <Image source={h}
                              style={{ width: '100%',height:110 ,position:"relative",top:0}} />
                       :
                       <View
@@ -90,7 +161,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
                 <View style={{margin:10}}>
                   <Text style={{ position: "absolute",right: 45,textDecoration: 'underline', }}>{`Facture N° : ${facture.numero_facture}`}</Text>
-                  <Text style={{ position: "absolute",left: 10}}>{`Le: ${facture.date}`}</Text>
+                  <Text style={{ position: "absolute",left: 10}}>{`Le: ${date_facture()}`}</Text>
                 </View>
 
                 <View style={{margin:20,width:'500px',height:'auto'}} wrap={true}>
@@ -168,7 +239,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
                 {
                   selectedOption === "1" ?
-                      <Image src={"http://127.0.0.1:8000/media/Images/Impression/groupe_footer.png"}
+                      <Image source={f}
                              style={{ width: '100%',height:85, position:"absolute",bottom:20,right:1 }} />
                       :
                       <View

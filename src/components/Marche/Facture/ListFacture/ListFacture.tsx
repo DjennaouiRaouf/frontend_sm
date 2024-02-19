@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, ButtonGroup, Dropdown} from "react-bootstrap";
+import {Button, ButtonGroup, Dropdown, Form, Modal} from "react-bootstrap";
 
 import {useLocation, useNavigate} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
@@ -23,6 +23,9 @@ import AlertMessage from "../../../AlertMessage/AlertMessage";
 import {useDispatch} from "react-redux";
 import {showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice";
 import numeral from "numeral";
+import Avance from "../../../ActionRenderer/Avance/Avance";
+import test from "node:test";
+import avance from "../../../ActionRenderer/Avance/Avance";
 
 
 type ListFactureProps = {
@@ -279,6 +282,9 @@ const ListFacture: React.FC<any> = () => {
         getCols();
     },[]);
 
+
+
+
     useEffect(() => {
         getRows("");
     },[]);
@@ -334,6 +340,59 @@ const ListFacture: React.FC<any> = () => {
 
         navigate('del_fact', { state: { marche: mid.marche } })
     }
+
+    const [shown, setShown] = useState(false);
+    const [avances,setAvances]=useState([]);
+    const handleClose = () => {
+        setShown(false);
+        setCheckedItems([])
+        setItems([])
+    }
+    const handleShow = () => {
+        getAvances();
+        setShown(true);
+    }
+    const [checkedItems, setCheckedItems] = useState<number[]>([]);
+    const [items, setItems] = useState<any[]>([]);
+
+
+    const handleCheckboxChange = (item: any) => {
+        const isChecked = checkedItems.includes(item['id']);
+        if (isChecked) {
+            // Remove item if already checked
+            setCheckedItems(checkedItems.filter(id => id !== item['id']));
+            setItems(items.filter(item => item.id !== item['id']));
+        } else {
+            // Append item to the list if checked
+            setCheckedItems([...checkedItems, item['id']]);
+            setItems([...items, item['id']]);
+        }
+    };
+
+    const getAvances = async() => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getavance/?marche=${mid.marche}&remboursee=False`,{
+            headers: {
+                Authorization: `Token ${Cookies.get('token')}`,
+                'Content-Type': 'application/json',
+
+            },
+        })
+            .then((response:any) => {
+
+                setAvances(response.data);
+
+
+
+            })
+            .catch((error:any) => {
+
+            });
+    }
+
+    useEffect(() => {
+        getAvances();
+    },[]);
+
     const Remb = async() => {
         const pks:any[]=[]
         selectedRows.forEach(obj => {
@@ -345,8 +404,15 @@ const ListFacture: React.FC<any> = () => {
         });
         const pkList:any={}
         pkList[pk]=pks
+        const data:any={
+            pkList,
+            avances:items
+        }
+        console.log(data)
 
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/remb/`,pkList,{
+
+
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/remb/`, [pkList,items],{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -367,11 +433,39 @@ const ListFacture: React.FC<any> = () => {
             });
         setSelectedRows([])
     }
+
     return (
         <>
             <>
                 <FilterModal img={bill} title={"Rechercher une Facture"} endpoint_fields={"/forms/facturefilterfields/"} filter={getRows}  />
                 <AlertMessage/>
+                <Modal show={shown} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Selectionner l'avance</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {avances.map(item => (
+                            <Form.Check
+                                key={item['id']}
+                                type="checkbox"
+                                id={`checkbox-${item['id']}`}
+                                label={`${item['type']} ${item['num_avance']}`}
+                                checked={checkedItems.includes(item['id'])}
+                                onChange={() => handleCheckboxChange(item)}
+                            />
+                        ))}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
+                                onClick={Remb}>
+                            <i className="fa fa-send" style={{marginRight:5 }} ></i>
+                            Rebmourser
+                        </Button>
+
+
+                    </Modal.Footer>
+                </Modal>
+
                 <div id="wrapper" >
                     <div id="content-wrapper" className="d-flex flex-column">
                         <div id="content" >
@@ -404,7 +498,7 @@ const ListFacture: React.FC<any> = () => {
                                                             &nbsp;Recherche
                                                         </Button>
                                                         <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                                                onClick={Remb}>
+                                                                onClick={handleShow}>
                                                             <i className="fas fa-reply"></i>
                                                             &nbsp;Remboursement
                                                         </Button>
