@@ -408,7 +408,7 @@ const ListFacture: React.FC<any> = () => {
             pkList,
             avances:items
         }
-        console.log(data)
+
 
 
 
