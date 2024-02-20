@@ -21,7 +21,7 @@ const AddNT: React.FC<any> = () => {
               <AddForm   title={"Nouveau Numero de travail"} img={customer}
                          endpoint_submit={"/sm/addnt/"}
                          endpoint_fields={"/forms/ntfields/?flag=f"}
-                         endpoint_state={"/forms/clientfieldsstate/"}
+
               />
 
 

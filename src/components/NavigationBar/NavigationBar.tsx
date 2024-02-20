@@ -77,71 +77,18 @@ const NavigationBar: React.FC<any> = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home"></Nav.Link>
-                        {
-                            (permission.includes("api_sm.view_clients") || permission.includes("api_sm.add_clients") )&&
-
-                            <NavDropdown title="Clients" id="basic-nav-dropdown">
-                                {
-                                    permission.includes("api_sm.add_clients") &&
-                                    <NavDropdown.Item href="/clients/ajout_c">Ajouter un client</NavDropdown.Item>
-
-                                }
-                                {
-                                    permission.includes("api_sm.view_clients") &&
-                                    <NavDropdown.Item href="/clients/liste_c">Lister les clients</NavDropdown.Item>
-
-                                }
-                            </NavDropdown>
-
-                        }
-
-                        {
-                            (permission.includes("api_sm.view_sites") || permission.includes("api_sm.add_sites") )&&
-                                <NavDropdown title="Sites" id="basic-nav-dropdown">
-                                    {
-                                        permission.includes("api_sm.add_sites") &&
-                                        <NavDropdown.Item href="/sites/ajout_s">Ajouter un site</NavDropdown.Item>
-                                    }
-                                    {
-                                        permission.includes("api_sm.view_sites") &&
-                                        <NavDropdown.Item href="/sites/liste_s">Lister les sites</NavDropdown.Item>
-                                    }
-                                </NavDropdown>
-                        }
-
-                        {
-                            (permission.includes("api_sm.view_marche") || permission.includes("api_sm.add_marche") )&&
-
-                            <NavDropdown title="Marchés" id="basic-nav-dropdown">
-                                {
-                                    permission.includes("api_sm.add_marche") &&
-                                    <NavDropdown.Item href="/marche/ajout_m">Ajouter un Marché</NavDropdown.Item>
-                                }
-                                {
-                                    permission.includes("api_sm.view_marche") &&
-                                    <NavDropdown.Item href="/marche/liste_m">Lister les Marchés</NavDropdown.Item>
-                                }
-
-                            </NavDropdown>
-                        }
+                        <Nav.Link href="/home">Acceuil</Nav.Link>
+                        <Nav.Link href="/clients/liste_c">Client</Nav.Link>
+                        <Nav.Link href="/sites/liste_s">Sites</Nav.Link>
+                        <Nav.Link href="/nt/liste_nt">Numero des traveaux</Nav.Link>
+                        <Nav.Link href="/marche/liste_m">Marchés</Nav.Link>
 
 
-                        {
-                            (permission.includes("api_sm.view_nt") || permission.includes("api_sm.add_nt") )&&
 
-                            <NavDropdown title="NT" id="basic-nav-dropdown">
-                            {
-                                permission.includes("api_sm.add_nt") &&
-                                <NavDropdown.Item href="/nt/ajout_nt">Ajouter un numero de travail</NavDropdown.Item>
-                            }
-                            {
-                                permission.includes("api_sm.view_nt") &&
-                                <NavDropdown.Item href="/nt/liste_nt">Lister les numeros des traveaux </NavDropdown.Item>
-                            }
 
-                            </NavDropdown>
-                        }
+
+
+
 
                     </Nav>
                     <Nav className="navbar-nav ms-auto">

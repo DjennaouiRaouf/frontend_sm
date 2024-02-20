@@ -6,11 +6,12 @@ import Cookies from "js-cookie";
 import { showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
 import AlertMessage from "../AlertMessage/AlertMessage";
+import {Typeahead} from "react-bootstrap-typeahead";
 
 
 type AddFormProps = {
     endpoint_submit:string;
-    endpoint_state:string;
+    endpoint_state?:string;
     endpoint_fields:string;
     title:string;
     img:string;
@@ -56,8 +57,9 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     const handleSubmit = async(e: any) => {
         e.preventDefault();
         const form = e.currentTarget;
+        console.log(formData)
 
-
+        /*
         const formDataObject = new FormData();
         for (const key in formData) {
             if (formData.hasOwnProperty(key)) {
@@ -91,7 +93,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         else {
             setValidated(true)
         }
-
+*/
 
     }
 
@@ -116,32 +118,53 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
     }
 
+
+
     const getDdfaultState = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_state}`,{
-            headers: {
-                Authorization: `Token ${Cookies.get("token")}`,
-                'Content-Type': 'application/json',
+        if (props.endpoint_state )
+        {
+            await axios.get(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_state}`,{
+                headers: {
+                    Authorization: `Token ${Cookies.get("token")}`,
+                    'Content-Type': 'application/json',
 
-            },
-        })
-            .then((response:any) => {
-                setDefaultState(response.data.state);
-                setFormData(response.data.state);
-
+                },
             })
-            .catch((error:any) => {
+                .then((response:any) => {
+                    setDefaultState(response.data.state);
+                    setFormData(response.data.state);
 
-            });
+                })
+                .catch((error:any) => {
+
+                });
+        }
+
 
     }
     useEffect(() => {
-        getDdfaultState();
+        if(props.endpoint_state){
+            getDdfaultState();
+        }
+
         getFields();
 
 
 
     },[]);
 
+
+    const handleChange = (e:any,ref:any) => {
+        if(e.length === 1 ){
+            setFormData({
+                ...formData,
+                [ref]: e[0].value,
+            });
+        }
+
+
+
+    }
 
     return (
         <>
@@ -221,21 +244,15 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                         {
                                             field.type === "PrimaryKeyRelatedField"?
                                                 <>
-                                                    <Form.Control
-                                                        name={field.name}
-                                                        as="input"
-                                                        required={field.required}
-                                                        list={field.name}
-                                                        className="w-100"
-                                                        value={formData[field.name] || ''}
-                                                        onChange={(e)=>handleInputChange(e)}
-                                                    />
-                                                    <datalist id={field.name}>
-                                                        {field.queryset.map((qs:any, key:any) => (
-                                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                                        ))}
+                                                    <Typeahead
 
-                                                    </datalist>
+                                                        labelKey={"label"}
+                                                        onChange={(e)=>handleChange(e,field.name)}
+                                                        id={field.name}
+                                                        options={field.queryset}
+
+                                                    />
+
 
                                                 </>
 

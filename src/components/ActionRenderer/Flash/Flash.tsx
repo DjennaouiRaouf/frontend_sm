@@ -18,23 +18,11 @@ const Flash: React.FC<any> = (props) => {
               data-bs-placement="bottom"
               type="button"
               style={{ background: "#df162c", borderWidth: 0 }}
-              title="Afficher les flash "
+              title="Afficher les Flash ou les Attachements "
               onClick={() => props.onOpenModal()}
           >
             <i className="fas fa-file-alt"></i>
           </button>
-            <button
-                className="btn btn-primary"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                type="button"
-                style={{ background: "#df162c", borderWidth: 0 }}
-                title="Afficher les Attachements "
-                onClick={() => props.onOpenModal()}
-            >
-                <i className="fas fa-list"></i>
-            </button>
-
         </div>
       </>
   );
