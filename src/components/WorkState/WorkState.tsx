@@ -43,7 +43,7 @@ const WorkState: React.FC<any> = () => {
         })
         .catch((error:any) => {
             console.log(error)
-            dispatch(showAlert({variant:Variants.DANGER,heading:"Statistiques",text:'Mauvaise requete'}))
+            dispatch(showAlert({variant:Variants.DANGER,heading:"Statistiques",text:error.response.data.message}))
         });
 
 
