@@ -34,6 +34,7 @@ import EtatCTRLInvoicePDFViewPrinter from "../EtatCTRLInvoicePDFViewPrinter/Etat
 import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter";
 import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
 import Profile from "../Profile/Profile";
+import WorkState from "../WorkState/WorkState";
 
 
 
@@ -105,6 +106,24 @@ const Routes: React.FC<any> = () => {
                           <ModalProvider>
                               <ListDQE/>
                           </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/workstate"
+              element={
+                  authenticated  ? (
+                      <>
+                          <NavigationBar/>
+
+                          <WorkState/>
 
 
 

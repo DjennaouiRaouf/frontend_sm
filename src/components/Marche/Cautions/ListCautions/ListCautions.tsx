@@ -166,7 +166,7 @@ const ListCautions: React.FC<any> = () => {
   const defaultColDefs: ColDef = {
     sortable: true,
     resizable: true,
-    minWidth: 300,
+    minWidth: 200,
     cellStyle: { textAlign: 'start', border: "none"  },
 
   };
@@ -289,7 +289,7 @@ const ListCautions: React.FC<any> = () => {
                     <div className="card-body" >
 
 
-                      <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
+                      <div className="card mb-5 " style={{ width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
                           <h5 className="text-center card-title">Caution du Marché</h5>
                           <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>

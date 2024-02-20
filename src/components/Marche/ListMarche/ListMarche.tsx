@@ -98,7 +98,7 @@ const ListMarche: React.FC<any> = () => {
   const defaultColDefs: ColDef = {
     sortable: true,
     resizable: true,
-    minWidth: 300,
+    minWidth: 200,
     autoHeight: true, wrapText: true,
     cellStyle: {textAlign: 'start', border: "none"},
 
@@ -164,25 +164,44 @@ const ListMarche: React.FC<any> = () => {
     })
         .then((response:any) => {
           setPK(response.data.pk)
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Afficher',
-            cellRenderer:DisplayRow,
-            cellRendererParams:{
-              modelName:response.data.models,
-              pk:response.data.pk,
-            }
-          },
+          const updatedCols:any[] = [
             {
-              headerName:'Facturation',
-              cellRenderer:Facturation,
+              headerName:'Afficher',
+              cellRenderer:DisplayRow,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+              },
+              pinned:"left",
+            }
+              ,...response.data.fields,
+            {
+              headerName:'DQE',
+              cellRenderer:DQE,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                endpoint_upload:'/sm/importdqe/',
+                endpoint_download:'/sm/getdqe/',
+              }
+            },
+            {
+              headerName:'Ordre de service',
+              cellRenderer:ODS,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk,
 
               }
             },
-
-
+            {
+              headerName:'Avances',
+              cellRenderer:Avance,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+              }
+            },
             {
               headerName:'Cautions',
               cellRenderer:Cautions,
@@ -192,70 +211,36 @@ const ListMarche: React.FC<any> = () => {
 
               }
             },
-
-
-          ];
-          if(permission.includes("api_sm.download_dqe") || permission.includes("api_sm.upload_dqe")){
-            updatedCols.push( {
-              headerName:'DQE',
-              cellRenderer:DQE,
+            {
+              headerName:'Flash/Attachements',
+              cellRenderer:Flash,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk,
-                endpoint_upload:'/sm/importdqe/',
-                endpoint_download:'/sm/getdqe/',
+                onOpenModal:handleShow,
               }
-            },)
-          }
-          if(permission.includes("api_sm.view_ordre_de_service") || permission.includes("api_sm.add_ordre_de_service") ){
-            updatedCols.push( {
-              headerName:'Ordre de service',
-              cellRenderer:ODS,
+
+            },
+            {
+              headerName:'Facturation',
+              cellRenderer:Facturation,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk,
 
               }
-            },)
-          }
-
-          if(permission.includes("api_sm.add_avance") || permission.includes("api_sm.view_avance")){
-            updatedCols.push(
-                {
-                  headerName:'Avances',
-                  cellRenderer:Avance,
-                  cellRendererParams:{
-                    modelName:response.data.models,
-                    pk:response.data.pk,
-                  }
-                },)
-          }
-          updatedCols.push(
-              {
-                headerName:'Flash/Attachements',
-                cellRenderer:Flash,
-                cellRendererParams:{
-                  modelName:response.data.models,
-                  pk:response.data.pk,
-                  onOpenModal:handleShow,
-                }
+            },
+            {
+              headerName:'Editer',
+              cellRenderer:Editer,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk,
+                updateRows:getRows,
 
               }
-          )
-
-
-          updatedCols.push(
-              {
-                headerName:'Editer',
-                cellRenderer:Editer,
-                cellRendererParams:{
-                  modelName:response.data.models,
-                  pk:response.data.pk,
-                  updateRows:getRows,
-
-                }
-              }
-          )
+            },
+          ]
 
           setCols(updatedCols);
 
@@ -348,7 +333,7 @@ const ListMarche: React.FC<any> = () => {
               <div className="container-fluid" >
                 <div className="card shadow" >
                   <div className="card-body" >
-                    <div className="card" style={{ height:'60px',width: "40%",background:'#ebebeb' }}>
+                    <div className="card mb-5 " style={{ width: "40%",background:'#ebebeb' }}>
                       <div className="card-body text-center">
                         <h4 className="text-center card-title">Liste des marchés</h4>
                       </div>

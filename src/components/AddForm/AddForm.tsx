@@ -154,17 +154,21 @@ const AddForm: React.FC<AddFormProps> = (props) => {
     },[]);
 
 
-    const handleChange = (e:any,ref:any) => {
-        if(e.length === 1 ){
+    const handleChange = (ref:any, op:any) => {
+        if(op.length ===1 ){
             setFormData({
                 ...formData,
-                [ref]: e[0].value,
-            });
+                [ref]: op[0].value,
+            })
+        }else{
+            delete formData[ref]
         }
 
 
+    };
 
-    }
+
+
 
     return (
         <>
@@ -247,7 +251,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                     <Typeahead
 
                                                         labelKey={"label"}
-                                                        onChange={(e)=>handleChange(e,field.name)}
+                                                        onChange={(o) => handleChange(field.name, o)}
                                                         id={field.name}
                                                         options={field.queryset}
 

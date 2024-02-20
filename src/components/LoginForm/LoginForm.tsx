@@ -99,6 +99,8 @@ const LoginForm: React.FC<any> = () => {
       <>
 
         <AlertMessage/>
+
+
         <div className="col-xl-10 col-xxl-8 container px-4 py-5" style={{borderRadius:"8px",
           position: "absolute",
           left: 0,
@@ -110,6 +112,7 @@ const LoginForm: React.FC<any> = () => {
           OTransform: "translateY(-50%)"
 
         }}>
+          <h1  style={{ textAlign: "center" }}>Suivi Des Marchés</h1>
           <div className="row align-items-center g-lg-5 py-5">
             <div className="col-lg-7 text-center text-lg-start" >
               <Carousel className="w-100 d-block" controls={false} interval={2000} fade={true} indicators={true} style={{borderWidth: "1px",borderRadius: "8px"}}>

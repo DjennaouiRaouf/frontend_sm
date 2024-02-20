@@ -82,8 +82,8 @@ const Home: React.FC<any> = () => {
                     <div className="col-md-12">
                         <div className="main-timeline2">
                             {timeline.map((item,index) => (
-                            <div className="timeline" key={index}>
-                                <a href="#" className="timeline-content">
+                            <div className="timeline " key={index} >
+                                <a href="#" className="timeline-content mt-5 float-on-hover">
                                     <span className="year">{item.year}</span>
                                     <div className="inner-content">
                                         <h3 className="title">{item.title}</h3>

@@ -10,8 +10,13 @@
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/Flash/Flash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/Flash/Flash.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NT/AddNT/AddNT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NT/AddNT/AddNT.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavigationBar/NavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavigationBar/NavigationBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LoginForm/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginForm/LoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,14 +131,7 @@
       <workItem from="1707993933941" duration="9680000" />
       <workItem from="1708240942767" duration="13385000" />
       <workItem from="1708326532280" duration="14828000" />
-      <workItem from="1708413344936" duration="1720000" />
-    </task>
-    <task id="LOCAL-00046" summary="Initial commit">
-      <created>1705570899620</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1705570899620</updated>
+      <workItem from="1708413344936" duration="21224000" />
     </task>
     <task id="LOCAL-00047" summary="Initial commit">
       <created>1705575983780</created>
@@ -471,7 +469,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708339238892</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="Initial commit">
+      <created>1708415596511</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1708415596512</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
