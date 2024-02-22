@@ -316,7 +316,7 @@ const ListDQE: React.FC<any> = () => {
                               </Button>
                               <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
                                       onClick={taskState}>
-                                <i className="fas fa-chart" />
+                                <i className="fas fa-bar-chart" />
                                 &nbsp;Statistique des taches 
                               </Button>
 

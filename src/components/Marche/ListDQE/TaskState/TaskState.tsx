@@ -92,7 +92,7 @@ const TaskState: React.FC<any> = () => {
 
 
 
-                      layout={{title: `Statistiques des Traches du Marché ${mid}`,
+                      layout={{title: `Statistiques des Taches  du Marché ${mid}`,
                           barmode: 'stack',
                           xaxis: {title: 'Code de la Tache'},
                           yaxis: {title: 'Quantité'},

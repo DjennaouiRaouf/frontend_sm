@@ -19,7 +19,8 @@ const WorkState: React.FC<any> = () => {
     const location = useLocation();
     const mid = location.state;
     const[x,setX]=useState<any[]>([]);
-    const[y,setY]=useState<any[]>([]);
+    const[y1,setY1]=useState<any[]>([]);
+    const[y2,setY2]=useState<any[]>([]);
     const dispatch=useDispatch();
     const[du,setDu]=useState<string>('');
     const[au,setAu]=useState<string>('');
@@ -42,7 +43,8 @@ const WorkState: React.FC<any> = () => {
 
 
             setX(response.data.x)
-            setY(response.data.y)
+            setY1(response.data.y1)
+            setY2(response.data.y2)
 
 
 
@@ -97,7 +99,7 @@ const WorkState: React.FC<any> = () => {
           </div>
           </div>
           {
-              (x.length >= 1 && y.length >= 1) &&
+              (x.length >= 1 && y1.length >= 1) &&
                   <div className="card">
                       <div className="card-body">
                           <div className="plot-container">
@@ -105,9 +107,18 @@ const WorkState: React.FC<any> = () => {
                                   data={[
                                       {
                                           x: x,
-                                          y: y,
+                                          y: y1,
                                           type: 'scatter',
                                           mode: 'lines+markers',
+                                          name: 'Quantités cumulées en cours ',
+
+                                      },
+                                      {
+                                          x: x,
+                                          y: y2,
+                                          type: 'scatter',
+                                          mode: 'lines+markers',
+                                          name: 'Quantité contractuelle à atteindre',
 
                                       },
 
