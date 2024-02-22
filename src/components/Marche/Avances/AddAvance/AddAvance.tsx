@@ -11,6 +11,8 @@ import Cookies from "js-cookie";
 import {hideAlert, showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice";
 import {RootState} from "../../../../Redux-Toolkit/Store/Sotre";
 import {hideModal2 as hideAvanceModal} from "../../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import {Typeahead} from "react-bootstrap-typeahead";
+import {Transform} from "../../../Utils/Utils";
 
 
 
@@ -58,16 +60,11 @@ const AddAvance: React.FC<any> = () => {
         e.preventDefault();
         const form = e.currentTarget;
         formData["marche"]=pk2
+        setFormData(defaultState);
 
-        const formDataObject = new FormData();
-        for (const key in formData) {
-            if (formData.hasOwnProperty(key)) {
-                formDataObject.append(key, formData[key]);
-            }
-        }
         if (form.checkValidity()) {
             setValidated(false)
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addavance/`,formDataObject,{
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addavance/`,Transform(formData),{
                 headers: {
                     Authorization: `Token ${Cookies.get("token")}`,
                     'Content-Type': 'application/json',
@@ -79,6 +76,7 @@ const AddAvance: React.FC<any> = () => {
 
                     dispatch(showAlert({variant:Variants.SUCCESS,heading: "Avance",text:response.data.message}))
                     setFormData(defaultState);
+                    handleClose()
                 })
                 .catch((error:any) => {
                     dispatch(showAlert({variant:Variants.DANGER,heading:"Avance",text:error.response.data.message}))
@@ -97,6 +95,7 @@ const AddAvance: React.FC<any> = () => {
 
     const getFields = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/avancefields/?flag=f`,{
+
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
                 'Content-Type': 'application/json',
@@ -146,7 +145,18 @@ const AddAvance: React.FC<any> = () => {
 
     }
 
+    const handleChange = (ref:any, op:any) => {
+        if(op.length ===1 ){
+            setFormData({
+                ...formData,
+                [ref]: op,
+            })
+        }else{
+            delete formData[ref]
+        }
 
+
+    };
 
 
         return (
@@ -216,21 +226,16 @@ const AddAvance: React.FC<any> = () => {
                                                     {
                                                         field.type === "PrimaryKeyRelatedField"?
                                                             <>
-                                                                <Form.Control
-                                                                    name={field.name}
-                                                                    as="input"
-                                                                    required={field.required}
-                                                                    list={field.name}
-                                                                    className="w-100"
-                                                                    value={formData[field.name]}
-                                                                    onChange={(e)=>handleInputChange(e)}
-                                                                />
-                                                                <datalist id={field.name}>
-                                                                    {field.queryset.map((qs:any, key:any) => (
-                                                                        <option  key={key} value={qs.id}>{qs.id +"  "+qs.libelle}</option>
-                                                                    ))}
+                                                                <Typeahead
 
-                                                                </datalist>
+                                                                    labelKey={"label"}
+                                                                    onChange={(o) => handleChange(field.name, o)}
+                                                                    id={field.name}
+                                                                    selected={formData[field.name] || []}
+                                                                    options={field.queryset}
+
+                                                                />
+
 
                                                             </>
 

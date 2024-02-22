@@ -122,7 +122,7 @@ const ListeSites: React.FC<any> = () => {
 
   return (
       <>
-        <FilterModal img={hook} title={"Rechercher un Site"} endpoint_fields={"/forms/sitefilterfields/"} filter={getRows}  />
+        <FilterModal img={hook} title={"Rechercher un Site"} endpoint_fields={"/forms/sitefilterfields/"}   />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content" >

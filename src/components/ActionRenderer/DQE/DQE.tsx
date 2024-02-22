@@ -31,7 +31,9 @@ const DQE: React.FC<DQEProps> = (props) => {
     if(permission.includes("api_sm.download_dqe")){
       const rowData:any =  props.data  ;
       if (props.pk){
-        navigate('liste_dqe', { state: { marche: rowData[props.pk] } })
+        const val:string=rowData[props.pk]
+
+        navigate(`liste_dqe/${encodeURIComponent(val)}`, )
       }
 
     }

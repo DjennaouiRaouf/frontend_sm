@@ -35,6 +35,7 @@ import DetailInvoicePDFViewPrinter from "../DetailInvoicePDFViewPrinter/DetailIn
 import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
 import Profile from "../Profile/Profile";
 import WorkState from "../WorkState/WorkState";
+import TaskState from "../Marche/ListDQE/TaskState/TaskState";
 
 
 
@@ -98,7 +99,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="marche/liste_m/liste_dqe"
+              path="marche/liste_m/liste_dqe/:mid"
               element={
                   authenticated && permission.includes("api_sm.view_dqe") ? (
                       <>
@@ -106,6 +107,25 @@ const Routes: React.FC<any> = () => {
                           <ModalProvider>
                               <ListDQE/>
                           </ModalProvider>
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+          <Route
+              path="marche/liste_m/liste_dqe/:mid/taskstate/"
+              element={
+                  authenticated && permission.includes("api_sm.view_dqe") ? (
+                      <>
+                          <NavigationBar/>
+
+                              <TaskState/>
+
 
 
 
@@ -332,7 +352,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="marche/liste_m/liste_ods"
+              path="marche/liste_m/liste_ods/:mid"
               element={
                   authenticated   ? (
                       <>

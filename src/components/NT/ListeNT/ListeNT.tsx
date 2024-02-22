@@ -32,6 +32,7 @@ const ListeNT: React.FC<any> = () => {
   const[cols,setCols]=useState <any[]>([]);
   const[filter,setFilter]=useState('');
 
+
   const defaultColDefs: ColDef = {
     sortable: true,
     resizable: true,
@@ -74,11 +75,13 @@ const ListeNT: React.FC<any> = () => {
     })
         .then((response:any) => {
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Visualiser',
+          const updatedCols:any[] = [ {
+            headerName:'Afficher',
             cellRenderer:DisplayRow,
+            pinned:"left"
 
-          }];
+          },
+            ...response.data.fields,];
 
           setCols(updatedCols);
 
@@ -94,6 +97,7 @@ const ListeNT: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
+
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getnt/?${url}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
@@ -102,13 +106,13 @@ const ListeNT: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-
           setRows(response.data);
 
 
 
         })
         .catch((error:any) => {
+
 
         });
 
@@ -135,7 +139,7 @@ const ListeNT: React.FC<any> = () => {
 
   return (
       <>
-        <FilterModal img={hook} title={"Rechercher un numero de travail"} endpoint_fields={"/forms/ntfilterfields/"} filter={getRows}  />
+        <FilterModal img={hook} title={"Rechercher un numero de travail"} endpoint_fields={"/forms/ntfilterfields/"}   />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content" >

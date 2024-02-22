@@ -11,7 +11,7 @@ import ReactPDF, {
 import Image = ReactPDF.Image;
 import {ChangeEvent, useEffect, useState} from "react";
 import Form from 'react-bootstrap/Form';
-import Humanize from "../Utils/Utils";
+import {Humanize} from "../Utils/Utils";
 import axios from "axios";
 import Cookies from "js-cookie";
 type PDFViewPrinterProps = {

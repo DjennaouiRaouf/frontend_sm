@@ -81,11 +81,12 @@ const DelDQE: React.FC<any> = () => {
           setModels("del_"+response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Visualiser',
-            cellRenderer:DisplayRow,
-
-          }];
+          const updatedCols:any[] = [
+            {
+              headerName:'Afficher',
+              cellRenderer:DisplayRow,
+            },
+              ...response.data.fields];
 
           setCols(updatedCols);
 
@@ -184,7 +185,7 @@ const DelDQE: React.FC<any> = () => {
   return (
       <>
         <>
-          <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"} filter={getRows}  />
+          <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"}   />
 
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">

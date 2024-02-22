@@ -15,7 +15,7 @@ import Form from "react-bootstrap/Form";
 import {DataTableCell, Table, TableBody, TableCell, TableHeader} from "@alex9923/react-pdf-table";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Humanize from "../Utils/Utils";
+import {Humanize} from "../Utils/Utils";
 type PDFViewPrinterProps = {
     //
 };

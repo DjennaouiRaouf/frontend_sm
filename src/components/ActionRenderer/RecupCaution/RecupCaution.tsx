@@ -27,7 +27,7 @@ const RecupCaution: React.FC<RecupCautionProps> = (props) => {
       rowData["est_recupere"]=true
         console.log(rowData)
 
-      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/sm/recupcaution/${rowData[props.pk]}/`,rowData,{
+      await axios.put(`${process.env.REACT_APP_API_BASE_URL}/sm/recupcaution/`,rowData,{
         headers: {
 
           Authorization: `Token ${Cookies.get("token")}`,

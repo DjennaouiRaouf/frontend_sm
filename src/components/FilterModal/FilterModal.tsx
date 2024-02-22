@@ -5,12 +5,14 @@ import Cookies from "js-cookie";
 import {useEffect,  useState} from "react";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import {useModal} from "../Context/FilterModalContext/FilterModalContext";
+import {Typeahead} from "react-bootstrap-typeahead";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 type FilterModalProps = {
   title:string;
   img?:string;
   endpoint_fields:string;
-  filter: (url:string) => void;
+
 
 };
 interface Opt {
@@ -75,31 +77,52 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
         });
 
   }
-
+  const navigate=useNavigate();
+  const [searchParams] = useSearchParams();
 
   const handleSubmit = async(e: any) => {
     e.preventDefault();
-    console.log(formData)
+    console.log()
     const url_tmp:string[]=[];
     Object.entries(formData).forEach(([key, value], index) => {
+      const val:string=String(value);
+
       if(index === 0){
 
-        url_tmp.push(`${key}=${value}`);
+        url_tmp.push(`${key}=${encodeURIComponent(val)}`);
       }
       if(index >= 1){
-        url_tmp.push(`&${key}=${value}`);
+        url_tmp.push(`&${key}=${encodeURIComponent(val)}`);
       }
 
     });
-    props.filter(url_tmp.join(''));
 
+    const queryParamsString = new URLSearchParams(searchParams).toString(); // Convert query parameters to string
+    const newLocation = {
+      pathname: '', // New route path
+      search: queryParamsString, // Append existing query parameters
+    };
+    navigate(newLocation);
 
+    navigate(`?${url_tmp.join('')}`)
     closeModal()
     setFormData({})
 
 
 
   }
+  const handleChange = (ref:any, op:any) => {
+    if(op.length ===1 ){
+      setFormData({
+        ...formData,
+        [ref]: op[0].value,
+      })
+    }else{
+      delete formData[ref]
+    }
+
+
+  };
 
 
   return (
@@ -165,22 +188,21 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                    
                                 </Form.Label>
                                 {
-                                  field.type === "ModelChoiceFilter" || field.type === "PrimaryKeyRelatedField"?
+                                   field.type === "ModelChoiceFilter" || field.type === "PrimaryKeyRelatedField"?
                                       <>
-                                        <Form.Control
-                                            name={field.name}
-                                            as="input"
-                                            list={field.name}
-                                            className="w-100"
-                                            value={formData[field.name] || ''}
-                                            onChange={(e)=>handleInputChange(e)}
-                                        />
-                                        <datalist id={field.name}>
-                                          {field.queryset.map((qs:any, key:any) => (
-                                              <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                          ))}
 
-                                        </datalist>
+
+                                          <Typeahead
+
+                                              labelKey={"label"}
+                                              onChange={(o) => handleChange(field.name, o)}
+                                              id={field.name}
+                                              options={field.queryset}
+
+                                          />
+
+
+
 
                                       </>
 

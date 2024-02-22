@@ -57,16 +57,11 @@ const AddODS: React.FC<any> = () => {
         e.preventDefault();
         const form = e.currentTarget;
         formData["marche"]=pk3
+        console.log(formData)
 
-        const formDataObject = new FormData();
-        for (const key in formData) {
-            if (formData.hasOwnProperty(key)) {
-                formDataObject.append(key, formData[key]);
-            }
-        }
         if (form.checkValidity()) {
             setValidated(false)
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addods/`,formDataObject,{
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addods/`,formData,{
                 headers: {
                     Authorization: `Token ${Cookies.get("token")}`,
                     'Content-Type': 'application/json',
@@ -78,6 +73,7 @@ const AddODS: React.FC<any> = () => {
 
                     dispatch(showAlert({variant:Variants.SUCCESS,heading: "ODS",text:response.data.message}))
                     setFormData(defaultState);
+                    handleClose()
                 })
                 .catch((error:any) => {
                     dispatch(showAlert({variant:Variants.DANGER,heading:"ODS",text:error.response.data.message}))
@@ -159,7 +155,7 @@ const AddODS: React.FC<any> = () => {
 
 
             >
-                <AlertMessage/>
+
                 <Form className="bg-body-tertiary p-4 p-md-5 border rounded-3"
                       noValidate validated={validated} onSubmit={handleSubmit} >
 
@@ -232,7 +228,21 @@ const AddODS: React.FC<any> = () => {
                                                                     </datalist>
 
                                                                 </>
+                                                                :
+                                                                field.choices ?
+                                                                    <Form.Control
+                                                                        as="select"
+                                                                        name={field.name}
+                                                                        required={field.required}
+                                                                        className="w-100"
+                                                                        value={formData[field.name]|| ''}
+                                                                        onChange={(e)=>handleSelectChange(e)}>
 
+                                                                        {field.choices.map((item:any,index:any) => (
+                                                                            <option key={index} value={String(item)}>{item}</option>
+                                                                        ))}
+
+                                                                    </Form.Control>
 
                                                                 :
                                                                 field.type === 'BooleanField' ?

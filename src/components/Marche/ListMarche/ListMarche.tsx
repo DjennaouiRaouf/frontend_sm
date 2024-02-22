@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 import {Button, ButtonGroup, Dropdown, Form, Modal} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import agreement from '../../icons/agreement.png'
 import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
@@ -87,10 +87,10 @@ const ListMarche: React.FC<any> = () => {
   const gridRef = useRef(null);
   const[rows,setRows]=useState <any[]>([]);
   const[cols,setCols]=useState <any[]>([]);
-  const[filter,setFilter]=useState('');
   const[pk,setPK]=useState('');
   const[rowData,setRowData]=useState<any>({});
   const [shown, setShown] = useState(false);
+
   const dispatch = useDispatch();
   const handleClose = () => setShown(false);
   const handleShow = () => setShown(true);
@@ -103,6 +103,7 @@ const ListMarche: React.FC<any> = () => {
     cellStyle: {textAlign: 'start', border: "none"},
 
   };
+  const [searchParams] = useSearchParams();
 
 
 
@@ -134,7 +135,8 @@ const ListMarche: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getmarche/?${url}`,{
+
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getmarche/${url}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -259,8 +261,19 @@ const ListMarche: React.FC<any> = () => {
   const[selectedMonth,setSelectedMonth]=useState<string>("")
 
   useEffect(() => {
-    getRows("");
-  },[]);
+    const paramsArray = Array.from(searchParams.entries());
+    // Build the query string
+    const queryString = paramsArray.reduce((acc, [key, value], index) => {
+      if (index === 0) {
+        return `?${key}=${encodeURIComponent(value)}`;
+      } else {
+        return `${acc}&${key}=${encodeURIComponent(value)}`;
+      }
+    }, '');
+
+    getRows(queryString);
+  },[searchParams]);
+
   useEffect(() => {
     getCols();
   },[]);
@@ -268,11 +281,17 @@ const ListMarche: React.FC<any> = () => {
 
   const { permission } = useContext(PermissionContext);
   const export_xlsx = () => {
+    if (rows.length > 0 ){
+      const currentDate = new Date();
+      const yearString = currentDate.getFullYear().toString();
+      const monthString = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+      const dayString = currentDate.getDate().toString().padStart(2, '0');
 
-    const ws = XLSX.utils.json_to_sheet(rows);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, 'nt.xlsx');
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb, `Marchés_${yearString}-${monthString}-${dayString}.xlsx`);
+    }
 
 
   }
@@ -326,7 +345,7 @@ const ListMarche: React.FC<any> = () => {
   return (
       <>
         <AlertMessage/>
-        <FilterModal img={agreement} title={"Rechercher un marche"} endpoint_fields={"/forms/marchefilterfields/"} filter={getRows}  />
+        <FilterModal img={agreement} title={"Rechercher un marche"} endpoint_fields={"/forms/marchefilterfields/"}  />
         <div id="wrapper" >
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content" >
@@ -375,7 +394,7 @@ const ListMarche: React.FC<any> = () => {
 
                                 <Dropdown.Item onClick={export_xlsx}>
                                   <i className="bi bi-filetype-xlsx"></i>
-                                  &nbsp;xlsx</Dropdown.Item>
+                                  &nbsp;Exporter les marchés</Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
 

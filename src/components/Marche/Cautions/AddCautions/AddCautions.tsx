@@ -8,6 +8,8 @@ import {useDispatch} from "react-redux";
 import {useLocation} from "react-router-dom";
 import  risk from '../../../icons/risk.png';
 import AlertMessage from "../../../AlertMessage/AlertMessage";
+import {Typeahead} from "react-bootstrap-typeahead";
+import {Transform} from "../../../Utils/Utils";
 
 type AddCautionsProps = {
 
@@ -27,6 +29,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
   const [modelName, setModelName] = useState<string>("");
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(true);
+
   const mid = location.state;
   const opt:Opt[] = [
 
@@ -59,13 +62,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
 
 
 
-    const formDataObject = new FormData();
-    for (const key in formData) {
-      if (formData.hasOwnProperty(key)) {
-        formDataObject.append(key, formData[key]);
-      }
-    }
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addcautions/`,formDataObject,{
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addcautions/`,Transform(formData),{
         headers: {
           Authorization: `Token ${Cookies.get("token")}`,
           'Content-Type': 'application/json',
@@ -88,11 +85,14 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
 
 
 
-
   }
 
   const getFields = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/cautionfields/?flag=f&marche=${mid.marche}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/cautionfields/`,{
+      params:{
+        flag:'f',
+        marche:mid.marche
+      },
       headers: {
         Authorization: `Token ${Cookies.get("token")}`,
         'Content-Type': 'application/json',
@@ -139,7 +139,18 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
 
   },[]);
 
+  const handleChange = (ref:any, op:any) => {
+    if(op.length ===1 ){
+      setFormData({
+        ...formData,
+        [ref]: op,
+      })
+    }else{
+      delete formData[ref]
+    }
 
+
+  };
 
 
   return (
@@ -219,24 +230,18 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                               </strong>
                             </Form.Label>
                             {
-                              field.type === "PrimaryKeyRelatedField"?
+                              field.type === "PrimaryKeyRelatedField" ?
                                   <>
-                                    <Form.Control
-                                        name={field.name}
-                                        as="input"
-                                        required={field.required}
-                                        list={field.name}
-                                        className="w-100"
-                                        value={formData[field.name] || ''}
-                                        onChange={(e)=>handleInputChange(e)}
+
+                                    <Typeahead
+
+                                        labelKey={"label"}
+                                        onChange={(o) => handleChange(field.name, o)}
+                                        id={field.name}
+                                        selected={formData[field.name] || []}
+                                        options={field.queryset}
+
                                     />
-                                    <datalist id={field.name}>
-                                      {field.queryset.map((qs:any, key:any) => (
-                                          <option  key={key} value={qs.id}>{qs.libelle || qs.type}</option>
-                                      ))}
-
-                                    </datalist>
-
 
                                   </>
 

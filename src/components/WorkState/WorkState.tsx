@@ -25,7 +25,13 @@ const WorkState: React.FC<any> = () => {
     const[au,setAu]=useState<string>('');
   const getDataSet = async() => {
 
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/workstate/?marche=${mid.marche}&mm_min=${du.split('-')[1]}&mm_max=${au.split('-')[1]}&aa_min=${du.split('-')[0]}&aa_max=${du.split('-')[0]}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/workstate/`,{
+        params:{
+            marche:mid.marche,
+            date_after:du,
+            date_before:au,
+
+        },
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -42,22 +48,17 @@ const WorkState: React.FC<any> = () => {
 
         })
         .catch((error:any) => {
-            console.log(error)
+
             dispatch(showAlert({variant:Variants.DANGER,heading:"Statistiques",text:error.response.data.message}))
         });
 
 
   }
   const search = () => {
-      if(du && au){
-          getDataSet()
-      }else{
-          dispatch(showAlert({variant:Variants.DANGER,heading:"Statistiques",text:'Veuillez inserer la date debut et de fin  '}))
-      }
-
-
-
+      getDataSet()
   }
+
+
     const handleInputChangeDu = (event:any) => {
         // Update the state with the new input value
 
@@ -67,6 +68,8 @@ const WorkState: React.FC<any> = () => {
 
         setAu(event.target.value);
     };
+
+
 
   return (
       <>
@@ -82,10 +85,10 @@ const WorkState: React.FC<any> = () => {
               </h6>
               <div className="input-group mt-3 mb-3">
                   <span className="input-group-text" >Du</span>
-                  <input className="form-control" type="month" onChange={handleInputChangeDu} value={du}/>
+                  <input className="form-control" type="date" onChange={handleInputChangeDu}  value={du}/>
                   <span className="input-group-text">Au</span>
-                  <input className="form-control" type="month" onChange={handleInputChangeAu } value={au} />
-                  <button className="btn btn-primary" type="button" onClick={search}>
+                  <input className="form-control" type="date" onChange={handleInputChangeAu } value={au} />
+                  <button className="btn btn-primary" type="button" onClick={search} style={{ background: "#df162c", borderWidth: 0 }}>
                       <i className="fas fa-search" />
                   </button>
               </div>
@@ -108,7 +111,9 @@ const WorkState: React.FC<any> = () => {
 
                                       },
 
+
                                   ]}
+
                                   layout={{title: `Statistiques des Travaux du Marché ${mid.marche}`}}
                                   style={{width:"100%"}}
                               />

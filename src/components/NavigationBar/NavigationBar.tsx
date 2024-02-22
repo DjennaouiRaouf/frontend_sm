@@ -80,7 +80,7 @@ const NavigationBar: React.FC<any> = () => {
                         <Nav.Link href="/home">Acceuil</Nav.Link>
                         <Nav.Link href="/clients/liste_c">Client</Nav.Link>
                         <Nav.Link href="/sites/liste_s">Sites</Nav.Link>
-                        <Nav.Link href="/nt/liste_nt">Numero des traveaux</Nav.Link>
+                        <Nav.Link href="/nt/liste_nt">Numero des travaux</Nav.Link>
                         <Nav.Link href="/marche/liste_m">Marchés</Nav.Link>
 
 
@@ -112,20 +112,13 @@ const NavigationBar: React.FC<any> = () => {
                                       data-bs-popper="none">
                                     <a className="dropdown-item" href="/profile">
                                         <i className="fas fa-user fa-sm fa-fw me-2 text-gray-400" />
-                                        &nbsp;Profile
+                                        &nbsp;Profil
                                     </a>
-                                    <a className="dropdown-item" href="#">
-                                        <i className="fas fa-cogs fa-sm fa-fw me-2 text-gray-400" />
-                                        &nbsp;Settings
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        <i className="fas fa-list fa-sm fa-fw me-2 text-gray-400" />
-                                        &nbsp;Activity log
-                                    </a>
+
                                     <div className="dropdown-divider" />
                                     <a className="dropdown-item" onClick={logout}>
                                         <i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400" />
-                                        &nbsp;Logout
+                                        &nbsp;Déconnexion
                                     </a>
                                 </div>
                             </div>

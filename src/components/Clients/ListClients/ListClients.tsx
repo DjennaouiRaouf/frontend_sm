@@ -135,7 +135,7 @@ const ListClients: React.FC<any> = () => {
     return (
         <>
 
-            <FilterModal img={customer} title={"Rechercher un client"} endpoint_fields={"/forms/clientfilterfields/"} filter={getRows}  />
+            <FilterModal img={customer} title={"Rechercher un client"} endpoint_fields={"/forms/clientfilterfields/"}   />
             <div id="wrapper" >
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content" >

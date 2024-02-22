@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, ButtonGroup, Dropdown} from "react-bootstrap";
 
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -37,8 +37,9 @@ const ListODS: React.FC<any> = () => {
   const[pk,setPk]=useState<string>('')
 
   const navigate=useNavigate();
-  const location = useLocation();
-  const mid = location.state;
+  const [searchParams] = useSearchParams();
+  const { mid } = useParams();
+
 
   const getCols = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/odsfields/?flag=l`,{
@@ -52,16 +53,21 @@ const ListODS: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields,
+          const updatedCols:any[] = [
+
             {
               headerName:'Afficher',
               cellRenderer:DisplayRow,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk
-              }
+              },
+              pinned:"left",
 
             },
+
+              ...response.data.fields,
+
 
 
           ];
@@ -112,7 +118,8 @@ const ListODS: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ods/?marche=${mid.marche}&${url}`,{
+    const marche_id:string=encodeURIComponent(String(mid));
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ods/?marche=${marche_id}&${url.replace('?','&')}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -176,7 +183,7 @@ const ListODS: React.FC<any> = () => {
       <>
         <>
 
-          <FilterModal img={""} title={"Rechercher un ODS"} endpoint_fields={"/forms/odsfilterfields/"} filter={getRows}  />
+          <FilterModal img={""} title={"Rechercher un ODS"} endpoint_fields={"/forms/odsfilterfields/"}   />
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >
@@ -187,7 +194,7 @@ const ListODS: React.FC<any> = () => {
                       <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
                           <h5 className="text-center card-title">ODS du marche</h5>
-                          <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                          <h5 className="text-center card-title">{`N° : ${mid}` }</h5>
                         </div>
                       </div>
                       <div className="row">

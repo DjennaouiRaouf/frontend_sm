@@ -28,8 +28,10 @@ const ODS: React.FC<ODSProps> = (props) => {
     if(permission.includes("api_sm.view_ordre_de_service")){
       const rowData:any =  props.data  ;
       if (props.pk){
-        navigate('liste_ods', { state: { marche: rowData[props.pk] } })
+        const val:string=rowData[props.pk]
+        navigate(`liste_ods/${encodeURIComponent(val)}`)
       }
+
 
     }
 

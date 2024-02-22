@@ -15,7 +15,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import {DataTableCell, Table, TableBody, TableCell, TableHeader} from "@alex9923/react-pdf-table";
-import Humanize from "../Utils/Utils";
+import {Humanize} from "../Utils/Utils";
+
 type PDFViewPrinterProps = {
   //
 };

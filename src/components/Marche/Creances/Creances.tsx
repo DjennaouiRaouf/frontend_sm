@@ -83,11 +83,14 @@ const Creances: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Visualiser',
-            cellRenderer:DisplayRow,
+          const updatedCols:any[] = [
+            {
+              headerName:'Afficher',
+              cellRenderer:DisplayRow,
+              pinned:"left"
 
-          }];
+            },
+              ...response.data.fields];
 
           setCols(updatedCols);
 
@@ -244,7 +247,7 @@ const Creances: React.FC<any> = () => {
   return (
       <>
         <>
-          <FilterModal img={bill} title={"Rechercher un paiement"} endpoint_fields={"/forms/encaissementfilterfields/"} filter={getRows}  />
+          <FilterModal img={bill} title={"Rechercher un paiement"} endpoint_fields={"/forms/encaissementfilterfields/"}   />
 
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">

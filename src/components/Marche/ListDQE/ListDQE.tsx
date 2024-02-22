@@ -2,7 +2,7 @@ import * as React from "react";
 import {Breadcrumb, Button, ButtonGroup, Dropdown} from "react-bootstrap";
 
 import agreement from "../../icons/agreement.png";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -82,12 +82,12 @@ const ListDQE: React.FC<any> = () => {
   const[models,setModels]=useState<string>('')
   const[pk,setPk]=useState<string>('')
   const navigate=useNavigate();
-  const location = useLocation();
-  const mid = location.state;
-
+  const [searchParams] = useSearchParams();
+  const { mid } = useParams();
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${mid.marche}&${url}`,{
+    const marche_id:string=encodeURIComponent(String(mid));
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getdqe/?marche__id=${marche_id}${url.replace('?',"&")}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -245,13 +245,31 @@ const ListDQE: React.FC<any> = () => {
     setSelectedRows([])
   }
   
+  const taskState = () => {
+    navigate(`taskstate/`)
+  }
   const displayDeleted = async() => {
 
-    navigate('del_dqe', { state: { marche: mid.marche } })
+    navigate('del_dqe', { state: { marche: mid } })
   }
+
+
   useEffect(() => {
-    getRows("");
-  },[]);
+    const paramsArray = Array.from(searchParams.entries());
+    // Build the query string
+    const queryString = paramsArray.reduce((acc, [key, value], index) => {
+      if (index === 0) {
+        return `?${key}=${encodeURIComponent(value)}`;
+      } else {
+        return `${acc}&${key}=${encodeURIComponent(value)}`;
+      }
+    }, '');
+
+    getRows(queryString);
+  },[searchParams]);
+
+
+
   useEffect(() => {
     getCols();
   },[]);
@@ -262,7 +280,7 @@ const ListDQE: React.FC<any> = () => {
       <>
         <>
           <AlertMessage/>
-          <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"} filter={getRows}  />
+          <FilterModal img={settings} title={"Rechercher un DQE"} endpoint_fields={"/forms/dqefilterfields/"}   />
 
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
@@ -274,7 +292,7 @@ const ListDQE: React.FC<any> = () => {
                       <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
                           <h5 className="text-center card-title">DQE du marche</h5>
-                          <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                          <h5 className="text-center card-title">{`N° : ${mid}` }</h5>
                         </div>
                       </div>
 
@@ -295,6 +313,11 @@ const ListDQE: React.FC<any> = () => {
                                       onClick={openModal}>
                                 <i className="fas fa-filter" />
                                 &nbsp;Recherche
+                              </Button>
+                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                      onClick={taskState}>
+                                <i className="fas fa-chart" />
+                                &nbsp;Statistique des taches 
                               </Button>
 
                               <Dropdown>

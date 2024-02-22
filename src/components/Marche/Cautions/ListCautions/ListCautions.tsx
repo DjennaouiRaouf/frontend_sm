@@ -132,14 +132,18 @@ const ListCautions: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Visualiser',
-            cellRenderer:DisplayRow,
-            cellRendererParams:{
-              modelName:response.data.models,
-              pk:response.data.pk
-            }
-          },
+          const updatedCols:any[] = [
+            {
+              headerName:'Afficher',
+              cellRenderer:DisplayRow,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk
+              },
+              pinned:"left"
+
+            },
+              ...response.data.fields,
             {
               headerName:'Recuperer',
               cellRenderer:RecupCaution,

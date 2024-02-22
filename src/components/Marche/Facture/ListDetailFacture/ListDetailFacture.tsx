@@ -197,7 +197,7 @@ const ListDetailFacture: React.FC<any> = () => {
   return (
       <>
         <>
-          <FilterModal img={bill} title={"Rechercher un detail"} endpoint_fields={"/forms/dfacturefilterfields/"} filter={getRows}  />
+          <FilterModal img={bill} title={"Rechercher un detail"} endpoint_fields={"/forms/dfacturefilterfields/"}   />
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >

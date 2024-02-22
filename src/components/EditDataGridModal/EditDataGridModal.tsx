@@ -67,8 +67,8 @@ const EditDataGridModal: React.FC<EditDataGridModalProps> = (props) => {
         formDataObject.append(key, formData[key]);
       }
     }
-
-    await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}${pkValue}/`,formDataObject,{
+    console.log(formData)
+    await axios.put(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}`,formDataObject,{
       headers: {
 
         Authorization: `Token ${Cookies.get("token")}`,

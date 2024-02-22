@@ -437,7 +437,7 @@ const ListFacture: React.FC<any> = () => {
     return (
         <>
             <>
-                <FilterModal img={bill} title={"Rechercher une Facture"} endpoint_fields={"/forms/facturefilterfields/"} filter={getRows}  />
+                <FilterModal img={bill} title={"Rechercher une Facture"} endpoint_fields={"/forms/facturefilterfields/"}   />
                 <AlertMessage/>
                 <Modal show={shown} onHide={handleClose}>
                     <Modal.Header closeButton>

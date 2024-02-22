@@ -7,6 +7,7 @@ import { showAlert, Variants} from "../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import {Typeahead} from "react-bootstrap-typeahead";
+import {Transform} from "../Utils/Utils";
 
 
 type AddFormProps = {
@@ -59,16 +60,10 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         const form = e.currentTarget;
         console.log(formData)
 
-        /*
-        const formDataObject = new FormData();
-        for (const key in formData) {
-            if (formData.hasOwnProperty(key)) {
-                formDataObject.append(key, formData[key]);
-            }
-        }
+
         if (form.checkValidity()) {
             setValidated(false)
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}`,formDataObject,{
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}${props.endpoint_submit}`,Transform(formData),{
                 headers: {
                     Authorization: `Token ${Cookies.get("token")}`,
                     'Content-Type': 'application/json',
@@ -93,7 +88,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         else {
             setValidated(true)
         }
-*/
+
 
     }
 
@@ -158,7 +153,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         if(op.length ===1 ){
             setFormData({
                 ...formData,
-                [ref]: op[0].value,
+                [ref]: op,
             })
         }else{
             delete formData[ref]
@@ -166,7 +161,6 @@ const AddForm: React.FC<AddFormProps> = (props) => {
 
 
     };
-
 
 
 
@@ -253,6 +247,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                                                         labelKey={"label"}
                                                         onChange={(o) => handleChange(field.name, o)}
                                                         id={field.name}
+                                                        selected={formData[field.name] || []}
                                                         options={field.queryset}
 
                                                     />

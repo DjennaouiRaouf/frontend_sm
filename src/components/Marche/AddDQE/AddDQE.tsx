@@ -9,6 +9,8 @@ import Cookies from "js-cookie";
 import {hideAlert, showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
 import {RootState} from "../../../Redux-Toolkit/Store/Sotre";
 import {hideModal4 as hideDQEModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import {Typeahead} from "react-bootstrap-typeahead";
+import {Transform} from "../../Utils/Utils";
 
 
 
@@ -56,15 +58,9 @@ const AddDQE: React.FC<any> = () => {
         const form = e.currentTarget;
         formData["marche"]=pk4
 
-        const formDataObject = new FormData();
-        for (const key in formData) {
-            if (formData.hasOwnProperty(key)) {
-                formDataObject.append(key, formData[key]);
-            }
-        }
         if (form.checkValidity()) {
             setValidated(false)
-            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/adddqe/`,formDataObject,{
+            await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/adddqe/`,Transform(formData),{
                 headers: {
                     Authorization: `Token ${Cookies.get("token")}`,
                     'Content-Type': 'application/json',
@@ -76,6 +72,7 @@ const AddDQE: React.FC<any> = () => {
 
                     dispatch(showAlert({variant:Variants.SUCCESS,heading: "DQE",text:response.data.message}))
                     setFormData(defaultState);
+                    handleClose()
                 })
                 .catch((error:any) => {
                     dispatch(showAlert({variant:Variants.DANGER,heading:"DQE",text:error.response.data.message}))
@@ -93,7 +90,10 @@ const AddDQE: React.FC<any> = () => {
     }
 
     const getFields = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/dqefields/?flag=f`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/dqefields/`,{
+            params:{
+              flag:'f'
+            },
             headers: {
                 Authorization: `Token ${Cookies.get("token")}`,
                 'Content-Type': 'application/json',
@@ -142,7 +142,18 @@ const AddDQE: React.FC<any> = () => {
         dispatch(hideDQEModal())
 
     }
+    const handleChange = (ref:any, op:any) => {
+        if(op.length ===1 ){
+            setFormData({
+                ...formData,
+                [ref]: op,
+            })
+        }else{
+            delete formData[ref]
+        }
 
+
+    };
 
 
 
@@ -213,22 +224,15 @@ const AddDQE: React.FC<any> = () => {
                                                         {
                                                             field.type === "PrimaryKeyRelatedField"?
                                                                 <>
-                                                                    <Form.Control
-                                                                        name={field.name}
-                                                                        as="input"
-                                                                        required={field.required}
-                                                                        list={field.name}
-                                                                        className="w-100"
-                                                                        value={formData[field.name]}
-                                                                        onChange={(e)=>handleInputChange(e)}
+                                                                    <Typeahead
+
+                                                                        labelKey={"label"}
+                                                                        onChange={(o) => handleChange(field.name, o)}
+                                                                        id={field.name}
+                                                                        selected={formData[field.name] || []}
+                                                                        options={field.queryset}
+
                                                                     />
-                                                                    <datalist id={field.name}>
-                                                                        {field.queryset.map((qs:any, key:any) => (
-                                                                            <option  key={key} value={qs.id}>{qs.libelle}</option>
-                                                                        ))}
-
-                                                                    </datalist>
-
                                                                 </>
 
 
