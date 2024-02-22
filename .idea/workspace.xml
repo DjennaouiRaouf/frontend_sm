@@ -6,39 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ce79b337-2730-410f-a2ba-909c62ef32ad" name="Changes" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/DQE/DQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/ODS/ODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/ODS/ODS.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActionRenderer/RecupCaution/RecupCaution.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActionRenderer/RecupCaution/RecupCaution.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddForm/AddForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachementPDFViewPrinter/AttachementPDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Clients/ListClients/ListClients.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailInvoicePDFViewPrinter/DetailInvoicePDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DisplayDataGridModal/DisplayDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditDataGridModal/EditDataGridModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EtatCTRLInvoicePDFViewPrinter/EtatCTRLInvoicePDFViewPrinter.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterModal/FilterModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoicePDFViewPrinter/InvoicePDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceRGPDFViewPrinter/InvoiceRGPDFViewPrinter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/AddAttachement/AddAttachement.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/AddAttachement/AddAttachement.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/AddDQE/AddDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/AddDQE/AddDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Avances/AddAvance/AddAvance.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Avances/AddAvance/AddAvance.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/AddCautions/AddCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/AddCautions/AddCautions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Cautions/ListCautions/ListCautions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Creances/Creances.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/DelDQE/DelDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/DelDQE/DelDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListDetailFacture/ListDetailFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/Facture/ListFacture/ListFacture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListDQE/ListDQE.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ListMarche/ListMarche.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Marche/ODS/AddODS/AddODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ODS/AddODS/AddODS.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Marche/ODS/ListeODS/ListeODS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Marche/ODS/ListeODS/ListeODS.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NT/ListeNT/ListeNT.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavigationBar/NavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavigationBar/NavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Site/ListeSites/ListeSites.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Utils/Utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Utils/Utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WorkState/WorkState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WorkState/WorkState.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,14 +124,7 @@
       <workItem from="1708326532280" duration="14828000" />
       <workItem from="1708413344936" duration="22033000" />
       <workItem from="1708498517087" duration="24921000" />
-      <workItem from="1708585591631" duration="18717000" />
-    </task>
-    <task id="LOCAL-00049" summary="Initial commit">
-      <created>1705919663422</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1705919663422</updated>
+      <workItem from="1708585591631" duration="19231000" />
     </task>
     <task id="LOCAL-00050" summary="Initial commit">
       <created>1706010992075</created>
@@ -500,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708441563928</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="Initial commit">
+      <created>1708610080011</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1708610080012</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

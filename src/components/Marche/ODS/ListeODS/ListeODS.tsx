@@ -119,6 +119,7 @@ const ListODS: React.FC<any> = () => {
 
   const getRows = async(url:string) => {
     const marche_id:string=encodeURIComponent(String(mid));
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/sm/ods/?marche=${marche_id}&${url.replace('?','&')}`)
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ods/?marche=${marche_id}&${url.replace('?','&')}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
@@ -169,14 +170,25 @@ const ListODS: React.FC<any> = () => {
   };
 
 
+  useEffect(() => {
+    const paramsArray = Array.from(searchParams.entries());
+    // Build the query string
+    const queryString = paramsArray.reduce((acc, [key, value], index) => {
+      if (index === 0) {
+        return `?${key}=${encodeURIComponent(value)}`;
+      } else {
+        return `${acc}&${key}=${encodeURIComponent(value)}`;
+      }
+    }, '');
+
+    getRows(queryString);
+  },[searchParams]);
 
   useEffect(() => {
     getCols();
   },[]);
 
-  useEffect(() => {
-    getRows("");
-  },[]);
+
 
   //
   return (

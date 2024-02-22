@@ -220,8 +220,21 @@ const FilterModal: React.FC<FilterModalProps> = (props) => {
                                                       <option key={index} value={String(item.value)}>{item.label}</option>
                                                   ))}
 
-
                                               </Form.Control>
+                                                  : field.choices ?
+                                                  <Form.Control
+                                                      as="select"
+                                                      name={field.name}
+                                                      required={field.required}
+                                                      className="w-100"
+                                                      value={formData[field.name]|| ''}
+                                                      onChange={(e)=>handleSelectChange(e)}>
+
+                                                    {field.choices.map((item:any,index:any) => (
+                                                        <option key={index} value={String(item)}>{item}</option>
+                                                    ))}
+
+                                                  </Form.Control>
                                               : field.type === 'DateFilter' || field.type === 'DateField'  ?
                                                   <Form.Control
                                                       name={field.name}
