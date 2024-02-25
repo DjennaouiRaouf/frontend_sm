@@ -20,14 +20,17 @@ const Cautions: React.FC<AddCautionsProps> = (props) => {
   const handleAddCautions = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      navigate('ajout_cautions', { state: { marche: rowData[props.pk] } })
+      const val:string=rowData[props.pk]
+      navigate(`ajout_cautions/${encodeURIComponent(val)}`, )
+
     }
   }
 
   const handleListCautions = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      navigate('liste_cautions', { state: { marche: rowData[props.pk] } })
+      const val:string=rowData[props.pk]
+      navigate(`liste_cautions/${encodeURIComponent(val)}`, )
     }
   }
 

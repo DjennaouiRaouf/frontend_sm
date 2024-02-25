@@ -35,7 +35,8 @@ const Avance: React.FC<AddAvanceProps> = (props) => {
     if(permission.includes("api_sm.view_avance")) {
       const rowData: any = props.data;
       if (props.pk) {
-        navigate('liste_avance', {state: {marche: rowData[props.pk]}})
+        const val:string=rowData[props.pk]
+        navigate(`liste_avance/${encodeURIComponent(val)}`)
       }
     }
   }

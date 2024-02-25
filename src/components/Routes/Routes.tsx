@@ -254,7 +254,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="marche/liste_m/liste_avance"
+              path="marche/liste_m/liste_avance/:mid"
               element={
                   authenticated  && permission.includes("api_sm.view_avance")? (
                       <>
@@ -273,7 +273,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="marche/liste_m/liste_cautions"
+              path="marche/liste_m/liste_cautions/:mid"
               element={
                   authenticated ? (
                       <>
@@ -337,7 +337,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="marche/liste_m/ajout_cautions"
+              path="marche/liste_m/ajout_cautions/:mid"
               element={
                   authenticated  ? (
                       <>

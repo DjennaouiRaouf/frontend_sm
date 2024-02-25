@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Button, ButtonGroup, Dropdown} from "react-bootstrap";
 
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -18,6 +18,7 @@ import bill from "../../../icons/bill.png"
 import * as XLSX from "xlsx";
 import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
 import numeral from "numeral";
+import settings from "../../../icons/settings.png";
 
 
 type ListAvancesProps = {
@@ -69,8 +70,7 @@ const ListAvances: React.FC<any> = () => {
   const[pk,setPk]=useState<string>('')
 
   const navigate=useNavigate();
-  const location = useLocation();
-  const mid = location.state;
+
 
   const getCols = async() => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/avancefields/?flag=l`,{
@@ -141,9 +141,11 @@ const ListAvances: React.FC<any> = () => {
 
   };
 
+  const [searchParams] = useSearchParams();
+  const { mid } = useParams();
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getavance/?marche=${mid.marche}&${url}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getavance/?marche=${mid}${url.replace('?',"&")}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -210,8 +212,18 @@ const ListAvances: React.FC<any> = () => {
   },[]);
 
   useEffect(() => {
-    getRows("");
-  },[]);
+    const paramsArray = Array.from(searchParams.entries());
+    // Build the query string
+    const queryString = paramsArray.reduce((acc, [key, value], index) => {
+      if (index === 0) {
+        return `?${key}=${encodeURIComponent(value)}`;
+      } else {
+        return `${acc}&${key}=${encodeURIComponent(value)}`;
+      }
+    }, '');
+
+    getRows(queryString);
+  },[searchParams]);
   // get rows and cold dqe
   /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
 
@@ -220,7 +232,7 @@ const ListAvances: React.FC<any> = () => {
   return (
       <>
         <>
-
+          <FilterModal img={settings} title={"Rechercher une Avance"} endpoint_fields={"/forms/avancefilterfields/"}   />
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >
@@ -232,7 +244,7 @@ const ListAvances: React.FC<any> = () => {
                       <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
                           <h5 className="text-center card-title">Avances du Marché</h5>
-                          <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                          <h5 className="text-center card-title">{`N° : ${mid}` }</h5>
                         </div>
                       </div>
                       <div className="row">
@@ -248,9 +260,15 @@ const ListAvances: React.FC<any> = () => {
                           <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                             <ButtonGroup style={{ height: 35}}>
+                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
+                                      onClick={openModal}>
+                                <i className="fas fa-filter" />
+                                &nbsp;Recherche
+                              </Button>
 
                               <Dropdown >
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0}} id="dropdown-basic"
+                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
+                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
                                 >
                                   <i className="fas fa-print" />
                                   &nbsp;Imprimer

@@ -152,9 +152,11 @@ const AddAvance: React.FC<any> = () => {
                 [ref]: op,
             })
         }else{
-            delete formData[ref]
+            setFormData({
+                ...formData,
+                [ref]: [],
+            })
         }
-
 
     };
 

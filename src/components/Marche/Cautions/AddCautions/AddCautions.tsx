@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { showAlert, Variants} from "../../../../Redux-Toolkit/Slices/AlertSlice";
 import {useDispatch} from "react-redux";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import  risk from '../../../icons/risk.png';
 import AlertMessage from "../../../AlertMessage/AlertMessage";
 import {Typeahead} from "react-bootstrap-typeahead";
@@ -29,8 +29,8 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
   const [modelName, setModelName] = useState<string>("");
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(true);
-
-  const mid = location.state;
+  const [searchParams] = useSearchParams();
+  const { mid } = useParams();
   const opt:Opt[] = [
 
     {
@@ -58,9 +58,10 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
   const handleSubmit = async(e: any) => {
     e.preventDefault();
     const form = e.currentTarget;
-    formData["marche"]=mid.marche
-
-
+    formData["marche"]=mid
+    console.log(Transform(formData))
+    setFormData(defaultState);
+    /*
 
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addcautions/`,Transform(formData),{
         headers: {
@@ -80,7 +81,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
             dispatch(showAlert({variant:Variants.DANGER,heading:"Caution",text:error.response.request.response}))
           });
 
-
+  */
 
 
 
@@ -91,7 +92,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/cautionfields/`,{
       params:{
         flag:'f',
-        marche:mid.marche
+        marche:mid
       },
       headers: {
         Authorization: `Token ${Cookies.get("token")}`,
@@ -146,11 +147,14 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
         [ref]: op,
       })
     }else{
-      delete formData[ref]
+      setFormData({
+        ...formData,
+        [ref]: [],
+      })
     }
 
-
   };
+
 
 
   return (
@@ -199,7 +203,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                             <div className="card" style={{ height:'90px',width: "100%",background:'#ebebeb' }}>
                               <div className="card-body text-center">
                                 <h5 className="text-center card-title">{'Ajouter une Caution'}</h5>
-                                <h5 className="text-center card-title">{`Marché N° : ${mid.marche}` }</h5>
+                                <h5 className="text-center card-title">{`Marché N° : ${mid}` }</h5>
                               </div>
                             </div>
                           </div>
@@ -234,12 +238,12 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
                                   <>
 
                                     <Typeahead
-
                                         labelKey={"label"}
-                                        onChange={(o) => handleChange(field.name, o)}
                                         id={field.name}
-                                        selected={formData[field.name] || []}
+                                        onChange={(o) => handleChange(field.name, o)}
+
                                         options={field.queryset}
+                                        selected={formData[field.name]}
 
                                     />
 

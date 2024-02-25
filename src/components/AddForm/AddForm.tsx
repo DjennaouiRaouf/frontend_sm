@@ -156,11 +156,14 @@ const AddForm: React.FC<AddFormProps> = (props) => {
                 [ref]: op,
             })
         }else{
-            delete formData[ref]
+            setFormData({
+                ...formData,
+                [ref]: [],
+            })
         }
 
-
     };
+
 
 
 

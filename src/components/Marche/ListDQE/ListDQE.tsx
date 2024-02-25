@@ -322,7 +322,7 @@ const ListDQE: React.FC<any> = () => {
 
                               <Dropdown>
                                 <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderRadius:0}} id="dropdown-basic"
+                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
                                 >
                                   <i className="far fa-trash-alt"></i>
                                   &nbsp;Supprimer
