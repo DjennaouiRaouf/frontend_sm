@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import ReactPDF, {
   Document,
   Page,
@@ -20,8 +20,9 @@ type PDFViewPrinterProps = {
 
 
 const InvoicePDFViewPrinter: React.FC<any> = () => {
-  const location = useLocation();
-  const facture  = location.state.facture;
+  const [searchParams] = useSearchParams();
+  const { mid,fid } = useParams();
+  const [facture,setFacture]=useState<any>({})
   interface Option {
     value: string;
     label: string;
@@ -43,7 +44,6 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
   // Event handler for option change
   const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    console.log(facture)
     setSelectedOption(selectedValue);
   };
   useEffect(() => {
@@ -114,12 +114,28 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
         });
   }
 
-  useEffect(() => {
-    getH();
-  },[]);
+
+  const getFacture = async() => {
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacture/?marche=${mid}&numero_facture=${fid}`,{
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
+
+      },
+    })
+        .then((response:any) => {
+          setFacture(response.data[0])
+        })
+        .catch((error:any) => {
+        });
+
+  }
+
 
   useEffect(() => {
+    getH();
     getF();
+    getFacture();
   },[]);
 
   const date_facture = () => {
@@ -132,6 +148,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
   return (
       <>
+
         <div className="container text-center mb-3" >
           <Form.Select aria-label="Default select example" style={{width:"100%"}} onChange={handleOptionChange} >
             {options.map((option) => (
@@ -149,6 +166,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                 {
 
                   selectedOption === "1" ?
+                      h &&
                       <Image source={h}
                              style={{ width: '100%',height:110 ,position:"relative",top:0}} />
                       :
@@ -181,7 +199,7 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                   <Text style={{ position: "relative",width:500 ,marginBottom:10}} wrap={true}><Text>Selon la situation N°</Text>{`  du  ${facture.du }  au  ${facture.au }`}</Text>
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés au ${facture.au } en (HT)      ${Humanize(facture.montant_cumule)} DA `   }  </Text>
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé précédemment des traveaux réalisés au ${getPreviousDate(facture.du).toISOString().split('T')[0] } en (HT)      ${Humanize(facture.montant_precedent)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé précédemment des traveaux réalisés au ${facture.du } en (HT)      ${Humanize(facture.montant_precedent)} DA `   }  </Text>
 
 
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés du  ${facture.du}  au  ${facture.au }  en (HT)     ${Humanize(facture.montant_mois)} DA `   }  </Text>
@@ -239,8 +257,10 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
                 {
                   selectedOption === "1" ?
+                        f &&
                       <Image source={f}
                              style={{ width: '100%',height:85, position:"absolute",bottom:20,right:1 }} />
+
                       :
                       <View
                           style={{ width: '100%',height:56, position:"absolute",bottom:15,right:1 }} />
@@ -252,7 +272,11 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
 
           </PDFViewer>
         </div>
+
       </>
+
+
+
   );
 };
 

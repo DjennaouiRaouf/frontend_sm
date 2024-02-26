@@ -60,7 +60,7 @@ const AddAvance: React.FC<any> = () => {
         e.preventDefault();
         const form = e.currentTarget;
         formData["marche"]=pk2
-        setFormData(defaultState);
+
 
         if (form.checkValidity()) {
             setValidated(false)

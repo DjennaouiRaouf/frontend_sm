@@ -118,9 +118,9 @@ const ListFlash: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields,
+          const updatedCols:any[] = [
             {
-              headerName:'Visualizer',
+              headerName:'Afficher',
               cellRenderer:DisplayRow,
               cellRendererParams:{
                 modelName:response.data.models,
@@ -129,6 +129,8 @@ const ListFlash: React.FC<any> = () => {
 
               }
             },
+              ...response.data.fields,
+
             {
               headerName:'Attacher',
               cellRenderer:Attacher,

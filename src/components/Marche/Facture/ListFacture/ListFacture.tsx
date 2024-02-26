@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Button, ButtonGroup, Dropdown, Form, Modal} from "react-bootstrap";
 
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -41,6 +41,8 @@ const InfoRenderer: React.FC<any> = (props) => {
         getLib();
     },[libelle]);
     switch (props.column.colId) {
+        case 'taux_realise' :
+            return <span>{value+' %'}</span>
         case 'montant_cumule' :
             return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
         case 'montant_precedent' :
@@ -90,8 +92,8 @@ const ListFacture: React.FC<any> = () => {
     const[pk,setPk]=useState<string>('')
     const dispatch=useDispatch();
     const navigate=useNavigate();
-    const location = useLocation();
-    const mid = location.state;
+    const [searchParams] = useSearchParams();
+    const { mid } = useParams();
 
     const getCols = async() => {
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/facturefields/?flag=l`,{
@@ -105,16 +107,17 @@ const ListFacture: React.FC<any> = () => {
                 setModels(response.data.models)
                 setPk(response.data.pk)
 
-                const updatedCols:any[] = [...response.data.fields,
+                const updatedCols:any[] = [
                     {
                         headerName:'Afficher',
                         cellRenderer:DisplayRow,
                         cellRendererParams:{
                             modelName:response.data.models,
                             pk:response.data.pk
-                        }
+                        },
+                        pinned:'left'
 
-                },
+                },...response.data.fields,
                     {
                         headerName: 'Imprimer',
                         cellRenderer: ImprimerFacture,
@@ -190,7 +193,7 @@ const ListFacture: React.FC<any> = () => {
 
 
     const getRows = async(url:string) => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacture/?marche=${mid.marche}&${url}`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacture/?marche=${mid}${url.replace('?',"&")}`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -246,7 +249,7 @@ const ListFacture: React.FC<any> = () => {
         });
         const pkList:any={}
         pkList[pk]=pks
-        console.log(pkList)
+
         await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/annulefacture/`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
@@ -286,14 +289,21 @@ const ListFacture: React.FC<any> = () => {
 
 
     useEffect(() => {
-        getRows("");
-    },[]);
-    // get rows and cold dqe
-    /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
+        const paramsArray = Array.from(searchParams.entries());
+        // Build the query string
+        const queryString = paramsArray.reduce((acc, [key, value], index) => {
+            if (index === 0) {
+                return `?${key}=${encodeURIComponent(value)}`;
+            } else {
+                return `${acc}&${key}=${encodeURIComponent(value)}`;
+            }
+        }, '');
 
+        getRows(queryString);
+    },[searchParams]);
     const rgFacture = async() => {
 
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacturerg/?marche=${mid.marche}`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacturerg/?marche=${mid}`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -303,7 +313,7 @@ const ListFacture: React.FC<any> = () => {
             .then((response:any) => {
                 console.log(response.data)
                 if(response.data.extra.total_rg ){
-                    navigate('print_rg_facture', { state: { marche: mid.marche} })
+                    navigate('print_rg_facture', { state: { marche: mid} })
 
                 }
                 else{
@@ -316,7 +326,7 @@ const ListFacture: React.FC<any> = () => {
     }
     
     const etat_ctrl_facture = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ecf/?marche=${mid.marche}`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/ecf/?marche=${mid}`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -326,7 +336,7 @@ const ListFacture: React.FC<any> = () => {
             .then((response:any) => {
                 console.log(response.data)
 
-                    navigate('print_ecf', { state: { marche: mid.marche} })
+                    navigate('print_ecf', { state: { marche: mid} })
 
 
 
@@ -338,7 +348,7 @@ const ListFacture: React.FC<any> = () => {
     }
     const displayDeleted = async() => {
 
-        navigate('del_fact', { state: { marche: mid.marche } })
+        navigate('del_fact', { state: { marche: mid } })
     }
 
     const [shown, setShown] = useState(false);
@@ -370,7 +380,7 @@ const ListFacture: React.FC<any> = () => {
     };
 
     const getAvances = async() => {
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getavance/?marche=${mid.marche}&remboursee=False`,{
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getavance/?marche=${mid}&remboursee=False`,{
             headers: {
                 Authorization: `Token ${Cookies.get('token')}`,
                 'Content-Type': 'application/json',
@@ -439,31 +449,35 @@ const ListFacture: React.FC<any> = () => {
             <>
                 <FilterModal img={bill} title={"Rechercher une Facture"} endpoint_fields={"/forms/facturefilterfields/"}   />
                 <AlertMessage/>
-                <Modal show={shown} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Selectionner l'avance</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {avances.map(item => (
-                            <Form.Check
-                                key={item['id']}
-                                type="checkbox"
-                                id={`checkbox-${item['id']}`}
-                                label={`${item['type']} ${item['num_avance']}`}
-                                checked={checkedItems.includes(item['id'])}
-                                onChange={() => handleCheckboxChange(item)}
-                            />
-                        ))}
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
-                                onClick={Remb}>
-                            <i className="fa fa-send" style={{marginRight:5 }} ></i>
-                            Rebmourser
-                        </Button>
+                {
+                    avances.length !== 0 &&
+                    <Modal show={shown} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Selectionner l'avance</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {avances.map(item => (
+                                <Form.Check
+                                    key={item['id']}
+                                    type="checkbox"
+                                    id={`checkbox-${item['id']}`}
+                                    label={`${item['type']} ${item['num_avance']}`}
+                                    checked={checkedItems.includes(item['id'])}
+                                    onChange={() => handleCheckboxChange(item)}
+                                />
+                            ))}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary btn-sm" style={{ borderWidth: 0, background: "#d7142a" }}
+                                    onClick={Remb}>
+                                <i className="fa fa-send" style={{marginRight:5 }} ></i>
+                                Rebmourser
+                            </Button>
 
-                    </Modal.Footer>
-                </Modal>
+                        </Modal.Footer>
+                    </Modal>
+                }
+
 
                 <div id="wrapper" >
                     <div id="content-wrapper" className="d-flex flex-column">
@@ -475,7 +489,7 @@ const ListFacture: React.FC<any> = () => {
                                         <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                                             <div className="card-body text-center">
                                                 <h5 className="text-center card-title">Factures du marche</h5>
-                                                <h5 className="text-center card-title">{`N° : ${mid.marche}` }</h5>
+                                                <h5 className="text-center card-title">{`N° : ${mid}` }</h5>
                                             </div>
                                         </div>
                                         <div className="row">

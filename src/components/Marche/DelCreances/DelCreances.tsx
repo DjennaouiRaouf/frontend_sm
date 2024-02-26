@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Button, ButtonGroup, Dropdown} from "react-bootstrap";
+import {Breadcrumb, Button, ButtonGroup, Dropdown} from "react-bootstrap";
 
+import agreement from "../../icons/agreement.png";
 import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community';
@@ -9,31 +10,25 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useEffect, useMemo, useRef, useState} from "react";
-import DisplayDataGridModal from "../../../DisplayDataGridModal/DisplayDataGridModal";
+import DisplayDataGridModal from "../../DisplayDataGridModal/DisplayDataGridModal";
+import settings from "../../icons/settings.png";
 import {ColDef, GridApi, RowNode} from "ag-grid-community";
-import {useModal} from "../../../Context/FilterModalContext/FilterModalContext";
-import FilterModal from "../../../FilterModal/FilterModal";
-import bill from "../../../icons/bill.png"
+import {useModal} from "../../Context/FilterModalContext/FilterModalContext";
+import FilterModal from "../../FilterModal/FilterModal";
+import customer from "../../icons/customer.png";
 import * as XLSX from "xlsx";
-import DisplayRow from "../../../ActionRenderer/DisplayRow/DisplayRow";
+import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
 import numeral from "numeral";
-import RecupCaution from "../../../ActionRenderer/RecupCaution/RecupCaution";
-import AlertMessage from "../../../AlertMessage/AlertMessage";
-import caution from "../../../icons/risk.png";
-
-type ListCautionsProps = {
+type DelCreancesProps = {
   //
 };
 
-
 const InfoRenderer: React.FC<any> = (props) => {
   const { value } = props;
-  const[typeC,setTypeC]=useState<string>("")
-  const[typeA,setTypeA]=useState<string>("")
-
-  const getLibC = async() => {
-    if(props.colDef.field === "type"){
-      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibcaut/?id=${value}`,{
+  const[libelle,setLibelle]=useState<string>("")
+  const getLib = async() => {
+    if(props.column.colId === 'mode_paiement'){
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibmp/?id=${value}`,{
         headers: {
           Authorization: `Token ${Cookies.get('token')}`,
           'Content-Type': 'application/json',
@@ -41,62 +36,28 @@ const InfoRenderer: React.FC<any> = (props) => {
         },
       })
           .then((response:any) => {
-            setTypeC(response.data[0].libelle)
+            setLibelle(response.data[0].libelle)
           })
           .catch((error:any) => {
           });
 
 
     }
-
-  }
-
-  const getLibA =async () => {
-    if(props.colDef.field === "avance"){
-
-      if(value!=null){
-        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getlibav/?id=${1}`,{
-          headers: {
-            Authorization: `Token ${Cookies.get('token')}`,
-            'Content-Type': 'application/json',
-
-          },
-        })
-            .then((response:any) => {
-              setTypeA(response.data[0].libelle)
-            })
-            .catch((error:any) => {
-            });
-
-
-      }else{
-        setTypeA('-')
-      }
-
-
-    }
   }
   useEffect(() => {
+    getLib();
+  },[libelle]);
 
-    getLibC()
-  },[typeC]);
   useEffect(() => {
-    getLibA()
-  },[typeA]);
-
+    getLib();
+  },[libelle]);
   switch (props.column.colId) {
-    case 'avance' :
-      return <span>{typeA }</span>
-      
-    case 'type' :
-      return <span>{typeC}</span>
-      
-    case 'montant' :
-      return <span>{numeral(value).format('0,0.00').replace(',',' ').replace('.',',')+' DA'}</span>
-    case 'taux' :
-      return <span>{value+' %'}</span>
-
-
+    case'mode_paiement':
+      return <span>{libelle}</span>
+    case 'montant_encaisse':
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+    case 'montant_creance':
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
 
     default:
       return <span>{value}</span>
@@ -104,7 +65,7 @@ const InfoRenderer: React.FC<any> = (props) => {
 
 };
 
-const ListCautions: React.FC<any> = () => {
+const DelCreances: React.FC<any> = () => {
   const containerStyle = useMemo(() => ({ width: '100%', height: '650px' }), []);
   const gridStyle = useMemo(() => ({ height: '650px', width: '100%' }), []);
   const gridRef = useRef(null);
@@ -119,9 +80,10 @@ const ListCautions: React.FC<any> = () => {
   const navigate=useNavigate();
   const [searchParams] = useSearchParams();
   const { mid } = useParams();
-
+  const location = useLocation();
+  const fid = location.state;
   const getCols = async() => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/cautionfields/?flag=l`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/forms/encaissmentfields/?flag=l`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -129,32 +91,16 @@ const ListCautions: React.FC<any> = () => {
       },
     })
         .then((response:any) => {
-          setModels(response.data.models)
+          setModels("del_"+response.data.models)
           setPk(response.data.pk)
 
           const updatedCols:any[] = [
             {
               headerName:'Afficher',
               cellRenderer:DisplayRow,
-              cellRendererParams:{
-                modelName:response.data.models,
-                pk:response.data.pk
-              },
               pinned:"left"
-
             },
-              ...response.data.fields,
-            {
-              headerName:'Recuperer',
-              cellRenderer:RecupCaution,
-              cellRendererParams:{
-                modelName:response.data.models,
-                pk:response.data.pk,
-                updateRows:getRows,
-              }
-            },
-
-          ];
+            ...response.data.fields];
 
           setCols(updatedCols);
 
@@ -170,7 +116,7 @@ const ListCautions: React.FC<any> = () => {
   const defaultColDefs: ColDef = {
     sortable: true,
     resizable: true,
-    minWidth: 200,
+    minWidth: 300,
     cellStyle: { textAlign: 'start', border: "none"  },
 
   };
@@ -186,27 +132,11 @@ const ListCautions: React.FC<any> = () => {
     components: {
       InfoRenderer: InfoRenderer,
     },
-    localeText: {
-
-      page: 'Page',
-      to: 'à',
-      of: 'sur',
-      nextPage: 'Suivant',
-      lastPage: 'Dernier',
-      firstPage: 'Premier',
-      previousPage: 'Precedent',
-
-      loadingOoo: 'Chargement...',
-      noRowsToShow: 'Pas de Données',
-
-      // Add more custom texts as needed
-    },
-
   };
 
 
   const getRows = async(url:string) => {
-    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getcautions/?marche=${mid}${url.replace('?',"&")}`,{
+    await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/delencaissements/?facture=${fid.facture}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -236,7 +166,7 @@ const ListCautions: React.FC<any> = () => {
       const ws = XLSX.utils.json_to_sheet(rows);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      XLSX.writeFile(wb, `Avances_${yearString}-${monthString}-${dayString}.xlsx`);
+      XLSX.writeFile(wb, `Corbeille_Encaissement_${yearString}-${monthString}-${dayString}.xlsx`);
     }
 
   }
@@ -256,18 +186,6 @@ const ListCautions: React.FC<any> = () => {
   };
 
 
-  const getRowStyle = (params: any):any => {
-    if (params.data.est_recupere ) {
-      return {background:"#dff0d8"};
-    }
-    else {
-      return { background: '#f2dede' };
-
-    }
-
-
-  }
-
 
   useEffect(() => {
     getCols();
@@ -286,16 +204,11 @@ const ListCautions: React.FC<any> = () => {
 
     getRows(queryString);
   },[searchParams]);
-
   // get rows and cold dqe
   /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
-
-
-//  <FilterModal img={bill} title={"Rechercher un paiement"} endpoint_fields={"/forms/encaissementfilterfields/"} filter={getRows}  />
   return (
       <>
         <>
-          <AlertMessage/>
           <div id="wrapper" >
             <div id="content-wrapper" className="d-flex flex-column">
               <div id="content" >
@@ -303,13 +216,13 @@ const ListCautions: React.FC<any> = () => {
                   <div className="card shadow" >
                     <div className="card-body" >
 
-
-                      <div className="card mb-5 " style={{ width: "40%",background:'#ebebeb' }}>
+                      <div className="card" style={{ height:'90px',width: "40%",background:'#ebebeb' }}>
                         <div className="card-body text-center">
-                          <h5 className="text-center card-title">Caution du Marché</h5>
-                          <h5 className="text-center card-title">{`N° : ${mid}` }</h5>
+                          <h5 className="text-center card-title">Encaissements Annulés</h5>
+                          <h5 className="text-center card-title">{`Marché N°: ${mid}` }</h5>
                         </div>
                       </div>
+
                       <div className="row">
                         <div className="col-md-6 text-nowrap">
                           <div
@@ -324,30 +237,16 @@ const ListCautions: React.FC<any> = () => {
 
                             <ButtonGroup style={{ height: 35}}>
                               <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                      onClick={openModal}>
-                                <i className="fas fa-filter" />
-                                &nbsp;Recherche
+                                      onClick={export_xlsx}>
+                                <i className="bi bi-filetype-xlsx"></i>
+                                &nbsp;Exporter
                               </Button>
 
 
 
 
 
-                              <Dropdown>
-                                <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
-                                >
-                                  <i className="fas fa-print" />
-                                  &nbsp;Imprimer
-                                </Dropdown.Toggle>
 
-                                <Dropdown.Menu>
-
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="bi bi-filetype-xlsx"></i>
-                                    &nbsp;Exporter les Cautions</Dropdown.Item>
-                                </Dropdown.Menu>
-                              </Dropdown>
 
                             </ButtonGroup>
 
@@ -366,27 +265,8 @@ const ListCautions: React.FC<any> = () => {
 
 
                       >
-                        <div className="card-body d-xl-flex justify-content-xl-start">
-                          <label className="form-label" style={{ width: "100%" }}>
-                            <i className="fas fa-circle" style={{ color: "#f2dede", marginRight: 5 }} />
-                            Les cautions non récupérées
-                          </label>
-                          <label className="form-label" style={{ width: "100%" }}>
-                            <i
-                                className="fas fa-circle"
-                                style={{
-                                  color: "#dff0d8",
-                                  marginRight: 5,
-                                  borderRadius: 0,
-                                  fontSize: 16
-                                }}
-                            />
-                            Les cautions récupérées
-                          </label>
-                        </div>
-
                         <>
-                          <DisplayDataGridModal img={caution} title={"Caution"} cols={cols}   />
+                          <DisplayDataGridModal img={settings} title={"DQE"} cols={cols}   />
 
                           <div style={containerStyle}>
 
@@ -397,7 +277,6 @@ const ListCautions: React.FC<any> = () => {
                                              onGridReady={onGridReady}
                                              gridOptions={gridOptions}
                                              onSelectionChanged={onSelectionChanged}
-                                             getRowStyle={getRowStyle}
 
 
 
@@ -420,8 +299,5 @@ const ListCautions: React.FC<any> = () => {
   );
 };
 
-export default ListCautions;
-
-
-
+export default DelCreances;
 

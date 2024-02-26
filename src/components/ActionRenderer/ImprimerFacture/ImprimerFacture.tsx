@@ -28,19 +28,8 @@ const ImprimerFacture: React.FC<ImprimerFactureProps> = (props) => {
     const rowData:any =  props.data  ;
 
     if (props.pk){
-
-      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getfacture/?numero_facture=${rowData[props.pk]}`,{
-        headers: {
-          Authorization: `Token ${Cookies.get('token')}`,
-          'Content-Type': 'application/json',
-
-        },
-      })
-          .then((response:any) => {
-            navigate('print_facture', { state: { facture: response.data[0] } })
-          })
-          .catch((error:any) => {
-          });
+        const val:string=rowData[props.pk]
+        navigate(`print_facture/${encodeURIComponent(val)}`)
     }
   }
 

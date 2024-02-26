@@ -77,6 +77,7 @@ const ListAttachements: React.FC<any> = () => {
 
 
   const getRows = async(url:string) => {
+    console.log()
     await axios.get(`${process.env.REACT_APP_API_BASE_URL}/sm/getatt/?marche=${mid.marche}&mm=${mid.month}&aa=${mid.year}`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
@@ -108,16 +109,18 @@ const ListAttachements: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
           setCols2(response.data.fields2)
-          const updatedCols:any[] = [...response.data.fields,
+          const updatedCols:any[] = [
             {
-              headerName:'Visualiser',
+              headerName:'Afficher',
               cellRenderer:DisplayRow,
               cellRendererParams:{
                 modelName:response.data.models,
                 pk:response.data.pk,
-
-              }
+              },
+              pinned:'left'
             },
+              ...response.data.fields,
+
 
 
           ];
@@ -251,19 +254,10 @@ const ListAttachements: React.FC<any> = () => {
                           <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                             <ButtonGroup style={{ height: 35}}>
-                              <Button className="btn btn-primary btn-sm" type="button" style={{ height: 35 , background: "#df162c", borderWidth: 0  }}
-                                      onClick={openModal}>
-                                <i className="fas fa-filter" />
-                                &nbsp;Recherche
-                              </Button>
 
-
-
-
-
-                              <Dropdown>
+                              <Dropdown style={{}}>
                                 <Dropdown.Toggle  className="btn btn-primary btn-sm"  style={{ height: 35 , background: "#df162c", borderWidth: 0
-                                  ,borderTopLeftRadius:0,borderBottomLeftRadius:0}} id="dropdown-basic"
+                                  }} id="dropdown-basic"
                                 >
                                   <i className="fas fa-print" />
                                   &nbsp;Imprimer

@@ -60,8 +60,6 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
     const form = e.currentTarget;
     formData["marche"]=mid
     console.log(Transform(formData))
-    setFormData(defaultState);
-    /*
 
       await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/addcautions/`,Transform(formData),{
         headers: {
@@ -81,7 +79,7 @@ const AddCautions: React.FC<AddCautionsProps> = (props) => {
             dispatch(showAlert({variant:Variants.DANGER,heading:"Caution",text:error.response.request.response}))
           });
 
-  */
+
 
 
 

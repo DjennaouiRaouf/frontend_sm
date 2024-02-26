@@ -17,6 +17,7 @@ import FilterModal from "../../FilterModal/FilterModal";
 import bill from "../../icons/bill.png"
 import * as XLSX from "xlsx";
 import DisplayRow from "../../ActionRenderer/DisplayRow/DisplayRow";
+import numeral from "numeral";
 
 
 type CreancesProps = {
@@ -48,10 +49,19 @@ const InfoRenderer: React.FC<any> = (props) => {
   useEffect(() => {
     getLib();
   },[libelle]);
-  if(props.column.colId === 'mode_paiement')
-    return <span>{libelle}</span>
-  else
-    return <span>{value}</span>
+
+  switch (props.column.colId) {
+    case'mode_paiement':
+      return <span>{libelle}</span>
+    case 'montant_encaisse':
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+    case 'montant_creance':
+      return <span>{numeral(value).format('0,0.00').replaceAll(',',' ').replace('.',',')+' DA'}</span>
+
+    default:
+      return <span>{value}</span>
+  }
+
 
 };
 
@@ -202,7 +212,7 @@ const Creances: React.FC<any> = () => {
     const pkList:any={}
     pkList[pk]=pks
     console.log(pkList)
-    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/deldqe/`,{
+    await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/sm/delenc/`,{
       headers: {
         Authorization: `Token ${Cookies.get('token')}`,
         'Content-Type': 'application/json',
@@ -222,6 +232,8 @@ const Creances: React.FC<any> = () => {
 
         });
 
+
+
     setSelectedRows([])
   }
 
@@ -235,14 +247,19 @@ const Creances: React.FC<any> = () => {
   },[]);
   // get rows and cold dqe
   /* <DataGrid img={agreement} title={"DQE"} endpoint_cols={"/forms/dqefields/?flag=l"} endpoint_rows={"/sm/getmdqe/"+mid.pkValue+"/"} />*/
+
   const getRowStyle = (params: any):any => {
-    if (params.data.montant_creance === "0,00") {
-      return { background: 'yellow' };
+    if (params.data.montant_creance !== 0) {
+      return { background: '#f2dede' };
+    }else{
+      return {background:"#dff0d8"};
     }
-    return null;
+
 
   }
-
+  const delEnc = () => {
+    navigate('delenc', { state: { facture: fid.facture } })
+  }
 
   return (
       <>
@@ -287,19 +304,17 @@ const Creances: React.FC<any> = () => {
                                   ,borderRadius:0}} id="dropdown-basic"
                                 >
                                   <i className="far fa-trash-alt"></i>
-                                  &nbsp;Supprimer
+                                  &nbsp;Annulation
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
                                   <Dropdown.Item onClick={delSelected}>
                                     <i className="fas fa-eraser"></i>
-                                    &nbsp;Suppression</Dropdown.Item>
-                                  <Dropdown.Item >
+                                    &nbsp;Annuler</Dropdown.Item>
+                                  <Dropdown.Item  onClick={delEnc}>
                                     <i className="far fa-trash-alt"></i>
-                                    &nbsp;Corbeille</Dropdown.Item>
-                                  <Dropdown.Item onClick={export_xlsx}>
-                                    <i className="fas fa-list-ul"></i>
-                                    &nbsp;Elements supprimés</Dropdown.Item>
+                                    &nbsp;Encaissements annulés</Dropdown.Item>
+
                                 </Dropdown.Menu>
                               </Dropdown>
 
@@ -340,6 +355,25 @@ const Creances: React.FC<any> = () => {
 
 
                       >
+                        <div className="card-body d-xl-flex justify-content-xl-start">
+                          <label className="form-label" style={{ width: "100%" }}>
+                            <i className="fas fa-circle" style={{ color: "#f2dede", marginRight: 5 }} />
+                            Encaissement avec créances
+                          </label>
+                          <label className="form-label" style={{ width: "100%" }}>
+                            <i
+                                className="fas fa-circle"
+                                style={{
+                                  color: "#dff0d8",
+                                  marginRight: 5,
+                                  borderRadius: 0,
+                                  fontSize: 16
+                                }}
+                            />
+                            Encaissement sans créances
+                          </label>
+                        </div>
+
                         <>
                           <DisplayDataGridModal img={bill} title={"Facture"} cols={cols}   />
 

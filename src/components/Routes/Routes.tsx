@@ -36,6 +36,7 @@ import DelFacture from "../Marche/Facture/DelFacture/DelFacture";
 import Profile from "../Profile/Profile";
 import WorkState from "../WorkState/WorkState";
 import TaskState from "../Marche/ListDQE/TaskState/TaskState";
+import DelCreances from "../Marche/DelCreances/DelCreances";
 
 
 
@@ -156,7 +157,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/marche/liste_m/liste_facture/creances"
+              path="/marche/liste_m/liste_facture/:mid/creances"
               element={
                   authenticated ? (
                       <>
@@ -174,9 +175,28 @@ const Routes: React.FC<any> = () => {
                   )
               }
           />
+          <Route
+              path="/marche/liste_m/liste_facture/:mid/creances/delenc"
+              element={
+                  authenticated ? (
+                      <>
+                          <NavigationBar/>
+                          <DelCreances/>
+
+
+
+
+
+                      </>
+                  ) : (
+                      <Navigate to="/"  />
+                  )
+              }
+          />
+
 
           <Route
-              path="/marche/liste_m/liste_dqe/del_dqe"
+              path="/marche/liste_m/liste_dqe/:mid/del_dqe"
               element={
                   authenticated ? (
                       <>
@@ -195,14 +215,13 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/marche/liste_m/liste_facture/del_fact"
+              path="/marche/liste_m/liste_facture/:mid/del_fact"
               element={
                   authenticated ? (
                       <>
                           <NavigationBar/>
-                          <ModalProvider>
-                              <DelFacture/>
-                          </ModalProvider>
+                          <DelFacture/>
+
 
 
 
@@ -214,7 +233,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="marche/liste_m/liste_facture"
+              path="marche/liste_m/liste_facture/:mid"
               element={
                   authenticated ? (
                       <>
@@ -234,7 +253,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="marche/liste_m/liste_facture/liste_dfacture"
+              path="marche/liste_m/liste_facture/:mid/liste_dfacture"
               element={
                   authenticated ? (
                       <>
@@ -293,7 +312,7 @@ const Routes: React.FC<any> = () => {
           />
 
           <Route
-              path="/marche/liste_m/liste_facture/print_facture"
+              path="/marche/liste_m/liste_facture/:mid/print_facture/:fid"
               element={
                   authenticated ? (
                       <>
@@ -571,7 +590,7 @@ const Routes: React.FC<any> = () => {
               }
           />
           <Route
-              path="/marche/liste_m/liste_facture/liste_dfacture/print_detail"
+              path="/marche/liste_m/liste_facture/:mid/liste_dfacture/print_detail"
               element={
                   authenticated ? (
                       <>

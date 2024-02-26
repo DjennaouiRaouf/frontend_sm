@@ -9,6 +9,9 @@ import Cookies from "js-cookie";
 import {hideAlert, showAlert, Variants} from "../../../Redux-Toolkit/Slices/AlertSlice";
 import {RootState} from "../../../Redux-Toolkit/Store/Sotre";
 import {hideModal as hideFactureModal} from "../../../Redux-Toolkit/Slices/AddDataGridModalSlice";
+import {Typeahead} from "react-bootstrap-typeahead";
+import {Transform} from "../../Utils/Utils";
+import {Console} from "inspector";
 
 
 
@@ -57,15 +60,13 @@ const Encaissement: React.FC<any> = () => {
     const form = e.currentTarget;
     formData["facture"]=pk
 
-    const formDataObject = new FormData();
-    for (const key in formData) {
-      if (formData.hasOwnProperty(key)) {
-        formDataObject.append(key, formData[key]);
-      }
-    }
+
+
+
+
     if (form.checkValidity()) {
       setValidated(false)
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/encaisser/`,formDataObject,{
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/sm/encaisser/`,Transform(formData),{
         headers: {
           Authorization: `Token ${Cookies.get("token")}`,
           'Content-Type': 'application/json',
@@ -80,7 +81,8 @@ const Encaissement: React.FC<any> = () => {
 
           })
           .catch((error:any) => {
-            dispatch(showAlert({variant:Variants.DANGER,heading:"Encaissement",text:error.response.request.response}))
+            //dispatch(showAlert({variant:Variants.DANGER,heading:"Encaissement",text:error.response.request.response}))
+            console.log(error)
           });
 
           handleClose();
@@ -91,6 +93,10 @@ const Encaissement: React.FC<any> = () => {
     else {
       setValidated(true)
     }
+
+
+
+
 
 
 
@@ -147,7 +153,21 @@ const Encaissement: React.FC<any> = () => {
 
   }
 
+  const handleTHChange = (ref:any, op:any) => {
 
+    if(op.length ===1 ){
+      setFormData({
+        ...formData,
+        [ref]: op,
+      })
+    }else{
+      setFormData({
+        ...formData,
+        [ref]: [],
+      })
+    }
+
+  };
 
 
   return (
@@ -223,22 +243,15 @@ const Encaissement: React.FC<any> = () => {
                                 {
                                   field.type === "PrimaryKeyRelatedField"?
                                       <>
-                                        <Form.Control
-                                            name={field.name}
-                                            as="input"
-                                            required={field.required}
-                                            list={field.name}
-                                            className="w-100"
-                                            value={formData[field.name]}
-                                            onChange={(e)=>handleInputChange(e)}
+                                        <Typeahead
+
+                                            labelKey={"label"}
+                                            onChange={(o) => handleTHChange(field.name, o)}
+                                            id={field.name}
+                                            selected={formData[field.name] }
+                                            options={field.queryset}
+
                                         />
-                                        <datalist id={field.name}>
-                                          {field.queryset.map((qs:any, key:any) => (
-                                              <option  key={key} value={qs.id}>{qs.id +"  "+ qs.libelle }</option>
-                                          ))}
-
-                                        </datalist>
-
                                       </>
 
 

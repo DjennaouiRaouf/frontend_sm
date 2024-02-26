@@ -30,7 +30,8 @@ const Facturation: React.FC<FacturationProps> = (props) => {
   const handleListInvoice = () => {
     const rowData:any =  props.data  ;
     if (props.pk){
-      navigate('liste_facture', { state: { marche: rowData[props.pk] } })
+      const val:string=rowData[props.pk]
+      navigate(`liste_facture/${encodeURIComponent(val)}`)
     }
   }
 

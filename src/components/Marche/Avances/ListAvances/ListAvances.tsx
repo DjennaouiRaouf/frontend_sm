@@ -84,14 +84,17 @@ const ListAvances: React.FC<any> = () => {
           setModels(response.data.models)
           setPk(response.data.pk)
 
-          const updatedCols:any[] = [...response.data.fields, {
-            headerName:'Visualiser',
-            cellRenderer:DisplayRow,
-            cellRendererParams:{
-              modelName:response.data.models,
-              pk:response.data.pk
-            }
-          }];
+          const updatedCols:any[] = [
+            {
+              headerName:'Afficher',
+              cellRenderer:DisplayRow,
+              cellRendererParams:{
+                modelName:response.data.models,
+                pk:response.data.pk
+              },
+              pinned:'left'
+            },
+              ...response.data.fields ];
 
           setCols(updatedCols);
 
@@ -257,6 +260,7 @@ const ListAvances: React.FC<any> = () => {
 
                         </div>
                         <div className="col-md-6">
+
                           <div id="dataTable_filter" className="text-md-end dataTables_filter">
 
                             <ButtonGroup style={{ height: 35}}>
@@ -288,7 +292,9 @@ const ListAvances: React.FC<any> = () => {
 
 
                           </div>
+
                         </div>
+
                       </div>
 
                       <div
@@ -299,6 +305,26 @@ const ListAvances: React.FC<any> = () => {
 
 
                       >
+                        <div className="card-body d-xl-flex justify-content-xl-start">
+                          <label className="form-label" style={{ width: "100%" }}>
+                            <i className="fas fa-circle" style={{ color: "#f2dede", marginRight: 5 }} />
+                            Les avances non remboursées
+                          </label>
+                          <label className="form-label" style={{ width: "100%" }}>
+                            <i
+                                className="fas fa-circle"
+                                style={{
+                                  color: "#dff0d8",
+                                  marginRight: 5,
+                                  borderRadius: 0,
+                                  fontSize: 16
+                                }}
+                            />
+                            Les avances remboursées
+                          </label>
+                        </div>
+
+
                         <>
                           <DisplayDataGridModal img={bill} title={"Avance"} cols={cols}   />
 
