@@ -87,7 +87,7 @@ const ListAttachements: React.FC<any> = () => {
     })
         .then((response:any) => {
 
-          setRows(response.data.attachement);
+          setRows(response.data);
 
 
         })

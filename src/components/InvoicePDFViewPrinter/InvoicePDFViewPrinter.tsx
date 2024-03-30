@@ -202,11 +202,11 @@ const InvoicePDFViewPrinter: React.FC<any> = () => {
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé précédemment des traveaux réalisés au ${facture.du } en (HT)      ${Humanize(facture.montant_precedent)} DA `   }  </Text>
 
 
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés du  ${facture.du}  au  ${facture.au }  en (HT)     ${Humanize(facture.montant_mois)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Montant cumulé des traveaux réalisés du  ${facture.du}  au  ${facture.au }  en (HT)     ${Humanize(facture.montant)} DA `   }  </Text>
 
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`RG : ${facture.retenue_garantie}%     Montant de retenue de garantie en (HT)  ${Humanize(facture.montant_rg)} DA `   }  </Text>
                   <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`Taux de rabais : ${facture.rabais}%    Montant du rabais en (HT) :   ${Humanize(facture.montant_rb)} DA `   }  </Text>
-                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`TVA : ${facture.tva}%    Montant de la taxe  ${Humanize((facture.tva/100)*facture.montant_mois)} DA `   }  </Text>
+                  <Text style={{ position: "relative",width:500,marginBottom:8}} wrap={true}>{`TVA : ${facture.tva}%    Montant de la taxe  ${Humanize((facture.tva/100)*facture.montant)} DA `   }  </Text>
 
 
                   {
